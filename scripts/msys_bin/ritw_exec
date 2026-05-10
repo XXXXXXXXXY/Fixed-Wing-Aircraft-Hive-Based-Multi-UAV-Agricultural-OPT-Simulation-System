@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Headless terminal replacement for ArduPilot run_in_terminal_window.sh.
+script_path="$1"
+log_dir="${SITL_RITW_LOGDIR:-/tmp}"
+mkdir -p "$log_dir"
+name="$(basename "$script_path")"
+nohup "$script_path" >"$log_dir/$name.out.log" 2>"$log_dir/$name.err.log" < /dev/null &
+exit 0

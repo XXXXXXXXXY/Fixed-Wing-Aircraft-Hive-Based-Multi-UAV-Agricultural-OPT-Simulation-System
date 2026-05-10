@@ -1,0 +1,16 @@
+{
+  "origin": {
+    "latitude_deg": 31.2304,
+    "longitude_deg": 121.4737
+  },
+  "vehicles": [
+    {"drone_id": 1, "system_address": "udp://:14540"},
+    {"drone_id": 2, "system_address": "udp://:14541"},
+    {"drone_id": 3, "system_address": "udp://:14542"},
+    {"drone_id": 4, "system_address": "udp://:14543"},
+    {"drone_id": 5, "system_address": "udp://:14544"},
+    {"drone_id": 6, "system_address": "udp://:14545"},
+    {"drone_id": 7, "system_address": "udp://:14546"},
+    {"drone_id": 8, "system_address": "udp://:14547"}
+  ]
+}

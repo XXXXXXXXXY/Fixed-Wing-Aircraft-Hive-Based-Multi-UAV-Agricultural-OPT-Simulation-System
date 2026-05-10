@@ -1,0 +1,18 @@
+[project]
+name = "scout-driven-agri-opt"
+version = "0.1.0"
+description = "Scout-driven multi-UAV agricultural mothership OPT scheduling simulator."
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+sitl = [
+    "mavsdk>=2.8.4",
+]
+
+[project.scripts]
+scout-opt = "scout_opt.cli:main"
+scout-opt-sitl = "scout_opt.sitl_cli:main"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]

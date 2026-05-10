@@ -1,0 +1,224 @@
+{
+  "source": "configs\\qgc_polygon_example.plan",
+  "origin": {
+    "lat": -35.3634,
+    "lon": 149.1655
+  },
+  "boundary_points": [
+    {
+      "x": -244.6490559637728,
+      "y": -199.99980000032338
+    },
+    {
+      "x": 244.6490559637728,
+      "y": -199.99980000032338
+    },
+    {
+      "x": 244.6490559637728,
+      "y": 199.99979999953388
+    },
+    {
+      "x": -244.6490559637728,
+      "y": 199.99979999953388
+    }
+  ],
+  "field_blocks": [
+    {
+      "id": 1,
+      "name": "qgc field 1",
+      "selected": true,
+      "boundary_points": [
+        {
+          "x": -244.6490559637728,
+          "y": -199.99980000032338
+        },
+        {
+          "x": 235.58797981668027,
+          "y": -188.88869999995453
+        },
+        {
+          "x": 244.6490559637728,
+          "y": 199.99979999953388
+        },
+        {
+          "x": -235.58797981668027,
+          "y": 188.88869999995453
+        }
+      ],
+      "center": {
+        "x": -8.12616753495027e-11,
+        "y": -1.980095351578427e-10
+      },
+      "area_hectares": 18.665798196587293,
+      "risk": 0.32,
+      "notes": [
+        "imported from QGroundControl .plan polygon"
+      ]
+    }
+  ],
+  "depot_sites": [
+    {
+      "id": 1,
+      "point": {
+        "x": -266.54293481007164,
+        "y": -227.30654035986808
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 2,
+      "point": {
+        "x": -91.78189646502511,
+        "y": -223.53312746815465
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 3,
+      "point": {
+        "x": 82.97914188002142,
+        "y": -219.75971457644118
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 4,
+      "point": {
+        "x": 257.74018022506806,
+        "y": -215.98630168472775
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 5,
+      "point": {
+        "x": 260.6744317534026,
+        "y": -68.22202100345899
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 6,
+      "point": {
+        "x": 263.6086832817371,
+        "y": 79.54225967780977
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 7,
+      "point": {
+        "x": 266.54293481007164,
+        "y": 227.30654035907858
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 8,
+      "point": {
+        "x": 91.78189646502511,
+        "y": 223.5331274676283
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 9,
+      "point": {
+        "x": -82.97914188002142,
+        "y": 219.75971457617803
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 10,
+      "point": {
+        "x": -257.74018022506806,
+        "y": 215.98630168472775
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 11,
+      "point": {
+        "x": -260.6744317534026,
+        "y": 68.2220210031958
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 12,
+      "point": {
+        "x": -263.6086832817371,
+        "y": -79.54225967833614
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    }
+  ],
+  "terrain_complexity": 0.35,
+  "obstacle_density": 0.22,
+  "notes": [
+    "Generated from QGroundControl polygon selection.",
+    "Ideal road model: task boundaries and all exterior space are hive-accessible.",
+    "Scout verification should refine risk, depots, terrain, and obstacles."
+  ]
+}

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Minimal no-op pkill shim for ArduPilot sim_vehicle.py in this Windows/MSYS setup.
+# Process cleanup is handled by the PowerShell launcher before sim_vehicle starts.
+exit 0

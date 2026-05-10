@@ -1,0 +1,36 @@
+{
+  "zones": [
+    {
+      "id": 1,
+      "name": "north-west block",
+      "center": {"x": -180.0, "y": 160.0},
+      "area_hectares": 18.0,
+      "risk": 0.2,
+      "notes": ["initial map split from satellite imagery"]
+    },
+    {
+      "id": 2,
+      "name": "north-east block",
+      "center": {"x": 180.0, "y": 160.0},
+      "area_hectares": 18.0,
+      "risk": 0.25,
+      "notes": ["near road access"]
+    },
+    {
+      "id": 3,
+      "name": "south-west block",
+      "center": {"x": -180.0, "y": -160.0},
+      "area_hectares": 18.0,
+      "risk": 0.35,
+      "notes": ["trees visible on rough map"]
+    },
+    {
+      "id": 4,
+      "name": "south-east block",
+      "center": {"x": 180.0, "y": -160.0},
+      "area_hectares": 18.0,
+      "risk": 0.3,
+      "notes": ["manual review required around boundary"]
+    }
+  ]
+}

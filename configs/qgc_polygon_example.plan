@@ -1,0 +1,62 @@
+{
+  "fileType": "Plan",
+  "groundStation": "QGroundControl",
+  "version": 1,
+  "mission": {
+    "cruiseSpeed": 15,
+    "hoverSpeed": 5,
+    "plannedHomePosition": [
+      -35.363261,
+      149.16523,
+      584
+    ],
+    "items": [
+      {
+        "type": "ComplexItem",
+        "complexItemType": "survey",
+        "polygon": [
+          [
+            -35.3652,
+            149.1628
+          ],
+          [
+            -35.3651,
+            149.1681
+          ],
+          [
+            -35.3616,
+            149.1682
+          ],
+          [
+            -35.3617,
+            149.1629
+          ]
+        ]
+      }
+    ]
+  },
+  "geoFence": {
+    "polygons": [
+      {
+        "polygon": [
+          [
+            -35.3652,
+            149.1628
+          ],
+          [
+            -35.3651,
+            149.1681
+          ],
+          [
+            -35.3616,
+            149.1682
+          ],
+          [
+            -35.3617,
+            149.1629
+          ]
+        ]
+      }
+    ]
+  }
+}
