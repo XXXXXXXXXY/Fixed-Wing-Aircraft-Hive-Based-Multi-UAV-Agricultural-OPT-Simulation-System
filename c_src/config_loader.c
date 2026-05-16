@@ -156,6 +156,22 @@ static bool cfg_point_value(const char *begin, const char *end, const char *key,
     return true;
 }
 
+static bool cfg_origin_value(const char *begin, const char *end, double *lat, double *lon) {
+    const char *k = cfg_find_key(begin, end, "origin");
+    if (k == NULL) {
+        return false;
+    }
+    const char *brace = memchr(k, '{', (size_t)(end - k));
+    if (brace == NULL) {
+        return false;
+    }
+    const char *close = cfg_matching(brace, end, '{', '}');
+    if (close == NULL) {
+        return false;
+    }
+    return cfg_number(brace, close, "lat", lat) && cfg_number(brace, close, "lon", lon);
+}
+
 static int cfg_parse_boundary_points(const char *begin, const char *end, SoPoint *points, int max_points) {
     const char *k = cfg_find_key(begin, end, "boundary_points");
     if (k == NULL) {
@@ -360,6 +376,13 @@ bool so_load_manual_scout_config(SoSimulation *sim, const char *path, char *erro
     }
 
     so_init_default(sim);
+    double origin_lat = 0.0;
+    double origin_lon = 0.0;
+    if (cfg_origin_value(text, text + strlen(text), &origin_lat, &origin_lon)) {
+        sim->field.has_origin = true;
+        sim->field.origin_lat = origin_lat;
+        sim->field.origin_lon = origin_lon;
+    }
     cfg_parse_blocks(sim, text);
     if (sim->field.block_count <= 0) {
         free(text);

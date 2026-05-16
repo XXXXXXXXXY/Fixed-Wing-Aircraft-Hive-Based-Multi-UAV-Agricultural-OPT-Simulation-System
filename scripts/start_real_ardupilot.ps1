@@ -4,7 +4,8 @@ param(
     [int]$RoverCount = 0,
     [string]$VisualPlan = "",
     [switch]$NoQGC,
-    [switch]$NoRouter
+    [switch]$NoRouter,
+    [switch]$KeepBinLogs
 )
 
 $ErrorActionPreference = "Stop"
@@ -72,6 +73,11 @@ if ($oldRouters.Count -gt 0) {
 }
 
 New-Item -ItemType Directory -Force -Path $runRoot | Out-Null
+
+if (-not $KeepBinLogs) {
+    Get-ChildItem -LiteralPath $runRoot -Recurse -Filter *.BIN -ErrorAction SilentlyContinue |
+        Remove-Item -Force -ErrorAction SilentlyContinue
+}
 
 for ($i = 0; $i -lt $Count; $i++) {
     $dir = Join-Path $runRoot "copter_$i"

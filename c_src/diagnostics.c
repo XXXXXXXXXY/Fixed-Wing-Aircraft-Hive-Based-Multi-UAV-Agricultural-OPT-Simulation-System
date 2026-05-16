@@ -3,6 +3,7 @@
 
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 static int so_task_done_count(const SoSimulation *sim) {
     int count = 0;
@@ -64,64 +65,77 @@ void so_print_depot_plan(const SoSimulation *sim) {
 int so_run_acceptance_suite(void) {
     int failures = 0;
 
-    SoSimulation single;
-    so_init_default(&single);
-    so_run(&single, 900);
-    SoValidationResult single_validation = so_validate_simulation(&single);
-    if (!so_completed(&single) || single_validation.errors != 0) {
+    SoSimulation *single = calloc(1, sizeof(*single));
+    SoSimulation *two_blocks = calloc(1, sizeof(*two_blocks));
+    SoSimulation *multi_blocks = calloc(1, sizeof(*multi_blocks));
+    SoSimulation *scenario = calloc(1, sizeof(*scenario));
+    if (single == NULL || two_blocks == NULL || multi_blocks == NULL || scenario == NULL) {
+        free(single);
+        free(two_blocks);
+        free(multi_blocks);
+        free(scenario);
+        printf("acceptance allocation FAILED\n");
+        return 1;
+    }
+
+    so_init_default(single);
+    so_run(single, 900);
+    SoValidationResult single_validation = so_validate_simulation(single);
+    if (!so_completed(single) || single_validation.errors != 0) {
         failures++;
         printf("acceptance default FAILED completed=%d errors=%d warnings=%d treated=%.2f/%.2f\n",
-               so_completed(&single), single_validation.errors, single_validation.warnings,
-               single.field.treated_ha, single.field.area_ha);
+               so_completed(single), single_validation.errors, single_validation.warnings,
+               single->field.treated_ha, single->field.area_ha);
     } else {
-        printf("acceptance default OK tasks_done=%d events=%d\n", so_task_done_count(&single), single.event_count);
+        printf("acceptance default OK tasks_done=%d events=%d\n", so_task_done_count(single), single->event_count);
     }
 
-    SoSimulation two_blocks;
-    so_init_two_block_demo(&two_blocks);
-    so_run(&two_blocks, 900);
-    SoValidationResult two_validation = so_validate_simulation(&two_blocks);
-    if (!so_completed(&two_blocks) || two_validation.errors != 0) {
+    so_init_two_block_demo(two_blocks);
+    so_run(two_blocks, 900);
+    SoValidationResult two_validation = so_validate_simulation(two_blocks);
+    if (!so_completed(two_blocks) || two_validation.errors != 0) {
         failures++;
         printf("acceptance two-blocks FAILED completed=%d errors=%d warnings=%d treated=%.2f/%.2f\n",
-               so_completed(&two_blocks), two_validation.errors, two_validation.warnings,
-               two_blocks.field.treated_ha, two_blocks.field.area_ha);
+               so_completed(two_blocks), two_validation.errors, two_validation.warnings,
+               two_blocks->field.treated_ha, two_blocks->field.area_ha);
     } else {
-        printf("acceptance two-blocks OK tasks_done=%d events=%d\n", so_task_done_count(&two_blocks), two_blocks.event_count);
+        printf("acceptance two-blocks OK tasks_done=%d events=%d\n", so_task_done_count(two_blocks), two_blocks->event_count);
     }
 
-    SoSimulation multi_blocks;
-    so_init_multi_block_demo(&multi_blocks, 5);
-    so_run(&multi_blocks, 1500);
-    SoValidationResult multi_validation = so_validate_simulation(&multi_blocks);
-    if (!so_completed(&multi_blocks) || multi_validation.errors != 0) {
+    so_init_multi_block_demo(multi_blocks, 5);
+    so_run(multi_blocks, 1500);
+    SoValidationResult multi_validation = so_validate_simulation(multi_blocks);
+    if (!so_completed(multi_blocks) || multi_validation.errors != 0) {
         failures++;
         printf("acceptance multi-blocks FAILED completed=%d errors=%d warnings=%d treated=%.2f/%.2f blocks=%d\n",
-               so_completed(&multi_blocks), multi_validation.errors, multi_validation.warnings,
-               multi_blocks.field.treated_ha, multi_blocks.field.area_ha, multi_blocks.field.block_count);
+               so_completed(multi_blocks), multi_validation.errors, multi_validation.warnings,
+               multi_blocks->field.treated_ha, multi_blocks->field.area_ha, multi_blocks->field.block_count);
     } else {
         printf("acceptance multi-blocks OK blocks=%d tasks_done=%d events=%d\n",
-               multi_blocks.field.block_count, so_task_done_count(&multi_blocks), multi_blocks.event_count);
+               multi_blocks->field.block_count, so_task_done_count(multi_blocks), multi_blocks->event_count);
     }
 
-    SoSimulation scenario;
     char error[160];
-    if (!so_load_manual_scout_config(&scenario, "configs/manual_scout_two_blocks.example.json", error, sizeof(error))) {
+    if (!so_load_manual_scout_config(scenario, "configs/manual_scout_two_blocks.example.json", error, sizeof(error))) {
         failures++;
         printf("acceptance scenario-load FAILED error=%s\n", error);
     } else {
-        so_run(&scenario, 1200);
-        SoValidationResult scenario_validation = so_validate_simulation(&scenario);
-        if (!so_completed(&scenario) || scenario_validation.errors != 0) {
+        so_run(scenario, 1200);
+        SoValidationResult scenario_validation = so_validate_simulation(scenario);
+        if (!so_completed(scenario) || scenario_validation.errors != 0) {
             failures++;
             printf("acceptance scenario-load FAILED completed=%d errors=%d warnings=%d treated=%.2f/%.2f blocks=%d\n",
-                   so_completed(&scenario), scenario_validation.errors, scenario_validation.warnings,
-                   scenario.field.treated_ha, scenario.field.area_ha, scenario.field.block_count);
+                   so_completed(scenario), scenario_validation.errors, scenario_validation.warnings,
+                   scenario->field.treated_ha, scenario->field.area_ha, scenario->field.block_count);
         } else {
             printf("acceptance scenario-load OK blocks=%d tasks_done=%d events=%d\n",
-                   scenario.field.block_count, so_task_done_count(&scenario), scenario.event_count);
+                   scenario->field.block_count, so_task_done_count(scenario), scenario->event_count);
         }
     }
 
+    free(single);
+    free(two_blocks);
+    free(multi_blocks);
+    free(scenario);
     return failures == 0 ? 0 : 1;
 }

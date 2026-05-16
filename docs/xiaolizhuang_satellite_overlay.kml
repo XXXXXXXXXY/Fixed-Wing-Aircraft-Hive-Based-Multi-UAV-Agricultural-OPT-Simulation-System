@@ -1,0 +1,2299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>xiaolizhuang_opt_visual_plan satellite overlay</name>
+    
+    <Placemark>
+      <name>Field 1 66.8 ha</name>
+      <Style>
+        <LineStyle><color>ccff8402</color><width>3</width></LineStyle>
+        <PolyStyle><color>3338bdf8</color></PolyStyle>
+      </Style>
+      <Polygon><outerBoundaryIs><LinearRing><coordinates>118.96555818,32.21767296,0 118.97155438,32.21969313,0 118.97703632,32.21149687,0 118.97067299,32.20905877,0 118.96555818,32.21767296,0</coordinates></LinearRing></outerBoundaryIs></Polygon>
+    </Placemark>
+    <Placemark>
+      <name>Field 2 107.7 ha</name>
+      <Style>
+        <LineStyle><color>ccff8402</color><width>3</width></LineStyle>
+        <PolyStyle><color>3338bdf8</color></PolyStyle>
+      </Style>
+      <Polygon><outerBoundaryIs><LinearRing><coordinates>118.97178829,32.21983262,0 118.98221482,32.22429289,0 118.98687580,32.21662735,0 118.97713695,32.21175727,0 118.97178829,32.21983262,0</coordinates></LinearRing></outerBoundaryIs></Polygon>
+    </Placemark>
+    <Placemark>
+      <name>Field 3 187.9 ha</name>
+      <Style>
+        <LineStyle><color>ccff8402</color><width>3</width></LineStyle>
+        <PolyStyle><color>3338bdf8</color></PolyStyle>
+      </Style>
+      <Polygon><outerBoundaryIs><LinearRing><coordinates>118.98225639,32.22462686,0 118.99996015,32.23246361,0 119.00531106,32.22475479,0 118.98720625,32.21684675,0 118.98225639,32.22462686,0</coordinates></LinearRing></outerBoundaryIs></Polygon>
+    </Placemark>
+    <Placemark>
+      <name>Field 4 346.4 ha</name>
+      <Style>
+        <LineStyle><color>ccff8402</color><width>3</width></LineStyle>
+        <PolyStyle><color>3338bdf8</color></PolyStyle>
+      </Style>
+      <Polygon><outerBoundaryIs><LinearRing><coordinates>118.96078827,32.22521017,0 118.99494828,32.24059189,0 118.99980685,32.23299672,0 118.96524104,32.21772789,0 118.96078827,32.22521017,0</coordinates></LinearRing></outerBoundaryIs></Polygon>
+    </Placemark>
+    <Placemark>
+      <name>Field 5 313.0 ha</name>
+      <Style>
+        <LineStyle><color>ccff8402</color><width>3</width></LineStyle>
+        <PolyStyle><color>3338bdf8</color></PolyStyle>
+      </Style>
+      <Polygon><outerBoundaryIs><LinearRing><coordinates>118.95606255,32.23241100,0 118.99060363,32.24827956,0 118.99496239,32.24117822,0 118.96091547,32.22623975,0 118.95606255,32.23241100,0</coordinates></LinearRing></outerBoundaryIs></Polygon>
+    </Placemark>
+    <Placemark>
+      <name>Field 6 202.7 ha</name>
+      <Style>
+        <LineStyle><color>ccff8402</color><width>3</width></LineStyle>
+        <PolyStyle><color>3338bdf8</color></PolyStyle>
+      </Style>
+      <Polygon><outerBoundaryIs><LinearRing><coordinates>119.00053901,32.23229199,0 119.02183200,32.24155201,0 119.02651603,32.23464623,0 119.00525332,32.22516245,0 119.00053901,32.23229199,0</coordinates></LinearRing></outerBoundaryIs></Polygon>
+    </Placemark>
+    <Placemark>
+      <name>Scout drone 1</name>
+      <Style><LineStyle><color>cc0f766e</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96555818,32.21767296,0 118.97155438,32.21969313,0 118.97703632,32.21149687,0 118.97067299,32.20905877,0 118.96555818,32.21767296,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Scout drone 2</name>
+      <Style><LineStyle><color>cc0f766e</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97178829,32.21983262,0 118.98221482,32.22429289,0 118.98687580,32.21662735,0 118.97713695,32.21175727,0 118.97178829,32.21983262,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Scout drone 3</name>
+      <Style><LineStyle><color>cc0f766e</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98225639,32.22462686,0 118.99996015,32.23246361,0 119.00531106,32.22475479,0 118.98720625,32.21684675,0 118.98225639,32.22462686,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 1</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97562902,32.21096829,0 118.97673063,32.21190019,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 2</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97281444,32.20991114,0 118.97611925,32.21270683,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 3</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97063075,32.20938767,0 118.97552075,32.21352437,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 4</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97010668,32.21026816,0 118.97495612,32.21437054,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 5</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96958260,32.21114865,0 118.97439148,32.21521673,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 6</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96905852,32.21202915,0 118.97382685,32.21606291,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 7</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96853445,32.21290964,0 118.97326221,32.21690909,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 8</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96801037,32.21379013,0 118.97269758,32.21775528,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 9</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96748630,32.21467063,0 118.97213295,32.21860146,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 10</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96696222,32.21555112,0 118.97156831,32.21944764,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 11</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96640535,32.21640387,0 118.96939683,32.21893451,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 12</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96584058,32.21724993,0 118.96683773,32.21809348,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 14</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98619516,32.21629618,0 118.98665209,32.21696567,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 15</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98483391,32.21563383,0 118.98620467,32.21764230,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 16</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98347265,32.21497149,0 118.98575724,32.21831894,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 17</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98211140,32.21430914,0 118.98530982,32.21899556,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 18</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98075014,32.21364680,0 118.98486240,32.21967219,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 19</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97938888,32.21298445,0 118.98441498,32.22034882,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 20</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97802762,32.21232211,0 118.98396756,32.22102546,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 21</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97707246,32.21225478,0 118.98352842,32.22171423,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 22</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97662505,32.21293142,0 118.98309966,32.22241819,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 23</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97617764,32.21360808,0 118.98267088,32.22312215,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 24</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97573023,32.21428473,0 118.98224211,32.22382611,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 25</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97527222,32.21494583,0 118.98129373,32.22376873,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 26</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97480769,32.21559741,0 118.98002634,32.22324391,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 27</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97434318,32.21624898,0 118.97875895,32.22271910,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 28</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97387865,32.21690055,0 118.97749155,32.22219429,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 29</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97341413,32.21755212,0 118.97622416,32.22166947,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 30</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97294960,32.21820370,0 118.97495677,32.22114466,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 31</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97248508,32.21885527,0 118.97368938,32.22061984,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 32</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97202055,32.21950684,0 118.97242200,32.22009503,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 34</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00017174,32.23214348,0 118.99956613,32.23228075,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 35</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00059490,32.23150321,0 118.99877810,32.23191503,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 36</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00101806,32.23086295,0 118.99799006,32.23154930,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 37</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00144123,32.23022267,0 118.99720202,32.23118358,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 38</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00186439,32.22958241,0 118.99641399,32.23081786,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 39</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00228755,32.22894214,0 118.99562595,32.23045214,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 40</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00271072,32.22830188,0 118.99483791,32.23008642,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 41</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00313388,32.22766161,0 118.99404988,32.22972069,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 42</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00355705,32.22702135,0 118.99326184,32.22935497,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 43</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00398021,32.22638108,0 118.99247380,32.22898925,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 44</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00440337,32.22574082,0 118.99168576,32.22862353,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 45</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00482654,32.22510054,0 118.99089773,32.22825781,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 46</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00454515,32.22461998,0 118.99009531,32.22789534,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 47</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00372484,32.22426158,0 118.98928191,32.22753538,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 48</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00290452,32.22390317,0 118.98846849,32.22717541,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 49</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00208420,32.22354477,0 118.98765507,32.22681543,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 50</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00126388,32.22318636,0 118.98684166,32.22645547,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 51</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00044356,32.22282796,0 118.98602825,32.22609550,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 52</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99962324,32.22246956,0 118.98521484,32.22573553,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 53</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99880292,32.22211115,0 118.98440142,32.22537556,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 54</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99798261,32.22175275,0 118.98358800,32.22501559,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 55</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99716229,32.22139434,0 118.98277460,32.22465562,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 56</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99635979,32.22103190,0 118.98283416,32.22409777,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 57</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99556383,32.22066798,0 118.98321434,32.22346725,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 58</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99476787,32.22030404,0 118.98359452,32.22283672,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 59</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99397190,32.21994012,0 118.98397471,32.22220621,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 60</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99317594,32.21957619,0 118.98435489,32.22157568,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 61</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99237998,32.21921226,0 118.98473507,32.22094515,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 62</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99158402,32.21884834,0 118.98511525,32.22031463,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 63</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99078807,32.21848441,0 118.98549543,32.21968410,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 64</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98999211,32.21812049,0 118.98587561,32.21905359,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 65</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98919615,32.21775656,0 118.98625580,32.21842306,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 66</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98840019,32.21739264,0 118.98663598,32.21779254,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 67</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98760423,32.21702871,0 118.98701616,32.21716201,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 69</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99521665,32.24015941,0 118.99463922,32.24044143,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 70</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99575342,32.23929445,0 118.99402112,32.24014053,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 71</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99629018,32.23842950,0 118.99340302,32.23983962,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 72</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99682694,32.23756455,0 118.99278491,32.23953871,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 73</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99736371,32.23669959,0 118.99216681,32.23923781,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 74</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99790047,32.23583464,0 118.99154871,32.23893690,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 75</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99843723,32.23496968,0 118.99093059,32.23863599,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 76</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99897399,32.23410472,0 118.99031249,32.23833509,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 77</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99951076,32.23323977,0 118.98969439,32.23803418,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 78</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99905628,32.23285895,0 118.98905606,32.23774315,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 79</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99840833,32.23257262,0 118.98841377,32.23745405,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 80</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99776038,32.23228628,0 118.98777149,32.23716495,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 81</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99711243,32.23199995,0 118.98712921,32.23687586,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 82</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99646448,32.23171362,0 118.98648693,32.23658676,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 83</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99581653,32.23142730,0 118.98584465,32.23629766,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 84</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99516858,32.23114097,0 118.98520237,32.23600856,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 85</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99452063,32.23085464,0 118.98456009,32.23571946,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 86</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99387268,32.23056831,0 118.98391781,32.23543036,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 87</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99322473,32.23028198,0 118.98327552,32.23514126,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 88</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99257677,32.22999564,0 118.98263324,32.23485217,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 89</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99192883,32.22970931,0 118.98199096,32.23456306,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 90</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99128088,32.22942298,0 118.98134868,32.23427397,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 91</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99063293,32.22913665,0 118.98070640,32.23398487,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 92</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98998498,32.22885033,0 118.98006412,32.23369577,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 93</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98933703,32.22856400,0 118.97942184,32.23340667,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 94</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98868908,32.22827767,0 118.97877954,32.23311757,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 95</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98804113,32.22799134,0 118.97813726,32.23282848,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 96</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98739318,32.22770501,0 118.97749498,32.23253937,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 97</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98674523,32.22741867,0 118.97685270,32.23225028,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 98</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98609728,32.22713234,0 118.97621042,32.23196118,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 99</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98544932,32.22684601,0 118.97556814,32.23167208,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 100</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98480137,32.22655968,0 118.97492586,32.23138298,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 101</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98415342,32.22627336,0 118.97428358,32.23109389,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 102</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98350547,32.22598703,0 118.97364129,32.23080478,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 103</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98285753,32.22570070,0 118.97299901,32.23051569,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 104</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98220958,32.22541437,0 118.97235673,32.23022659,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 105</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98156163,32.22512803,0 118.97171445,32.22993748,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 106</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98091368,32.22484170,0 118.97107217,32.22964839,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 107</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98026573,32.22455537,0 118.97042989,32.22935929,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 108</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97961778,32.22426904,0 118.96978761,32.22907020,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 109</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97896983,32.22398271,0 118.96914532,32.22878109,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 110</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97832188,32.22369639,0 118.96850304,32.22849200,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 111</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97767392,32.22341006,0 118.96786076,32.22820290,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 112</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97702597,32.22312373,0 118.96721848,32.22791380,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 113</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97637802,32.22283740,0 118.96657620,32.22762470,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 114</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97573007,32.22255106,0 118.96593392,32.22733560,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 115</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97508212,32.22226473,0 118.96529164,32.22704650,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 116</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97443417,32.22197840,0 118.96464936,32.22675740,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 117</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97378623,32.22169207,0 118.96400706,32.22646831,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 118</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97313828,32.22140574,0 118.96336478,32.22617920,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 119</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97249033,32.22111941,0 118.96272250,32.22589011,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 120</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97184238,32.22083309,0 118.96208022,32.22560101,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 121</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97119443,32.22054676,0 118.96143794,32.22531192,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 122</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97055347,32.22025701,0 118.96113857,32.22485533,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 123</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96992848,32.21995947,0 118.96162122,32.22401681,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 124</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96930349,32.21966192,0 118.96210386,32.22317829,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 125</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96867850,32.21936438,0 118.96258650,32.22233977,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 126</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96805350,32.21906684,0 118.96306914,32.22150124,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 127</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96742851,32.21876929,0 118.96355179,32.22066272,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 128</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96680352,32.21847175,0 118.96403443,32.21982420,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 129</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96617853,32.21817421,0 118.96451707,32.21898567,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 130</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96555353,32.21787666,0 118.96499972,32.21814715,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 132</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99414470,32.24249752,0 118.99037380,32.24802276,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 133</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99430807,32.24107102,0 118.98977291,32.24771607,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 134</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99368471,32.24079726,0 118.98915598,32.24743289,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 135</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99306135,32.24052350,0 118.98853903,32.24714973,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 136</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99243798,32.24024974,0 118.98792209,32.24686655,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 137</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99181463,32.23997598,0 118.98730516,32.24658338,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 138</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99119127,32.23970222,0 118.98668821,32.24630021,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 139</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99056790,32.23942845,0 118.98607128,32.24601704,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 140</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98994454,32.23915469,0 118.98545434,32.24573386,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 141</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98932119,32.23888093,0 118.98483740,32.24545070,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 142</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98869782,32.23860717,0 118.98422046,32.24516753,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 143</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98807446,32.23833341,0 118.98360352,32.24488435,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 144</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98745110,32.23805965,0 118.98298658,32.24460119,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 145</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98682774,32.23778589,0 118.98236964,32.24431801,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 146</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98620438,32.23751212,0 118.98175271,32.24403484,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 147</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98558102,32.23723836,0 118.98113577,32.24375167,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 148</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98495765,32.23696460,0 118.98051882,32.24346850,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 149</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98433430,32.23669084,0 118.97990189,32.24318534,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 150</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98371094,32.23641708,0 118.97928495,32.24290216,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 151</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98308757,32.23614332,0 118.97866801,32.24261899,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 152</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98246421,32.23586955,0 118.97805107,32.24233582,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 153</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98184086,32.23559579,0 118.97743413,32.24205265,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 154</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98121749,32.23532203,0 118.97681719,32.24176947,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 155</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98059413,32.23504827,0 118.97620025,32.24148631,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 156</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97997077,32.23477451,0 118.97558332,32.24120313,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 157</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97934741,32.23450075,0 118.97496637,32.24091996,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 158</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97872405,32.23422698,0 118.97434944,32.24063680,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 159</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97810068,32.23395322,0 118.97373250,32.24035362,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 160</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97747732,32.23367947,0 118.97311555,32.24007045,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 161</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97685397,32.23340571,0 118.97249862,32.23978728,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 162</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97623060,32.23313195,0 118.97188168,32.23950411,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 163</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97560724,32.23285819,0 118.97126475,32.23922094,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 164</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97498388,32.23258442,0 118.97064780,32.23893777,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 165</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97436052,32.23231066,0 118.97003086,32.23865459,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 166</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97373716,32.23203690,0 118.96941393,32.23837143,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 167</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97311380,32.23176314,0 118.96879698,32.23808826,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 168</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97249043,32.23148938,0 118.96818005,32.23780508,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 169</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97186708,32.23121562,0 118.96756311,32.23752192,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 170</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97124372,32.23094185,0 118.96694617,32.23723874,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 171</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97062035,32.23066809,0 118.96632923,32.23695557,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 172</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96999699,32.23039433,0 118.96571229,32.23667240,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 173</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96937364,32.23012057,0 118.96509535,32.23638923,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 174</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96875027,32.22984681,0 118.96447841,32.23610606,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 175</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96812691,32.22957305,0 118.96386148,32.23582289,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 176</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96750356,32.22929929,0 118.96324453,32.23553972,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 177</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96688019,32.22902552,0 118.96262759,32.23525654,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 178</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96625683,32.22875176,0 118.96201066,32.23497338,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 179</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96563347,32.22847800,0 118.96139372,32.23469020,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 180</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96501011,32.22820424,0 118.96077678,32.23440703,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 181</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96438675,32.22793048,0 118.96015984,32.23412386,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 182</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96376339,32.22765672,0 118.95954291,32.23384069,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 183</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96314002,32.22738295,0 118.95892596,32.23355752,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 184</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96251667,32.22710919,0 118.95830902,32.23327435,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 185</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96189331,32.22683543,0 118.95769209,32.23299118,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 186</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96126994,32.22656167,0 118.95707514,32.23270801,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 187</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.95907379,32.22859240,0 118.95642611,32.23247187,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 189</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00517044,32.22531911,0 119.00603510,32.22551510,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 190</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00500470,32.22563242,0 119.00759865,32.22622039,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 191</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00483896,32.22594572,0 119.00916221,32.22692568,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 192</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00467321,32.22625904,0 119.01072575,32.22763097,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 193</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00450747,32.22657234,0 119.01228930,32.22833626,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 194</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00434173,32.22688566,0 119.01385286,32.22904156,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 195</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00417597,32.22719896,0 119.01541641,32.22974685,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 196</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00401023,32.22751227,0 119.01697997,32.23045214,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 197</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00384449,32.22782558,0 119.01854352,32.23115743,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 198</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00367874,32.22813889,0 119.02010707,32.23186273,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 199</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00351300,32.22845220,0 119.02167063,32.23256801,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 200</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00383619,32.22887633,0 119.02274524,32.23316248,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 201</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00453510,32.22938564,0 119.02344415,32.23367178,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 202</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00504681,32.22985250,0 119.02395586,32.23413865,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 203</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00484278,32.23015714,0 119.02375184,32.23444328,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 204</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00463876,32.23046177,0 119.02354781,32.23474792,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 205</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00443474,32.23076640,0 119.02334378,32.23505255,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 206</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00423070,32.23107103,0 119.02313976,32.23535718,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 207</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00402668,32.23137567,0 119.02293573,32.23566181,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 208</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00382266,32.23168030,0 119.02273171,32.23596645,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 209</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00361864,32.23198493,0 119.02252769,32.23627107,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 210</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00341461,32.23228956,0 119.02232365,32.23657571,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 211</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00321058,32.23259420,0 119.02211963,32.23688034,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 212</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00313431,32.23292779,0 119.02204337,32.23721393,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 213</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00387377,32.23344628,0 119.02278282,32.23773243,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 214</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00461322,32.23396477,0 119.02352227,32.23825092,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 215</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00618213,32.23467127,0 119.02343227,32.23858139,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 216</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00782949,32.23539557,0 119.02326382,32.23889409,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 217</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00947684,32.23611985,0 119.02309537,32.23920679,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 218</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.01112420,32.23684414,0 119.02292692,32.23951948,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 219</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.01277156,32.23756842,0 119.02275847,32.23983218,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 220</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.01441890,32.23829271,0 119.02259002,32.24014487,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 221</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.01606626,32.23901700,0 119.02242157,32.24045757,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 222</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.01771361,32.23974128,0 119.02225312,32.24077027,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 223</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.01936097,32.24046558,0 119.02208467,32.24108296,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing task 224</name>
+      <Style><LineStyle><color>cc2626dc</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.02100832,32.24118986,0 119.02191622,32.24139566,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 1</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97562902,32.21096829,0 118.97673063,32.21190019,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 2</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97281444,32.20991114,0 118.97611925,32.21270683,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 3</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97063075,32.20938767,0 118.97552075,32.21352437,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 4</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97010668,32.21026816,0 118.97495612,32.21437054,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 5</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96958260,32.21114865,0 118.97439148,32.21521673,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 6</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96905852,32.21202915,0 118.97382685,32.21606291,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 7</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96853445,32.21290964,0 118.97326221,32.21690909,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 8</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96801037,32.21379013,0 118.97269758,32.21775528,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 9</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96748630,32.21467063,0 118.97213295,32.21860146,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 10</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96696222,32.21555112,0 118.97156831,32.21944764,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 11</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96640535,32.21640387,0 118.96939683,32.21893451,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 12</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96584058,32.21724993,0 118.96683773,32.21809348,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 13</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96886423,32.21241750,0 118.97359160,32.21641662,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 14</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98619516,32.21629618,0 118.98665209,32.21696567,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 15</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98483391,32.21563383,0 118.98620467,32.21764230,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 16</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98347265,32.21497149,0 118.98575724,32.21831894,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 17</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98211140,32.21430914,0 118.98530982,32.21899556,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 18</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98075014,32.21364680,0 118.98486240,32.21967219,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 19</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97938888,32.21298445,0 118.98441498,32.22034882,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 20</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97802762,32.21232211,0 118.98396756,32.22102546,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 21</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97707246,32.21225478,0 118.98352842,32.22171423,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 22</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97662505,32.21293142,0 118.98309966,32.22241819,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 23</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97617764,32.21360808,0 118.98267088,32.22312215,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 24</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97573023,32.21428473,0 118.98224211,32.22382611,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 25</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97527222,32.21494583,0 118.98129373,32.22376873,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 26</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97480769,32.21559741,0 118.98002634,32.22324391,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 27</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97434318,32.21624898,0 118.97875895,32.22271910,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 28</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97387865,32.21690055,0 118.97749155,32.22219429,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 29</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97341413,32.21755212,0 118.97622416,32.22166947,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 30</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97294960,32.21820370,0 118.97495677,32.22114466,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 31</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97248508,32.21885527,0 118.97368938,32.22061984,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 32</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97202055,32.21950684,0 118.97242200,32.22009503,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 33</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97625943,32.21347521,0 118.98260110,32.22276722,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 34</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00017174,32.23214348,0 118.99956613,32.23228075,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 35</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00059490,32.23150321,0 118.99877810,32.23191503,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 36</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00101806,32.23086295,0 118.99799006,32.23154930,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 37</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00144123,32.23022267,0 118.99720202,32.23118358,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 38</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00186439,32.22958241,0 118.99641399,32.23081786,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 39</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00228755,32.22894214,0 118.99562595,32.23045214,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 40</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00271072,32.22830188,0 118.99483791,32.23008642,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 41</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00313388,32.22766161,0 118.99404988,32.22972069,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 42</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00355705,32.22702135,0 118.99326184,32.22935497,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 43</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00398021,32.22638108,0 118.99247380,32.22898925,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 44</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00440337,32.22574082,0 118.99168576,32.22862353,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 45</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00482654,32.22510054,0 118.99089773,32.22825781,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 46</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00454515,32.22461998,0 118.99009531,32.22789534,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 47</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00372484,32.22426158,0 118.98928191,32.22753538,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 48</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00290452,32.22390317,0 118.98846849,32.22717541,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 49</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00208420,32.22354477,0 118.98765507,32.22681543,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 50</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00126388,32.22318636,0 118.98684166,32.22645547,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 51</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00044356,32.22282796,0 118.98602825,32.22609550,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 52</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99962324,32.22246956,0 118.98521484,32.22573553,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 53</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99880292,32.22211115,0 118.98440142,32.22537556,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 54</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99798261,32.22175275,0 118.98358800,32.22501559,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 55</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99716229,32.22139434,0 118.98277460,32.22465562,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 56</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99635979,32.22103190,0 118.98283416,32.22409777,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 57</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99556383,32.22066798,0 118.98321434,32.22346725,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 58</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99476787,32.22030404,0 118.98359452,32.22283672,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 59</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99397190,32.21994012,0 118.98397471,32.22220621,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 60</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99317594,32.21957619,0 118.98435489,32.22157568,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 61</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99237998,32.21921226,0 118.98473507,32.22094515,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 62</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99158402,32.21884834,0 118.98511525,32.22031463,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 63</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99078807,32.21848441,0 118.98549543,32.21968410,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 64</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98999211,32.21812049,0 118.98587561,32.21905359,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 65</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98919615,32.21775656,0 118.98625580,32.21842306,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 66</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98840019,32.21739264,0 118.98663598,32.21779254,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 67</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98760423,32.21702871,0 118.98701616,32.21716201,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 68</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00091465,32.22303371,0 118.98650024,32.22630105,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 69</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99521665,32.24015941,0 118.99463922,32.24044143,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 70</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99575342,32.23929445,0 118.99402112,32.24014053,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 71</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99629018,32.23842950,0 118.99340302,32.23983962,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 72</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99682694,32.23756455,0 118.99278491,32.23953871,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 73</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99736371,32.23669959,0 118.99216681,32.23923781,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 74</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99790047,32.23583464,0 118.99154871,32.23893690,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 75</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99843723,32.23496968,0 118.99093059,32.23863599,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 76</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99897399,32.23410472,0 118.99031249,32.23833509,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 77</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99951076,32.23323977,0 118.98969439,32.23803418,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 78</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99905628,32.23285895,0 118.98905606,32.23774315,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 79</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99840833,32.23257262,0 118.98841377,32.23745405,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 80</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99776038,32.23228628,0 118.98777149,32.23716495,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 81</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99711243,32.23199995,0 118.98712921,32.23687586,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 82</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99646448,32.23171362,0 118.98648693,32.23658676,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 83</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99581653,32.23142730,0 118.98584465,32.23629766,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 84</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99516858,32.23114097,0 118.98520237,32.23600856,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 85</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99452063,32.23085464,0 118.98456009,32.23571946,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 86</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99387268,32.23056831,0 118.98391781,32.23543036,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 87</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99322473,32.23028198,0 118.98327552,32.23514126,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 88</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99257677,32.22999564,0 118.98263324,32.23485217,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 89</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99192883,32.22970931,0 118.98199096,32.23456306,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 90</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99128088,32.22942298,0 118.98134868,32.23427397,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 91</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99063293,32.22913665,0 118.98070640,32.23398487,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 92</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98998498,32.22885033,0 118.98006412,32.23369577,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 93</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98933703,32.22856400,0 118.97942184,32.23340667,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 94</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98868908,32.22827767,0 118.97877954,32.23311757,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 95</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98804113,32.22799134,0 118.97813726,32.23282848,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 96</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98739318,32.22770501,0 118.97749498,32.23253937,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 97</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98674523,32.22741867,0 118.97685270,32.23225028,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 98</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98609728,32.22713234,0 118.97621042,32.23196118,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 99</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98544932,32.22684601,0 118.97556814,32.23167208,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 100</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98480137,32.22655968,0 118.97492586,32.23138298,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 101</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98415342,32.22627336,0 118.97428358,32.23109389,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 102</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98350547,32.22598703,0 118.97364129,32.23080478,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 103</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98285753,32.22570070,0 118.97299901,32.23051569,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 104</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98220958,32.22541437,0 118.97235673,32.23022659,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 105</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98156163,32.22512803,0 118.97171445,32.22993748,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 106</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98091368,32.22484170,0 118.97107217,32.22964839,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 107</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98026573,32.22455537,0 118.97042989,32.22935929,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 108</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97961778,32.22426904,0 118.96978761,32.22907020,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 109</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97896983,32.22398271,0 118.96914532,32.22878109,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 110</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97832188,32.22369639,0 118.96850304,32.22849200,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 111</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97767392,32.22341006,0 118.96786076,32.22820290,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 112</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97702597,32.22312373,0 118.96721848,32.22791380,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 113</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97637802,32.22283740,0 118.96657620,32.22762470,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 114</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97573007,32.22255106,0 118.96593392,32.22733560,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 115</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97508212,32.22226473,0 118.96529164,32.22704650,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 116</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97443417,32.22197840,0 118.96464936,32.22675740,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 117</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97378623,32.22169207,0 118.96400706,32.22646831,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 118</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97313828,32.22140574,0 118.96336478,32.22617920,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 119</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97249033,32.22111941,0 118.96272250,32.22589011,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 120</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97184238,32.22083309,0 118.96208022,32.22560101,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 121</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97119443,32.22054676,0 118.96143794,32.22531192,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 122</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97055347,32.22025701,0 118.96113857,32.22485533,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 123</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96992848,32.21995947,0 118.96162122,32.22401681,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 124</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96930349,32.21966192,0 118.96210386,32.22317829,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 125</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96867850,32.21936438,0 118.96258650,32.22233977,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 126</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96805350,32.21906684,0 118.96306914,32.22150124,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 127</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96742851,32.21876929,0 118.96355179,32.22066272,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 128</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96680352,32.21847175,0 118.96403443,32.21982420,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 129</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96617853,32.21817421,0 118.96451707,32.21898567,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 130</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96555353,32.21787666,0 118.96499972,32.21814715,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 131</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98522019,32.22675627,0 118.97535302,32.23157549,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 132</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99414470,32.24249752,0 118.99037380,32.24802276,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 133</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99430807,32.24107102,0 118.98977291,32.24771607,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 134</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99368471,32.24079726,0 118.98915598,32.24743289,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 135</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99306135,32.24052350,0 118.98853903,32.24714973,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 136</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99243798,32.24024974,0 118.98792209,32.24686655,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 137</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99181463,32.23997598,0 118.98730516,32.24658338,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 138</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99119127,32.23970222,0 118.98668821,32.24630021,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 139</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.99056790,32.23942845,0 118.98607128,32.24601704,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 140</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98994454,32.23915469,0 118.98545434,32.24573386,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 141</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98932119,32.23888093,0 118.98483740,32.24545070,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 142</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98869782,32.23860717,0 118.98422046,32.24516753,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 143</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98807446,32.23833341,0 118.98360352,32.24488435,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 144</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98745110,32.23805965,0 118.98298658,32.24460119,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 145</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98682774,32.23778589,0 118.98236964,32.24431801,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 146</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98620438,32.23751212,0 118.98175271,32.24403484,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 147</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98558102,32.23723836,0 118.98113577,32.24375167,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 148</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98495765,32.23696460,0 118.98051882,32.24346850,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 149</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98433430,32.23669084,0 118.97990189,32.24318534,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 150</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98371094,32.23641708,0 118.97928495,32.24290216,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 151</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98308757,32.23614332,0 118.97866801,32.24261899,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 152</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98246421,32.23586955,0 118.97805107,32.24233582,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 153</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98184086,32.23559579,0 118.97743413,32.24205265,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 154</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98121749,32.23532203,0 118.97681719,32.24176947,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 155</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.98059413,32.23504827,0 118.97620025,32.24148631,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 156</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97997077,32.23477451,0 118.97558332,32.24120313,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 157</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97934741,32.23450075,0 118.97496637,32.24091996,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 158</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97872405,32.23422698,0 118.97434944,32.24063680,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 159</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97810068,32.23395322,0 118.97373250,32.24035362,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 160</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97747732,32.23367947,0 118.97311555,32.24007045,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 161</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97685397,32.23340571,0 118.97249862,32.23978728,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 162</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97623060,32.23313195,0 118.97188168,32.23950411,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 163</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97560724,32.23285819,0 118.97126475,32.23922094,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 164</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97498388,32.23258442,0 118.97064780,32.23893777,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 165</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97436052,32.23231066,0 118.97003086,32.23865459,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 166</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97373716,32.23203690,0 118.96941393,32.23837143,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 167</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97311380,32.23176314,0 118.96879698,32.23808826,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 168</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97249043,32.23148938,0 118.96818005,32.23780508,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 169</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97186708,32.23121562,0 118.96756311,32.23752192,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 170</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97124372,32.23094185,0 118.96694617,32.23723874,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 171</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97062035,32.23066809,0 118.96632923,32.23695557,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 172</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96999699,32.23039433,0 118.96571229,32.23667240,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 173</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96937364,32.23012057,0 118.96509535,32.23638923,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 174</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96875027,32.22984681,0 118.96447841,32.23610606,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 175</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96812691,32.22957305,0 118.96386148,32.23582289,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 176</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96750356,32.22929929,0 118.96324453,32.23553972,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 177</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96688019,32.22902552,0 118.96262759,32.23525654,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 178</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96625683,32.22875176,0 118.96201066,32.23497338,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 179</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96563347,32.22847800,0 118.96139372,32.23469020,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 180</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96501011,32.22820424,0 118.96077678,32.23440703,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 181</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96438675,32.22793048,0 118.96015984,32.23412386,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 182</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96376339,32.22765672,0 118.95954291,32.23384069,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 183</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96314002,32.22738295,0 118.95892596,32.23355752,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 184</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96251667,32.22710919,0 118.95830902,32.23327435,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 185</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96189331,32.22683543,0 118.95769209,32.23299118,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 186</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.96126994,32.22656167,0 118.95707514,32.23270801,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 187</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.95907379,32.22859240,0 118.95642611,32.23247187,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 188</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97803353,32.23395904,0 118.97368399,32.24033209,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 189</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00517044,32.22531911,0 119.00603510,32.22551510,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 190</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00500470,32.22563242,0 119.00759865,32.22622039,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 191</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00483896,32.22594572,0 119.00916221,32.22692568,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 192</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00467321,32.22625904,0 119.01072575,32.22763097,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 193</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00450747,32.22657234,0 119.01228930,32.22833626,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 194</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00434173,32.22688566,0 119.01385286,32.22904156,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 195</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00417597,32.22719896,0 119.01541641,32.22974685,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 196</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00401023,32.22751227,0 119.01697997,32.23045214,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 197</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00384449,32.22782558,0 119.01854352,32.23115743,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 198</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00367874,32.22813889,0 119.02010707,32.23186273,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 199</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00351300,32.22845220,0 119.02167063,32.23256801,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 200</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00334726,32.22876551,0 119.02323418,32.23327331,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 201</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00318151,32.22907882,0 119.02479774,32.23397860,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 202</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00300828,32.22939043,0 119.02599439,32.23460073,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 203</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00280642,32.22969555,0 119.02578820,32.23490487,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 204</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00260455,32.23000067,0 119.02558201,32.23520901,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 205</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00240269,32.23030579,0 119.02537582,32.23551316,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 206</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00220083,32.23061092,0 119.02516963,32.23581730,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 207</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00199897,32.23091604,0 119.02496346,32.23612143,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 208</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00179710,32.23122116,0 119.02475727,32.23642558,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 209</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00159525,32.23152629,0 119.02455108,32.23672972,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 210</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00139338,32.23183141,0 119.02434489,32.23703386,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 211</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00119152,32.23213653,0 119.02413870,32.23733800,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 212</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00124006,32.23249841,0 119.02393762,32.23764330,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 213</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00288742,32.23322270,0 119.02376917,32.23795600,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 214</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00453478,32.23394699,0 119.02360072,32.23826869,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 215</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00618213,32.23467127,0 119.02343227,32.23858139,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 216</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00782949,32.23539557,0 119.02326382,32.23889409,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 217</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00947684,32.23611985,0 119.02309537,32.23920679,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 218</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.01112420,32.23684414,0 119.02292692,32.23951948,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 219</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.01277156,32.23756842,0 119.02275847,32.23983218,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 220</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.01441890,32.23829271,0 119.02259002,32.24014487,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 221</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.01606626,32.23901700,0 119.02242157,32.24045757,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 222</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.01771361,32.23974128,0 119.02225312,32.24077027,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 223</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.01936097,32.24046558,0 119.02208467,32.24108296,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 224</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.02100832,32.24118986,0 119.02191622,32.24139566,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Drone task 225</name>
+      <Style><LineStyle><color>cc2563eb</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>119.00207143,32.23080187,0 119.02490962,32.23597864,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Hive movement</name>
+      <Style><LineStyle><color>cc111827</color><width>3</width></LineStyle></Style>
+      <LineString><tessellate>1</tessellate><coordinates>118.97454203,32.22126692,0 118.97178829,32.21983262,0 118.97155438,32.21969313,0 118.97713695,32.21175727,0 118.98140970,32.21362651,0 118.99390256,32.21945734,0 119.00531106,32.22475479,0 119.00053901,32.23229199,0 119.00191321,32.23321704,0 119.00522642,32.23465830,0 119.01350942,32.23826146,0 118.99659429,32.23818665,0 118.99494828,32.24059189,0 118.98505586,32.23648214,0 118.96078827,32.22521017,0 118.95606255,32.23241100,0 118.96407705,32.23644162,0 118.95606255,32.23241100,0 118.96078827,32.22521017,0 118.97197975,32.23059446,0</coordinates></LineString>
+    </Placemark>
+    <Placemark>
+      <name>Fixed-wing airport</name>
+      <Point><coordinates>118.92450141,32.22471392,0</coordinates></Point>
+    </Placemark>
+  </Document>
+</kml>

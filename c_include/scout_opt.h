@@ -8,8 +8,8 @@
 #define SO_MAX_BLOCKS 32
 #define SO_MAX_ZONES 160
 #define SO_MAX_TASKS 640
-#define SO_MAX_DEPOTS 64
-#define SO_MAX_EVENTS 2048
+#define SO_MAX_DEPOTS 256
+#define SO_MAX_EVENTS 4096
 #define SO_MAX_LANDING_SPOTS 16
 #define SO_MAX_BOUNDARY_POINTS 64
 
@@ -110,6 +110,13 @@ typedef struct {
     double risk;
     double strip_angle_deg;
     double route_efficiency;
+    bool has_planned_route;
+    SoPoint route_start;
+    SoPoint route_end;
+    double fixed_wing_area_ha;
+    int turn_count;
+    double turn_time_s;
+    double turn_energy_cost;
     int bundle_hint;
     SoTaskKind kind;
     SoTaskStatus status;
@@ -153,6 +160,11 @@ typedef struct {
     int operation_plan_count;
     int operation_plan_index;
     SoWeather weather;
+    double move_distance_m;
+    double move_cost_usd;
+    double stop_cost_usd;
+    double truck_cost_usd_per_km;
+    double deployment_stop_cost_usd;
 } SoMothership;
 
 typedef struct {
@@ -165,6 +177,15 @@ typedef struct {
     double battery_drain_h_work;
     double battery_drain_h_scout;
     double battery_drain_km_empty;
+    double turn_time_s;
+    double turn_battery_cost;
+    double flight_cost_usd_per_km;
+    double launch_cost_usd;
+    double chemical_l_per_ha;
+    double chemical_cost_usd_per_l;
+    double battery_cost_usd_per_unit;
+    double turn_radius_m;
+    double unfinished_penalty_usd_per_ha;
     double chemical_per_ha;
     double chemical_tank_area_ha;
     double safety_battery_margin;
@@ -185,14 +206,36 @@ typedef struct {
     double spray_efficiency;
     double setup_time_s;
     double turnaround_time_s;
+    double turn_time_s;
+    double turn_fuel_h;
+    int planned_turns;
+    int corridor_count;
+    double corridor_work_m;
+    double corridor_empty_m;
+    double corridor_total_m;
     double tank_area_ha;
     double fuel_endurance_h;
     double ferry_time_s;
+    double planned_turn_non_spray_time_s;
+    double turn_non_spray_time_s;
+    double average_ferry_round_trip_m;
     double sortie_remaining_ha;
     double fuel_remaining_h;
     double service_remaining_s;
     int sorties_completed;
     double economic_cost_h;
+    double flight_cost_usd_per_km;
+    double takeoff_cost_usd;
+    double airport_service_cost_usd;
+    double chemical_l_per_ha;
+    double chemical_cost_usd_per_l;
+    double fuel_cost_usd_per_h;
+    double turn_radius_m;
+    double unfinished_penalty_usd_per_ha;
+    double flight_distance_m;
+    double flight_cost_usd;
+    double airport_cost_usd;
+    double total_cost_usd;
     double spray_rate_ha_h;
     double assigned_area_ha;
     double completed_area_ha;
@@ -204,6 +247,9 @@ typedef struct {
     double terrain_complexity;
     double obstacle_density;
     SoPoint boundary_center;
+    bool has_origin;
+    double origin_lat;
+    double origin_lon;
     bool scanned;
 
     SoFieldBlock blocks[SO_MAX_BLOCKS];
@@ -238,6 +284,10 @@ typedef struct {
     double now_s;
     double dt_s;
     double next_weather_update_s;
+    double uav_flight_distance_m;
+    double uav_flight_cost_usd;
+    double uav_launch_cost_usd;
+    int uav_takeoffs;
     char events[SO_MAX_EVENTS][160];
     int event_count;
 } SoSimulation;

@@ -78,6 +78,10 @@ def local_segments_intersect(
     return ((o1 > 0 > o2) or (o1 < 0 < o2)) and ((o3 > 0 > o4) or (o3 < 0 < o4))
 
 
+def local_same_point(a: dict[str, float], b: dict[str, float], eps: float = 1e-6) -> bool:
+    return abs(float(a["x"]) - float(b["x"])) <= eps and abs(float(a["y"]) - float(b["y"])) <= eps
+
+
 def local_point_in_polygon(point: dict[str, float], polygon: list[dict[str, float]]) -> bool:
     inside = False
     j = len(polygon) - 1
@@ -153,8 +157,194 @@ def local_hive_route(stops: list[dict[str, float]], blocks: list[dict[str, objec
         return stops
     route = [stops[0]]
     for i in range(len(stops) - 1):
-        route.extend(local_hive_leg_route(stops[i], stops[i + 1], blocks)[1:])
+        route.extend(local_hive_visibility_route(stops[i], stops[i + 1], blocks)[1:])
     return route
+
+
+def local_clean_polygons(blocks: list[dict[str, object]]) -> list[list[dict[str, float]]]:
+    polygons: list[list[dict[str, float]]] = []
+    for block in blocks:
+        poly = [dict(p) for p in (block.get("boundary") or [])]  # type: ignore[union-attr]
+        if len(poly) >= 2 and local_same_point(poly[0], poly[-1]):
+            poly = poly[:-1]
+        if len(poly) >= 3:
+            polygons.append(poly)
+    return polygons
+
+
+def local_segment_blocked(a: dict[str, float], b: dict[str, float], polygons: list[list[dict[str, float]]]) -> bool:
+    mid = {"x": (float(a["x"]) + float(b["x"])) * 0.5, "y": (float(a["y"]) + float(b["y"])) * 0.5}
+    for poly in polygons:
+        if local_point_in_polygon(mid, poly):
+            return True
+        for i in range(len(poly)):
+            c, d = poly[i], poly[(i + 1) % len(poly)]
+            if local_same_point(a, c) or local_same_point(a, d) or local_same_point(b, c) or local_same_point(b, d):
+                continue
+            if local_segments_intersect(a, b, c, d):
+                return True
+    return False
+
+
+def local_hive_visibility_route(
+    a: dict[str, float], b: dict[str, float], blocks: list[dict[str, object]]
+) -> list[dict[str, float]]:
+    polygons = local_clean_polygons(blocks)
+    if not local_segment_blocked(a, b, polygons):
+        return [a, b]
+
+    nodes: list[dict[str, float]] = [a, b]
+    for poly in polygons:
+        nodes.extend(poly)
+    n = len(nodes)
+    graph: list[list[tuple[int, float]]] = [[] for _ in range(n)]
+    for i in range(n):
+        for j in range(i + 1, n):
+            if local_segment_blocked(nodes[i], nodes[j], polygons):
+                continue
+            w = local_distance(nodes[i], nodes[j])
+            graph[i].append((j, w))
+            graph[j].append((i, w))
+
+    costs = [float("inf")] * n
+    prev = [-1] * n
+    used = [False] * n
+    costs[0] = 0.0
+    for _ in range(n):
+        u = min((idx for idx in range(n) if not used[idx]), key=lambda idx: costs[idx], default=-1)
+        if u < 0 or costs[u] == float("inf"):
+            break
+        if u == 1:
+            break
+        used[u] = True
+        for v, w in graph[u]:
+            if costs[u] + w < costs[v]:
+                costs[v] = costs[u] + w
+                prev[v] = u
+    if prev[1] < 0:
+        return [a, b]
+    path_idx: list[int] = []
+    cur = 1
+    while cur >= 0:
+        path_idx.append(cur)
+        cur = prev[cur]
+    path_idx.reverse()
+    return [nodes[idx] for idx in path_idx]
+
+
+def local_line_polygon_intervals(
+    poly: list[dict[str, float]], angle: float, cross: float
+) -> list[tuple[float, float]]:
+    ux, uy = math.cos(angle), math.sin(angle)
+    vx, vy = -uy, ux
+    hits: list[float] = []
+    for i, a in enumerate(poly):
+        b = poly[(i + 1) % len(poly)]
+        ax, ay = float(a["x"]), float(a["y"])
+        bx, by = float(b["x"]), float(b["y"])
+        ca = ax * vx + ay * vy
+        cb = bx * vx + by * vy
+        denom = cb - ca
+        if abs(denom) < 1e-9:
+            continue
+        s = (cross - ca) / denom
+        if -1e-6 <= s <= 1.0 + 1e-6:
+            x = ax + (bx - ax) * s
+            y = ay + (by - ay) * s
+            t = x * ux + y * uy
+            if all(abs(t - old) > 0.05 for old in hits):
+                hits.append(t)
+    hits.sort()
+    return [(hits[i], hits[i + 1]) for i in range(0, len(hits) - 1, 2) if hits[i + 1] - hits[i] > 6.0]
+
+
+def local_polygon_cross_range(polygons: list[list[dict[str, float]]], angle: float) -> tuple[float, float]:
+    vx, vy = -math.sin(angle), math.cos(angle)
+    values = [float(p["x"]) * vx + float(p["y"]) * vy for poly in polygons for p in poly]
+    return min(values), max(values)
+
+
+def merged_fixed_wing_corridors(plan: dict) -> list[dict[str, object]]:
+    mission = plan.get("fixed_wing_trajectory") or []
+    if len(mission) >= 2:
+        return [{
+            "area_ha": sum(float(item.get("area_ha", 0.0) or 0.0) for item in plan.get("fixed_wing_routes", [])),
+            "length_m": sum(local_distance(mission[i], mission[i + 1]) for i in range(len(mission) - 1)),
+            "route": mission,
+        }]
+
+    fixed = plan.get("fixed_wing") or {}
+    swath = float(fixed.get("swath_m", 22.0) or 22.0)
+    target_area = float(fixed.get("assigned_area_ha", 0.0) or 0.0)
+    if target_area <= 0.0:
+        target_area = sum(float(item.get("area_ha", 0.0) or 0.0) for item in plan.get("fixed_wing_routes", []))
+
+    polygons = local_clean_polygons(plan.get("work_area", {}).get("blocks", []))
+    if not polygons:
+        return []
+
+    spacing = max(swath, 18.0)
+    best_score = -1.0
+    best_angle = 0.0
+    best_rows: list[tuple[float, float, float]] = []
+    best_areas: list[float] = []
+    for deg in range(0, 180, 3):
+        angle = math.radians(float(deg))
+        min_cross, max_cross = local_polygon_cross_range(polygons, angle)
+        rows: list[tuple[float, float, float, float, float]] = []
+        cross = min_cross + spacing * 0.5
+        while cross <= max_cross - spacing * 0.25:
+            intervals: list[tuple[float, float]] = []
+            for poly in polygons:
+                intervals.extend(local_line_polygon_intervals(poly, angle, cross))
+            if intervals:
+                min_t = min(a for a, _b in intervals)
+                max_t = max(b for _a, b in intervals)
+                work_len = sum(b - a for a, b in intervals)
+                corridor_len = max_t - min_t
+                empty_len = max(0.0, corridor_len - work_len)
+                area = work_len * swath / 10000.0
+                net_score = work_len - empty_len * 0.72
+                if area >= 0.18 and net_score > 40.0:
+                    rows.append((net_score, corridor_len, min_t, max_t, cross, area))
+            cross += spacing
+        if not rows:
+            continue
+        rows.sort(key=lambda row: row[0], reverse=True)
+        selected: list[tuple[float, float, float]] = []
+        areas: list[float] = []
+        covered = 0.0
+        for _net_score, _corridor_len, min_t, max_t, cross, area in rows:
+            selected.append((min_t, max_t, cross))
+            areas.append(area)
+            covered += area
+            if target_area > 0.0 and covered >= target_area:
+                break
+        score = (
+            sum(row[0] ** 1.12 for row in rows[: min(35, len(rows))])
+            + rows[0][1] * 0.35
+            - len(selected) * swath * 1.8
+        )
+        if score > best_score:
+            best_score = score
+            best_angle = angle
+            best_rows = selected
+            best_areas = areas
+
+    ux, uy = math.cos(best_angle), math.sin(best_angle)
+    vx, vy = -uy, ux
+    corridors: list[dict[str, object]] = []
+    for index, (min_t, max_t, cross) in enumerate(best_rows):
+        corridors.append({
+            "area_ha": best_areas[index] if index < len(best_areas) else 0.0,
+            "length_m": max_t - min_t,
+            "route": [
+                {"x": ux * min_t + vx * cross, "y": uy * min_t + vy * cross},
+                {"x": ux * max_t + vx * cross, "y": uy * max_t + vy * cross},
+            ],
+        })
+    corridors.sort(key=lambda item: float(item.get("length_m", 0.0)), reverse=True)
+    return corridors
 
 
 def drop_leading_home_points(
@@ -233,14 +423,13 @@ def build_vehicle_routes(
         plane_route: list[tuple[float, float, float]] = []
         lat, lon = local_to_latlon(airport, origin)
         sortie_area = 0.0
-        for task in plan.get("tasks", []):
-            if task.get("handling") != "fixed_wing":
-                continue
-            area = float(task.get("area_ha", 0.0))
+        plane_route.append((lat, lon, plane_alt))
+        for corridor in merged_fixed_wing_corridors(plan):
+            area = float(corridor.get("area_ha", 0.0))
             if sortie_area > 0.0 and sortie_area + area > tank_area_ha:
                 plane_route.append((lat, lon, plane_alt))
                 sortie_area = 0.0
-            for point in task.get("route") or []:
+            for point in corridor.get("route") or []:
                 plat, plon = local_to_latlon(point, origin)
                 plane_route.append((plat, plon, plane_alt))
             sortie_area += area

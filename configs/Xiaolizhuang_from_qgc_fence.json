@@ -1,0 +1,3419 @@
+{
+  "source": "planexample\\Xiaolizhuang.plan",
+  "source_mode": "qgroundcontrol_fence_polygon",
+  "road_model": "task_boundary_exterior_accessible",
+  "origin": {
+    "lat": 32.23621511008013,
+    "lon": 118.99436272506236
+  },
+  "boundary_points": [
+    {
+      "x": -3604.8149316769964,
+      "y": -3020.929568148282
+    },
+    {
+      "x": 3029.105225681651,
+      "y": -3020.929568148282
+    },
+    {
+      "x": 3029.105225681651,
+      "y": 1345.1078641366878
+    },
+    {
+      "x": -3604.8149316769964,
+      "y": 1345.1078641366878
+    }
+  ],
+  "field_blocks": [
+    {
+      "id": 1,
+      "name": "qgc field 1",
+      "selected": true,
+      "boundary_points": [
+        {
+          "x": -2710.7030558391066,
+          "y": -2062.002886317158
+        },
+        {
+          "x": -2146.099470151023,
+          "y": -1837.118399389391
+        },
+        {
+          "x": -1629.9189420041475,
+          "y": -2749.5215144958474
+        },
+        {
+          "x": -2229.091354514469,
+          "y": -3020.929568148282
+        }
+      ],
+      "center": {
+        "x": -2176.8388279306687,
+        "y": -2424.4475947475676
+      },
+      "area_hectares": 66.82513857312624,
+      "risk": 0.32,
+      "notes": [
+        "imported from QGroundControl .plan polygon"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "qgc field 2",
+      "selected": true,
+      "boundary_points": [
+        {
+          "x": -2124.0740986233986,
+          "y": -1821.5895261656103
+        },
+        {
+          "x": -1142.3098601389597,
+          "y": -1325.0752978717296
+        },
+        {
+          "x": -703.4308826861438,
+          "y": -2178.3992177675373
+        },
+        {
+          "x": -1620.4424879360652,
+          "y": -2720.534230185607
+        }
+      ],
+      "center": {
+        "x": -1404.5040262161945,
+        "y": -2012.1030457068375
+      },
+      "area_hectares": 107.65258103899295,
+      "risk": 0.32,
+      "notes": [
+        "imported from QGroundControl .plan polygon"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "qgc field 3",
+      "selected": true,
+      "boundary_points": [
+        {
+          "x": -1138.3950625588843,
+          "y": -1287.8976939181923
+        },
+        {
+          "x": 528.596156682237,
+          "y": -415.5150675496193
+        },
+        {
+          "x": 1032.4388329745868,
+          "y": -1273.6568046705477
+        },
+        {
+          "x": -672.3154204917706,
+          "y": -2153.9758064237344
+        }
+      ],
+      "center": {
+        "x": -60.161190386899825,
+        "y": -1283.3872530186716
+      },
+      "area_hectares": 187.84037246176712,
+      "risk": 0.32,
+      "notes": [
+        "imported from QGroundControl .plan polygon"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "qgc field 4",
+      "selected": true,
+      "boundary_points": [
+        {
+          "x": -3159.8393871945445,
+          "y": -1222.9639445411271
+        },
+        {
+          "x": 56.67604161426097,
+          "y": 489.32090304136653
+        },
+        {
+          "x": 514.1609108901025,
+          "y": -356.17021377261045
+        },
+        {
+          "x": -2740.5657323006844,
+          "y": -2055.887662459417
+        }
+      ],
+      "center": {
+        "x": -1323.8706572741226,
+        "y": -782.6162735627394
+      },
+      "area_hectares": 346.32326976320974,
+      "risk": 0.32,
+      "notes": [
+        "imported from QGroundControl .plan polygon"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "qgc field 5",
+      "selected": true,
+      "boundary_points": [
+        {
+          "x": -3604.8149316769964,
+          "y": -421.3708046658741
+        },
+        {
+          "x": -352.4162205957312,
+          "y": 1345.1078641366878
+        },
+        {
+          "x": 58.005171918087875,
+          "y": 554.5906351693317
+        },
+        {
+          "x": -3147.8627041674486,
+          "y": -1108.3519834302115
+        }
+      ],
+      "center": {
+        "x": -1740.798066203048,
+        "y": 105.67731793981255
+      },
+      "area_hectares": 312.9167038971226,
+      "risk": 0.32,
+      "notes": [
+        "imported from QGroundControl .plan polygon"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "qgc field 6",
+      "selected": true,
+      "boundary_points": [
+        {
+          "x": 583.1007919637411,
+          "y": -434.61971075852955
+        },
+        {
+          "x": 2588.0553260615047,
+          "y": 596.2006475832734
+        },
+        {
+          "x": 3029.105225681651,
+          "y": -172.5470302154663
+        },
+        {
+          "x": 1027.0020465418252,
+          "y": -1228.2761551760398
+        }
+      ],
+      "center": {
+        "x": 1802.6197173314677,
+        "y": -312.3613380098279
+      },
+      "area_hectares": 202.67844656652474,
+      "risk": 0.32,
+      "notes": [
+        "imported from QGroundControl .plan polygon"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "qgc field 7",
+      "selected": true,
+      "boundary_points": [
+        {
+          "x": 460.7071490286109,
+          "y": -115.69499921351917
+        },
+        {
+          "x": 565.5160076723902,
+          "y": -63.824311744739724
+        },
+        {
+          "x": 588.7417995630634,
+          "y": -130.37666257285122
+        },
+        {
+          "x": 485.26329766511594,
+          "y": -194.1434603973271
+        }
+      ],
+      "center": {
+        "x": 523.8203868303342,
+        "y": -126.84667936965334
+      },
+      "area_hectares": 0.8931804963841147,
+      "risk": 0.32,
+      "notes": [
+        "imported from QGroundControl .plan polygon"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "qgc field 8",
+      "selected": true,
+      "boundary_points": [
+        {
+          "x": 355.80360516639735,
+          "y": 61.842042243855126
+        },
+        {
+          "x": 605.7842714303167,
+          "y": 200.6547872212227
+        },
+        {
+          "x": 642.3335216429091,
+          "y": 102.55766510840682
+        },
+        {
+          "x": 403.47486151036503,
+          "y": -23.073989733285096
+        }
+      ],
+      "center": {
+        "x": 502.9283460421009,
+        "y": 86.61521299566382
+      },
+      "area_hectares": 2.7933917068958247,
+      "risk": 0.32,
+      "notes": [
+        "imported from QGroundControl .plan polygon"
+      ]
+    },
+    {
+      "id": 9,
+      "name": "qgc field 9",
+      "selected": true,
+      "boundary_points": [
+        {
+          "x": 495.1627495714306,
+          "y": 20.75146922555448
+        },
+        {
+          "x": 555.6363617875353,
+          "y": 52.570905223631456
+        },
+        {
+          "x": 570.6616698296182,
+          "y": 20.061436641413493
+        },
+        {
+          "x": 584.0042438322461,
+          "y": -3.2764230052653502
+        },
+        {
+          "x": 576.315389774465,
+          "y": -17.569684350019187
+        },
+        {
+          "x": 578.7164812232203,
+          "y": -30.212337712407738
+        },
+        {
+          "x": 561.7207438888817,
+          "y": -40.130713098789656
+        },
+        {
+          "x": 532.7419927790123,
+          "y": -53.538235722783746
+        }
+      ],
+      "center": {
+        "x": 542.4812339442958,
+        "y": -0.27808134973550086
+      },
+      "area_hectares": 0.5468472075182581,
+      "risk": 0.32,
+      "notes": [
+        "imported from QGroundControl .plan polygon"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "qgc field 10",
+      "selected": true,
+      "boundary_points": [
+        {
+          "x": 566.5640350154741,
+          "y": -48.03506456985778
+        },
+        {
+          "x": 686.4148844090396,
+          "y": 12.56734184784684
+        },
+        {
+          "x": 716.6201219643142,
+          "y": -45.22916524743646
+        },
+        {
+          "x": 597.4866103998628,
+          "y": -112.42093309509924
+        }
+      ],
+      "center": {
+        "x": 640.918106244146,
+        "y": -48.84564249570759
+      },
+      "area_hectares": 0.9252863834318905,
+      "risk": 0.32,
+      "notes": [
+        "imported from QGroundControl .plan polygon"
+      ]
+    },
+    {
+      "id": 11,
+      "name": "qgc field 11",
+      "selected": true,
+      "boundary_points": [
+        {
+          "x": 594.4013216183785,
+          "y": -161.02493585760234
+        },
+        {
+          "x": 666.4103049916197,
+          "y": -120.52279052942075
+        },
+        {
+          "x": 717.6674948246191,
+          "y": -211.86292180430496
+        },
+        {
+          "x": 637.0876351081154,
+          "y": -250.5167696530733
+        }
+      ],
+      "center": {
+        "x": 654.5479200329751,
+        "y": -186.39304527663867
+      },
+      "area_hectares": 0.8757282912941002,
+      "risk": 0.32,
+      "notes": [
+        "imported from QGroundControl .plan polygon"
+      ]
+    },
+    {
+      "id": 12,
+      "name": "qgc field 12",
+      "selected": true,
+      "boundary_points": [
+        {
+          "x": 653.2210468816032,
+          "y": -247.07152995568998
+        },
+        {
+          "x": 706.2177182008903,
+          "y": -219.17352959719614
+        },
+        {
+          "x": 717.5691781103878,
+          "y": -240.29297971978417
+        },
+        {
+          "x": 695.7455110667593,
+          "y": -255.838895042192
+        },
+        {
+          "x": 668.6822328097069,
+          "y": -269.8437490739476
+        }
+      ],
+      "center": {
+        "x": 686.1030538604226,
+        "y": -244.74000097355488
+      },
+      "area_hectares": 0.15605919598376494,
+      "risk": 0.32,
+      "notes": [
+        "imported from QGroundControl .plan polygon"
+      ]
+    },
+    {
+      "id": 13,
+      "name": "qgc field 13",
+      "selected": true,
+      "boundary_points": [
+        {
+          "x": -39.76336102574202,
+          "y": 845.544861633278
+        },
+        {
+          "x": 375.0961864351679,
+          "y": 1048.238257605994
+        },
+        {
+          "x": 476.346489103333,
+          "y": 871.5335267947131
+        },
+        {
+          "x": 494.54253063360665,
+          "y": 827.5694799628762
+        },
+        {
+          "x": 371.08918656080147,
+          "y": 776.9510113302881
+        },
+        {
+          "x": 246.8197162189277,
+          "y": 750.3347424615358
+        },
+        {
+          "x": 255.7990986724962,
+          "y": 686.2877731258845
+        },
+        {
+          "x": 167.81052257325086,
+          "y": 658.8389743109271
+        },
+        {
+          "x": 70.73995284929208,
+          "y": 607.7433031073047
+        },
+        {
+          "x": 23.001918998245117,
+          "y": 650.9946481843324
+        },
+        {
+          "x": -57.853282736818464,
+          "y": 792.9445290156129
+        },
+        {
+          "x": -35.73179852614403,
+          "y": 809.8739162987291
+        },
+        {
+          "x": -41.86869558620313,
+          "y": 823.9848984845117
+        },
+        {
+          "x": -66.65664351927701,
+          "y": 808.9263730141591
+        },
+        {
+          "x": -77.5910427240111,
+          "y": 826.9000638124403
+        }
+      ],
+      "center": {
+        "x": 208.4091715247233,
+        "y": 828.1889374576808
+      },
+      "area_hectares": 12.407899906804477,
+      "risk": 0.32,
+      "notes": [
+        "imported from QGroundControl .plan polygon"
+      ]
+    },
+    {
+      "id": 14,
+      "name": "qgc field 14",
+      "selected": true,
+      "boundary_points": [
+        {
+          "x": -129.20336951743622,
+          "y": 928.6591002396941
+        },
+        {
+          "x": -115.50206740948875,
+          "y": 944.2911736159243
+        },
+        {
+          "x": -92.38956721018356,
+          "y": 951.8572605124857
+        },
+        {
+          "x": -16.92250129473242,
+          "y": 985.305579659454
+        },
+        {
+          "x": -11.698729143677957,
+          "y": 969.7682620747659
+        },
+        {
+          "x": -88.02826314099349,
+          "y": 906.533184419816
+        },
+        {
+          "x": -75.59995063075091,
+          "y": 893.7491383229436
+        },
+        {
+          "x": 2.0342220131721596,
+          "y": 960.7845988487433
+        },
+        {
+          "x": 44.88044974849424,
+          "y": 900.6970506140775
+        },
+        {
+          "x": -80.66525136281429,
+          "y": 828.5103507265019
+        }
+      ],
+      "center": {
+        "x": -47.045587408599914,
+        "y": 907.3758947687322
+      },
+      "area_hectares": 1.319855295194884,
+      "risk": 0.32,
+      "notes": [
+        "imported from QGroundControl .plan polygon"
+      ]
+    },
+    {
+      "id": 15,
+      "name": "qgc field 15",
+      "selected": true,
+      "boundary_points": [
+        {
+          "x": 15.646267215700902,
+          "y": 962.6370554235314
+        },
+        {
+          "x": 132.29563834002408,
+          "y": 1094.848549412021
+        },
+        {
+          "x": 140.3868168651585,
+          "y": 1075.7724251423224
+        },
+        {
+          "x": 114.47901349834106,
+          "y": 1060.4008997581466
+        },
+        {
+          "x": 118.10235752070864,
+          "y": 1051.893933508296
+        },
+        {
+          "x": 143.66969784846265,
+          "y": 1067.3621543697932
+        },
+        {
+          "x": 195.1718487395514,
+          "y": 972.3449506469176
+        },
+        {
+          "x": 60.029474781237404,
+          "y": 901.7698756958807
+        }
+      ],
+      "center": {
+        "x": 105.43374231524476,
+        "y": 986.6276335363184
+      },
+      "area_hectares": 1.6544827169635223,
+      "risk": 0.32,
+      "notes": [
+        "imported from QGroundControl .plan polygon"
+      ]
+    }
+  ],
+  "scout_boundary_routes": [
+    {
+      "block_id": 1,
+      "mode": "boundary_follow",
+      "altitude_m": 28.0,
+      "speed_profile": "slow_safe_scout",
+      "points": [
+        {
+          "x": -2710.7030558391066,
+          "y": -2062.002886317158
+        },
+        {
+          "x": -2146.099470151023,
+          "y": -1837.118399389391
+        },
+        {
+          "x": -1629.9189420041475,
+          "y": -2749.5215144958474
+        },
+        {
+          "x": -2229.091354514469,
+          "y": -3020.929568148282
+        },
+        {
+          "x": -2710.7030558391066,
+          "y": -2062.002886317158
+        }
+      ],
+      "notes": [
+        "Scout should fly this closed boundary before OPT creates final small work tasks.",
+        "The confirmed fence boundary becomes the field block for automatic zone generation."
+      ]
+    },
+    {
+      "block_id": 2,
+      "mode": "boundary_follow",
+      "altitude_m": 28.0,
+      "speed_profile": "slow_safe_scout",
+      "points": [
+        {
+          "x": -2124.0740986233986,
+          "y": -1821.5895261656103
+        },
+        {
+          "x": -1142.3098601389597,
+          "y": -1325.0752978717296
+        },
+        {
+          "x": -703.4308826861438,
+          "y": -2178.3992177675373
+        },
+        {
+          "x": -1620.4424879360652,
+          "y": -2720.534230185607
+        },
+        {
+          "x": -2124.0740986233986,
+          "y": -1821.5895261656103
+        }
+      ],
+      "notes": [
+        "Scout should fly this closed boundary before OPT creates final small work tasks.",
+        "The confirmed fence boundary becomes the field block for automatic zone generation."
+      ]
+    },
+    {
+      "block_id": 3,
+      "mode": "boundary_follow",
+      "altitude_m": 28.0,
+      "speed_profile": "slow_safe_scout",
+      "points": [
+        {
+          "x": -1138.3950625588843,
+          "y": -1287.8976939181923
+        },
+        {
+          "x": 528.596156682237,
+          "y": -415.5150675496193
+        },
+        {
+          "x": 1032.4388329745868,
+          "y": -1273.6568046705477
+        },
+        {
+          "x": -672.3154204917706,
+          "y": -2153.9758064237344
+        },
+        {
+          "x": -1138.3950625588843,
+          "y": -1287.8976939181923
+        }
+      ],
+      "notes": [
+        "Scout should fly this closed boundary before OPT creates final small work tasks.",
+        "The confirmed fence boundary becomes the field block for automatic zone generation."
+      ]
+    },
+    {
+      "block_id": 4,
+      "mode": "boundary_follow",
+      "altitude_m": 28.0,
+      "speed_profile": "slow_safe_scout",
+      "points": [
+        {
+          "x": -3159.8393871945445,
+          "y": -1222.9639445411271
+        },
+        {
+          "x": 56.67604161426097,
+          "y": 489.32090304136653
+        },
+        {
+          "x": 514.1609108901025,
+          "y": -356.17021377261045
+        },
+        {
+          "x": -2740.5657323006844,
+          "y": -2055.887662459417
+        },
+        {
+          "x": -3159.8393871945445,
+          "y": -1222.9639445411271
+        }
+      ],
+      "notes": [
+        "Scout should fly this closed boundary before OPT creates final small work tasks.",
+        "The confirmed fence boundary becomes the field block for automatic zone generation."
+      ]
+    },
+    {
+      "block_id": 5,
+      "mode": "boundary_follow",
+      "altitude_m": 28.0,
+      "speed_profile": "slow_safe_scout",
+      "points": [
+        {
+          "x": -3604.8149316769964,
+          "y": -421.3708046658741
+        },
+        {
+          "x": -352.4162205957312,
+          "y": 1345.1078641366878
+        },
+        {
+          "x": 58.005171918087875,
+          "y": 554.5906351693317
+        },
+        {
+          "x": -3147.8627041674486,
+          "y": -1108.3519834302115
+        },
+        {
+          "x": -3604.8149316769964,
+          "y": -421.3708046658741
+        }
+      ],
+      "notes": [
+        "Scout should fly this closed boundary before OPT creates final small work tasks.",
+        "The confirmed fence boundary becomes the field block for automatic zone generation."
+      ]
+    },
+    {
+      "block_id": 6,
+      "mode": "boundary_follow",
+      "altitude_m": 28.0,
+      "speed_profile": "slow_safe_scout",
+      "points": [
+        {
+          "x": 583.1007919637411,
+          "y": -434.61971075852955
+        },
+        {
+          "x": 2588.0553260615047,
+          "y": 596.2006475832734
+        },
+        {
+          "x": 3029.105225681651,
+          "y": -172.5470302154663
+        },
+        {
+          "x": 1027.0020465418252,
+          "y": -1228.2761551760398
+        },
+        {
+          "x": 583.1007919637411,
+          "y": -434.61971075852955
+        }
+      ],
+      "notes": [
+        "Scout should fly this closed boundary before OPT creates final small work tasks.",
+        "The confirmed fence boundary becomes the field block for automatic zone generation."
+      ]
+    },
+    {
+      "block_id": 7,
+      "mode": "boundary_follow",
+      "altitude_m": 28.0,
+      "speed_profile": "slow_safe_scout",
+      "points": [
+        {
+          "x": 460.7071490286109,
+          "y": -115.69499921351917
+        },
+        {
+          "x": 565.5160076723902,
+          "y": -63.824311744739724
+        },
+        {
+          "x": 588.7417995630634,
+          "y": -130.37666257285122
+        },
+        {
+          "x": 485.26329766511594,
+          "y": -194.1434603973271
+        },
+        {
+          "x": 460.7071490286109,
+          "y": -115.69499921351917
+        }
+      ],
+      "notes": [
+        "Scout should fly this closed boundary before OPT creates final small work tasks.",
+        "The confirmed fence boundary becomes the field block for automatic zone generation."
+      ]
+    },
+    {
+      "block_id": 8,
+      "mode": "boundary_follow",
+      "altitude_m": 28.0,
+      "speed_profile": "slow_safe_scout",
+      "points": [
+        {
+          "x": 355.80360516639735,
+          "y": 61.842042243855126
+        },
+        {
+          "x": 605.7842714303167,
+          "y": 200.6547872212227
+        },
+        {
+          "x": 642.3335216429091,
+          "y": 102.55766510840682
+        },
+        {
+          "x": 403.47486151036503,
+          "y": -23.073989733285096
+        },
+        {
+          "x": 355.80360516639735,
+          "y": 61.842042243855126
+        }
+      ],
+      "notes": [
+        "Scout should fly this closed boundary before OPT creates final small work tasks.",
+        "The confirmed fence boundary becomes the field block for automatic zone generation."
+      ]
+    },
+    {
+      "block_id": 9,
+      "mode": "boundary_follow",
+      "altitude_m": 28.0,
+      "speed_profile": "slow_safe_scout",
+      "points": [
+        {
+          "x": 495.1627495714306,
+          "y": 20.75146922555448
+        },
+        {
+          "x": 555.6363617875353,
+          "y": 52.570905223631456
+        },
+        {
+          "x": 570.6616698296182,
+          "y": 20.061436641413493
+        },
+        {
+          "x": 584.0042438322461,
+          "y": -3.2764230052653502
+        },
+        {
+          "x": 576.315389774465,
+          "y": -17.569684350019187
+        },
+        {
+          "x": 578.7164812232203,
+          "y": -30.212337712407738
+        },
+        {
+          "x": 561.7207438888817,
+          "y": -40.130713098789656
+        },
+        {
+          "x": 532.7419927790123,
+          "y": -53.538235722783746
+        },
+        {
+          "x": 495.1627495714306,
+          "y": 20.75146922555448
+        }
+      ],
+      "notes": [
+        "Scout should fly this closed boundary before OPT creates final small work tasks.",
+        "The confirmed fence boundary becomes the field block for automatic zone generation."
+      ]
+    },
+    {
+      "block_id": 10,
+      "mode": "boundary_follow",
+      "altitude_m": 28.0,
+      "speed_profile": "slow_safe_scout",
+      "points": [
+        {
+          "x": 566.5640350154741,
+          "y": -48.03506456985778
+        },
+        {
+          "x": 686.4148844090396,
+          "y": 12.56734184784684
+        },
+        {
+          "x": 716.6201219643142,
+          "y": -45.22916524743646
+        },
+        {
+          "x": 597.4866103998628,
+          "y": -112.42093309509924
+        },
+        {
+          "x": 566.5640350154741,
+          "y": -48.03506456985778
+        }
+      ],
+      "notes": [
+        "Scout should fly this closed boundary before OPT creates final small work tasks.",
+        "The confirmed fence boundary becomes the field block for automatic zone generation."
+      ]
+    },
+    {
+      "block_id": 11,
+      "mode": "boundary_follow",
+      "altitude_m": 28.0,
+      "speed_profile": "slow_safe_scout",
+      "points": [
+        {
+          "x": 594.4013216183785,
+          "y": -161.02493585760234
+        },
+        {
+          "x": 666.4103049916197,
+          "y": -120.52279052942075
+        },
+        {
+          "x": 717.6674948246191,
+          "y": -211.86292180430496
+        },
+        {
+          "x": 637.0876351081154,
+          "y": -250.5167696530733
+        },
+        {
+          "x": 594.4013216183785,
+          "y": -161.02493585760234
+        }
+      ],
+      "notes": [
+        "Scout should fly this closed boundary before OPT creates final small work tasks.",
+        "The confirmed fence boundary becomes the field block for automatic zone generation."
+      ]
+    },
+    {
+      "block_id": 12,
+      "mode": "boundary_follow",
+      "altitude_m": 28.0,
+      "speed_profile": "slow_safe_scout",
+      "points": [
+        {
+          "x": 653.2210468816032,
+          "y": -247.07152995568998
+        },
+        {
+          "x": 706.2177182008903,
+          "y": -219.17352959719614
+        },
+        {
+          "x": 717.5691781103878,
+          "y": -240.29297971978417
+        },
+        {
+          "x": 695.7455110667593,
+          "y": -255.838895042192
+        },
+        {
+          "x": 668.6822328097069,
+          "y": -269.8437490739476
+        },
+        {
+          "x": 653.2210468816032,
+          "y": -247.07152995568998
+        }
+      ],
+      "notes": [
+        "Scout should fly this closed boundary before OPT creates final small work tasks.",
+        "The confirmed fence boundary becomes the field block for automatic zone generation."
+      ]
+    },
+    {
+      "block_id": 13,
+      "mode": "boundary_follow",
+      "altitude_m": 28.0,
+      "speed_profile": "slow_safe_scout",
+      "points": [
+        {
+          "x": -39.76336102574202,
+          "y": 845.544861633278
+        },
+        {
+          "x": 375.0961864351679,
+          "y": 1048.238257605994
+        },
+        {
+          "x": 476.346489103333,
+          "y": 871.5335267947131
+        },
+        {
+          "x": 494.54253063360665,
+          "y": 827.5694799628762
+        },
+        {
+          "x": 371.08918656080147,
+          "y": 776.9510113302881
+        },
+        {
+          "x": 246.8197162189277,
+          "y": 750.3347424615358
+        },
+        {
+          "x": 255.7990986724962,
+          "y": 686.2877731258845
+        },
+        {
+          "x": 167.81052257325086,
+          "y": 658.8389743109271
+        },
+        {
+          "x": 70.73995284929208,
+          "y": 607.7433031073047
+        },
+        {
+          "x": 23.001918998245117,
+          "y": 650.9946481843324
+        },
+        {
+          "x": -57.853282736818464,
+          "y": 792.9445290156129
+        },
+        {
+          "x": -35.73179852614403,
+          "y": 809.8739162987291
+        },
+        {
+          "x": -41.86869558620313,
+          "y": 823.9848984845117
+        },
+        {
+          "x": -66.65664351927701,
+          "y": 808.9263730141591
+        },
+        {
+          "x": -77.5910427240111,
+          "y": 826.9000638124403
+        },
+        {
+          "x": -39.76336102574202,
+          "y": 845.544861633278
+        }
+      ],
+      "notes": [
+        "Scout should fly this closed boundary before OPT creates final small work tasks.",
+        "The confirmed fence boundary becomes the field block for automatic zone generation."
+      ]
+    },
+    {
+      "block_id": 14,
+      "mode": "boundary_follow",
+      "altitude_m": 28.0,
+      "speed_profile": "slow_safe_scout",
+      "points": [
+        {
+          "x": -129.20336951743622,
+          "y": 928.6591002396941
+        },
+        {
+          "x": -115.50206740948875,
+          "y": 944.2911736159243
+        },
+        {
+          "x": -92.38956721018356,
+          "y": 951.8572605124857
+        },
+        {
+          "x": -16.92250129473242,
+          "y": 985.305579659454
+        },
+        {
+          "x": -11.698729143677957,
+          "y": 969.7682620747659
+        },
+        {
+          "x": -88.02826314099349,
+          "y": 906.533184419816
+        },
+        {
+          "x": -75.59995063075091,
+          "y": 893.7491383229436
+        },
+        {
+          "x": 2.0342220131721596,
+          "y": 960.7845988487433
+        },
+        {
+          "x": 44.88044974849424,
+          "y": 900.6970506140775
+        },
+        {
+          "x": -80.66525136281429,
+          "y": 828.5103507265019
+        },
+        {
+          "x": -129.20336951743622,
+          "y": 928.6591002396941
+        }
+      ],
+      "notes": [
+        "Scout should fly this closed boundary before OPT creates final small work tasks.",
+        "The confirmed fence boundary becomes the field block for automatic zone generation."
+      ]
+    },
+    {
+      "block_id": 15,
+      "mode": "boundary_follow",
+      "altitude_m": 28.0,
+      "speed_profile": "slow_safe_scout",
+      "points": [
+        {
+          "x": 15.646267215700902,
+          "y": 962.6370554235314
+        },
+        {
+          "x": 132.29563834002408,
+          "y": 1094.848549412021
+        },
+        {
+          "x": 140.3868168651585,
+          "y": 1075.7724251423224
+        },
+        {
+          "x": 114.47901349834106,
+          "y": 1060.4008997581466
+        },
+        {
+          "x": 118.10235752070864,
+          "y": 1051.893933508296
+        },
+        {
+          "x": 143.66969784846265,
+          "y": 1067.3621543697932
+        },
+        {
+          "x": 195.1718487395514,
+          "y": 972.3449506469176
+        },
+        {
+          "x": 60.029474781237404,
+          "y": 901.7698756958807
+        },
+        {
+          "x": 15.646267215700902,
+          "y": 962.6370554235314
+        }
+      ],
+      "notes": [
+        "Scout should fly this closed boundary before OPT creates final small work tasks.",
+        "The confirmed fence boundary becomes the field block for automatic zone generation."
+      ]
+    }
+  ],
+  "depot_sites": [
+    {
+      "id": 1,
+      "point": {
+        "x": -2745.61736247871,
+        "y": -2059.5551951855546
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 2,
+      "point": {
+        "x": -2591.041459397182,
+        "y": -1996.563175281161
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 3,
+      "point": {
+        "x": -2436.465556315653,
+        "y": -1933.5711553767676
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 4,
+      "point": {
+        "x": -2281.8896532341246,
+        "y": -1870.5791354723742
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 5,
+      "point": {
+        "x": -2127.313750152596,
+        "y": -1807.5871155679806
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 6,
+      "point": {
+        "x": -1595.004635364544,
+        "y": -2751.9692056274507
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 7,
+      "point": {
+        "x": -1758.222745151632,
+        "y": -2826.592117213011
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 8,
+      "point": {
+        "x": -1921.44085493872,
+        "y": -2901.2150287985714
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 9,
+      "point": {
+        "x": -2084.658964725808,
+        "y": -2975.8379403841323
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 10,
+      "point": {
+        "x": -2247.877074512896,
+        "y": -3050.4608519696926
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 11,
+      "point": {
+        "x": -2318.9828299365836,
+        "y": -2908.90290100053
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 12,
+      "point": {
+        "x": -2390.0885853602713,
+        "y": -2767.3449500313673
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 13,
+      "point": {
+        "x": -2461.194340783959,
+        "y": -2625.786999062205
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 14,
+      "point": {
+        "x": -2532.3000962076467,
+        "y": -2484.2290480930424
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 15,
+      "point": {
+        "x": -2603.405851631335,
+        "y": -2342.67109712388
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 16,
+      "point": {
+        "x": -2674.5116070550225,
+        "y": -2201.1131461547175
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 17,
+      "point": {
+        "x": -2010.9844044962524,
+        "y": -1736.0854567412898
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 18,
+      "point": {
+        "x": -1864.7843431532071,
+        "y": -1661.9261474655282
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 19,
+      "point": {
+        "x": -1718.5842818101619,
+        "y": -1587.7668381897665
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 20,
+      "point": {
+        "x": -1572.3842204671168,
+        "y": -1513.607528914005
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 21,
+      "point": {
+        "x": -1426.1841591240716,
+        "y": -1439.448219638243
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 22,
+      "point": {
+        "x": -1279.9840977810265,
+        "y": -1365.2889103624814
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 23,
+      "point": {
+        "x": -1056.5401162766918,
+        "y": -1440.8986638916158
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 24,
+      "point": {
+        "x": -979.2961961154025,
+        "y": -1590.6677266965116
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 25,
+      "point": {
+        "x": -902.0522759541132,
+        "y": -1740.436789501408
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 26,
+      "point": {
+        "x": -824.8083557928237,
+        "y": -1890.2058523063038
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 27,
+      "point": {
+        "x": -747.5644356315343,
+        "y": -2039.9749151112
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 28,
+      "point": {
+        "x": -670.3205154702449,
+        "y": -2189.743977916096
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 29,
+      "point": {
+        "x": -807.2702006369304,
+        "y": -2270.4205420667417
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 30,
+      "point": {
+        "x": -944.219885803616,
+        "y": -2351.0971062173876
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 31,
+      "point": {
+        "x": -1081.1695709703015,
+        "y": -2431.7736703680334
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 32,
+      "point": {
+        "x": -1218.1192561369871,
+        "y": -2512.4502345186793
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 33,
+      "point": {
+        "x": -1355.0689413036725,
+        "y": -2593.1267986693256
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 34,
+      "point": {
+        "x": -1492.018626470358,
+        "y": -2673.8033628199714
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 35,
+      "point": {
+        "x": -1013.0505183147072,
+        "y": -1187.324071622885
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 36,
+      "point": {
+        "x": -858.9088106738977,
+        "y": -1106.6432465242428
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 37,
+      "point": {
+        "x": -704.7671030330883,
+        "y": -1025.962421425601
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 38,
+      "point": {
+        "x": -550.6253953922788,
+        "y": -945.2815963269588
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 39,
+      "point": {
+        "x": -396.48368775146935,
+        "y": -864.6007712283167
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 40,
+      "point": {
+        "x": -242.34198011065996,
+        "y": -783.9199461296746
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 41,
+      "point": {
+        "x": -88.20027246985046,
+        "y": -703.2391210310326
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 42,
+      "point": {
+        "x": 65.94143517095904,
+        "y": -622.5582959323905
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 43,
+      "point": {
+        "x": 220.08314281176877,
+        "y": -541.8774708337484
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 44,
+      "point": {
+        "x": 374.22485045257804,
+        "y": -461.19664573510636
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 45,
+      "point": {
+        "x": 528.3665580933875,
+        "y": -380.5158206364642
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 46,
+      "point": {
+        "x": 617.1781311396928,
+        "y": -532.6881175082556
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 47,
+      "point": {
+        "x": 705.9897041859981,
+        "y": -684.8604143800471
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 48,
+      "point": {
+        "x": 794.8012772323034,
+        "y": -837.0327112518385
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 49,
+      "point": {
+        "x": 883.6128502786087,
+        "y": -989.20500812363
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 50,
+      "point": {
+        "x": 972.424423324914,
+        "y": -1141.3773049954214
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 51,
+      "point": {
+        "x": 1061.2359963712192,
+        "y": -1293.549601867213
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 52,
+      "point": {
+        "x": 903.6612856190247,
+        "y": -1374.9519156371834
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 53,
+      "point": {
+        "x": 746.0865748668301,
+        "y": -1456.3542294071542
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 54,
+      "point": {
+        "x": 588.5118641146355,
+        "y": -1537.7565431771247
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 55,
+      "point": {
+        "x": 430.937153362441,
+        "y": -1619.1588569470955
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 56,
+      "point": {
+        "x": 273.3624426102465,
+        "y": -1700.561170717066
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 57,
+      "point": {
+        "x": 115.78773185805187,
+        "y": -1781.9634844870366
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 58,
+      "point": {
+        "x": -41.78697889414275,
+        "y": -1863.365798257007
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 59,
+      "point": {
+        "x": -199.36168964633725,
+        "y": -1944.7681120269779
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 60,
+      "point": {
+        "x": -356.936400398532,
+        "y": -2026.1704257969486
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 61,
+      "point": {
+        "x": -514.5111111507263,
+        "y": -2107.572739566919
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 62,
+      "point": {
+        "x": -3183.3943917446463,
+        "y": -1197.0764618391595
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 63,
+      "point": {
+        "x": -3029.488027513481,
+        "y": -1115.1496924353612
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 64,
+      "point": {
+        "x": -2875.581663282316,
+        "y": -1033.2229230315627
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 65,
+      "point": {
+        "x": -2721.675299051151,
+        "y": -951.2961536277644
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 66,
+      "point": {
+        "x": -2567.7689348199856,
+        "y": -869.3693842239661
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 67,
+      "point": {
+        "x": -2413.8625705888207,
+        "y": -787.4426148201677
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 68,
+      "point": {
+        "x": -2259.9562063576554,
+        "y": -705.5158454163693
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 69,
+      "point": {
+        "x": -2106.04984212649,
+        "y": -623.589076012571
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 70,
+      "point": {
+        "x": -1952.143477895325,
+        "y": -541.6623066087726
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 71,
+      "point": {
+        "x": -1798.2371136641598,
+        "y": -459.7355372049742
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 72,
+      "point": {
+        "x": -1644.3307494329947,
+        "y": -377.8087678011759
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 73,
+      "point": {
+        "x": -1490.4243852018294,
+        "y": -295.8819983973774
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 74,
+      "point": {
+        "x": -1336.5180209706643,
+        "y": -213.9552289935791
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 75,
+      "point": {
+        "x": -1182.611656739499,
+        "y": -132.02845958978082
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 76,
+      "point": {
+        "x": -1028.705292508334,
+        "y": -50.101690185982534
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 77,
+      "point": {
+        "x": -874.7989282771687,
+        "y": 31.825079217815983
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 78,
+      "point": {
+        "x": -720.8925640460038,
+        "y": 113.75184862161427
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 79,
+      "point": {
+        "x": -566.9861998148385,
+        "y": 195.6786180254128
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 80,
+      "point": {
+        "x": -413.07983558367323,
+        "y": 277.6053874292111
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 81,
+      "point": {
+        "x": -259.17347135250793,
+        "y": 359.53215683300937
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 82,
+      "point": {
+        "x": -105.26710712134309,
+        "y": 441.45892623680766
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 83,
+      "point": {
+        "x": 48.63925710982205,
+        "y": 523.3856956406062
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 84,
+      "point": {
+        "x": 130.1520334982191,
+        "y": 372.47846362140876
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 85,
+      "point": {
+        "x": 211.66480988661615,
+        "y": 221.5712316022114
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 86,
+      "point": {
+        "x": 293.17758627501325,
+        "y": 70.663999583014
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 87,
+      "point": {
+        "x": 374.69036266341027,
+        "y": -80.24323243618335
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 88,
+      "point": {
+        "x": 456.20313905180734,
+        "y": -231.15046445538076
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 89,
+      "point": {
+        "x": -2807.6731884543124,
+        "y": -1941.1397895220737
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 90,
+      "point": {
+        "x": -2882.817429112379,
+        "y": -1792.327123985491
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 91,
+      "point": {
+        "x": -2957.961669770446,
+        "y": -1643.514458448908
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 92,
+      "point": {
+        "x": -3033.1059104285127,
+        "y": -1494.7017929123253
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 93,
+      "point": {
+        "x": -3108.2501510865795,
+        "y": -1345.8891273757422
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 94,
+      "point": {
+        "x": -3627.9022413975476,
+        "y": -395.06536549699996
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 95,
+      "point": {
+        "x": -3472.3558298097078,
+        "y": -310.5894955350549
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 96,
+      "point": {
+        "x": -3316.8094182218683,
+        "y": -226.1136255731098
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 97,
+      "point": {
+        "x": -3161.2630066340284,
+        "y": -141.63775561116472
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 98,
+      "point": {
+        "x": -3005.7165950461886,
+        "y": -57.16188564921964
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 99,
+      "point": {
+        "x": -2850.170183458349,
+        "y": 27.313984312725438
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 100,
+      "point": {
+        "x": -2694.6237718705092,
+        "y": 111.78985427467052
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 101,
+      "point": {
+        "x": -2539.0773602826694,
+        "y": 196.26572423661554
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 102,
+      "point": {
+        "x": -2383.53094869483,
+        "y": 280.7415941985607
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 103,
+      "point": {
+        "x": -2227.9845371069896,
+        "y": 365.2174641605057
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 104,
+      "point": {
+        "x": -2072.43812551915,
+        "y": 449.69333412245084
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 105,
+      "point": {
+        "x": -1916.8917139313103,
+        "y": 534.1692040843959
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 106,
+      "point": {
+        "x": -1761.3453023434706,
+        "y": 618.645074046341
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 107,
+      "point": {
+        "x": -1605.7988907556307,
+        "y": 703.1209440082862
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 108,
+      "point": {
+        "x": -1450.252479167791,
+        "y": 787.5968139702311
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 109,
+      "point": {
+        "x": -1294.7060675799512,
+        "y": 872.0726839321765
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 110,
+      "point": {
+        "x": -1139.1596559921118,
+        "y": 956.5485538941214
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 111,
+      "point": {
+        "x": -983.6132444042719,
+        "y": 1041.0244238560665
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 112,
+      "point": {
+        "x": -828.066832816432,
+        "y": 1125.5002938180114
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 113,
+      "point": {
+        "x": -672.5204212285921,
+        "y": 1209.9761637799568
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 114,
+      "point": {
+        "x": -516.9740096407527,
+        "y": 1294.4520337419017
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 115,
+      "point": {
+        "x": -361.42759805291274,
+        "y": 1378.9279037038468
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 116,
+      "point": {
+        "x": -287.6742514376541,
+        "y": 1237.1541190866153
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 117,
+      "point": {
+        "x": -213.92090482239544,
+        "y": 1095.3803344693838
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 118,
+      "point": {
+        "x": -140.16755820713678,
+        "y": 953.6065498521522
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 119,
+      "point": {
+        "x": 7.33913502338055,
+        "y": 670.058980617689
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 120,
+      "point": {
+        "x": -3236.661509647723,
+        "y": -992.7506914972964
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 121,
+      "point": {
+        "x": -3334.4716925851794,
+        "y": -843.3293599972222
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 122,
+      "point": {
+        "x": -3432.2818755226353,
+        "y": -693.9080284971482
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 123,
+      "point": {
+        "x": -3530.0920584600917,
+        "y": -544.486696997074
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 124,
+      "point": {
+        "x": 712.4929149651932,
+        "y": -331.6448853316633
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 125,
+      "point": {
+        "x": 868.4790600352512,
+        "y": -251.42435598739445
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 126,
+      "point": {
+        "x": 1024.4652051053092,
+        "y": -171.20382664312555
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 127,
+      "point": {
+        "x": 1180.4513501753672,
+        "y": -90.98329729885666
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 128,
+      "point": {
+        "x": 1336.4374952454252,
+        "y": -10.762767954587787
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 129,
+      "point": {
+        "x": 1492.4236403154832,
+        "y": 69.45776138968114
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 130,
+      "point": {
+        "x": 1648.409785385541,
+        "y": 149.67829073395
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 131,
+      "point": {
+        "x": 1804.3959304555992,
+        "y": 229.89882007821893
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 132,
+      "point": {
+        "x": 1960.382075525657,
+        "y": 310.11934942248774
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 133,
+      "point": {
+        "x": 2116.3682205957152,
+        "y": 390.33987876675667
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 134,
+      "point": {
+        "x": 2272.354365665773,
+        "y": 470.5604081110256
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 135,
+      "point": {
+        "x": 2428.3405107358312,
+        "y": 550.7809374552945
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 136,
+      "point": {
+        "x": 2584.326655805889,
+        "y": 631.0014667995632
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 137,
+      "point": {
+        "x": 2662.8887544632835,
+        "y": 493.2843346166254
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 138,
+      "point": {
+        "x": 2741.4508531206784,
+        "y": 355.5672024336876
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 139,
+      "point": {
+        "x": 2820.012951778073,
+        "y": 217.8500702507498
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 140,
+      "point": {
+        "x": 2898.5750504354673,
+        "y": 80.132938067812
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 141,
+      "point": {
+        "x": 2977.1371490928623,
+        "y": -57.5841941151258
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 142,
+      "point": {
+        "x": 3055.6992477502567,
+        "y": -195.3013262980636
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 143,
+      "point": {
+        "x": 2899.932437676963,
+        "y": -277.43791461300714
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 144,
+      "point": {
+        "x": 2744.1656276036697,
+        "y": -359.57450292795073
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 145,
+      "point": {
+        "x": 2588.398817530376,
+        "y": -441.71109124289427
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 146,
+      "point": {
+        "x": 2432.6320074570826,
+        "y": -523.8476795578379
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 147,
+      "point": {
+        "x": 2276.865197383789,
+        "y": -605.9842678727814
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 148,
+      "point": {
+        "x": 2121.0983873104956,
+        "y": -688.1208561877249
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 149,
+      "point": {
+        "x": 1965.331577237202,
+        "y": -770.2574445026685
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 150,
+      "point": {
+        "x": 1809.5647671639083,
+        "y": -852.3940328176121
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 151,
+      "point": {
+        "x": 1653.7979570906148,
+        "y": -934.5306211325556
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 152,
+      "point": {
+        "x": 1498.0311470173212,
+        "y": -1016.6672094474992
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 153,
+      "point": {
+        "x": 1342.2643369440277,
+        "y": -1098.8037977624426
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 154,
+      "point": {
+        "x": 1186.4975268707342,
+        "y": -1180.9403860773864
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 155,
+      "point": {
+        "x": 465.3518331045591,
+        "y": 160.3117789992089
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 156,
+      "point": {
+        "x": 600.8602700180975,
+        "y": 235.3066877476363
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 157,
+      "point": {
+        "x": 668.2937306182857,
+        "y": 79.08283710148041
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 158,
+      "point": {
+        "x": 745.1384147630312,
+        "y": -65.51972896180001
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 159,
+      "point": {
+        "x": 751.8096675810199,
+        "y": -219.564352805884
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 160,
+      "point": {
+        "x": 623.7431413733225,
+        "y": -282.87298214715355
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 161,
+      "point": {
+        "x": 230.51163464454083,
+        "y": 1014.4585271736457
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 162,
+      "point": {
+        "x": 373.33599475098094,
+        "y": 1083.1939685161574
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 163,
+      "point": {
+        "x": 440.2312625782587,
+        "y": 985.694249702651
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 164,
+      "point": {
+        "x": 507.12653040553636,
+        "y": 888.1945308891444
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 165,
+      "point": {
+        "x": 517.9359207262958,
+        "y": 801.5358613136897
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 166,
+      "point": {
+        "x": 381.5068570124835,
+        "y": 743.5373592946283
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 167,
+      "point": {
+        "x": 268.45500220376033,
+        "y": 722.8226651071355
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 168,
+      "point": {
+        "x": 181.48486157193628,
+        "y": 626.6207736636372
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 169,
+      "point": {
+        "x": -24.506877325650848,
+        "y": 1019.4739457342553
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    },
+    {
+      "id": 170,
+      "point": {
+        "x": 108.78227603447661,
+        "y": 1120.7738612344092
+      },
+      "usable_area_m2": 520.0,
+      "road_accessible": true,
+      "slope_risk": 0.08,
+      "notes": [
+        "ideal model: generated along task boundary road"
+      ]
+    }
+  ],
+  "terrain_complexity": 0.35,
+  "obstacle_density": 0.22,
+  "notes": [
+    "Generated from QGroundControl Fence/Polygon selection.",
+    "Scout flies the closed fence boundary route to confirm the work region.",
+    "Ideal road model: task boundaries and all exterior space are hive-accessible.",
+    "Hive candidates are sampled along the outside of the task boundary."
+  ]
+}
