@@ -17,6 +17,7 @@ static double so_distance(SoPoint a, SoPoint b) {
 static bool so_mothership_service_busy(const SoSimulation *sim);
 static int so_cleanup_open_near(const SoSimulation *sim, SoPoint point, double radius);
 static int so_active_field_drone_count(const SoSimulation *sim);
+static double so_block_perimeter_m(const SoFieldBlock *block);
 static double so_best_strip_angle_deg(const SoSimulation *sim, const SoFieldBlock *block);
 static void so_block_projection_range(const SoFieldBlock *block,
                                       double angle_deg,
@@ -1036,6 +1037,76 @@ static double so_fixed_wing_planning_task_cost_usd(const SoSimulation *sim, cons
     return cost.total_usd + setup_share_usd;
 }
 
+static bool so_task_matches_fixed_wing_pass_through(const SoSimulation *sim,
+                                                    const SoFieldTask *task,
+                                                    SoPoint *out_start,
+                                                    SoPoint *out_end,
+                                                    double *out_angle_deg) {
+    if (task == NULL || task->kind != SO_TASK_INTERIOR_STRIP ||
+        task->remaining_ha <= 0.001 || task->status == SO_TASK_DONE) {
+        return false;
+    }
+    const SoFieldBlock *block = so_find_block_const(sim, task->block_id);
+    if (block == NULL || block->area_ha > 20.0 || block->risk > 0.72) {
+        return false;
+    }
+
+    const double swath = fmax(1.0, sim->fixed_wing.swath_width_m);
+    const double max_cross_m = swath * 0.72;
+    const double max_extension_m = fmax(650.0, swath * 36.0);
+    double best_score = 1e100;
+    SoPoint best_start = task->center;
+    SoPoint best_end = task->center;
+    double best_angle = task->strip_angle_deg;
+
+    for (int i = 0; i < sim->field.task_count; i++) {
+        const SoFieldTask *fixed = &sim->field.tasks[i];
+        if (fixed->fixed_wing_area_ha <= 0.001 || !fixed->has_planned_route ||
+            fixed->block_id == task->block_id) {
+            continue;
+        }
+        const double dx = fixed->route_end.x - fixed->route_start.x;
+        const double dy = fixed->route_end.y - fixed->route_start.y;
+        const double length = hypot(dx, dy);
+        if (length <= 10.0) {
+            continue;
+        }
+        const double ux = dx / length;
+        const double uy = dy / length;
+        const double px = task->center.x - fixed->route_start.x;
+        const double py = task->center.y - fixed->route_start.y;
+        const double along = px * ux + py * uy;
+        const double cross = fabs(px * uy - py * ux);
+        const double extension =
+            along < 0.0 ? -along : (along > length ? along - length : 0.0);
+        if (cross > max_cross_m || extension > max_extension_m) {
+            continue;
+        }
+
+        const double route_len = task->remaining_ha * 10000.0 / swath;
+        const SoPoint start = so_point(task->center.x - ux * route_len * 0.5,
+                                       task->center.y - uy * route_len * 0.5);
+        const SoPoint end = so_point(task->center.x + ux * route_len * 0.5,
+                                     task->center.y + uy * route_len * 0.5);
+        const double score = cross * 4.0 + extension * 0.35 +
+                             block->area_ha * 0.5 + block->risk * 60.0;
+        if (score < best_score) {
+            best_score = score;
+            best_start = start;
+            best_end = end;
+            best_angle = atan2(uy, ux) * 180.0 / M_PI;
+        }
+    }
+
+    if (best_score >= 1e90) {
+        return false;
+    }
+    *out_start = best_start;
+    *out_end = best_end;
+    *out_angle_deg = best_angle;
+    return true;
+}
+
 static void so_plan_fixed_wing_coverage(SoSimulation *sim) {
     if (!sim->fixed_wing.enabled || sim->fixed_wing.planned) {
         return;
@@ -1153,6 +1224,31 @@ static void so_plan_fixed_wing_coverage(SoSimulation *sim) {
         task->remaining_ha = 0.0;
         task->area_ha = 0.0;
         task->status = SO_TASK_DONE;
+    }
+
+    for (int i = 0; i < sim->field.task_count; i++) {
+        SoFieldTask *task = &sim->field.tasks[i];
+        SoPoint pass_start;
+        SoPoint pass_end;
+        double pass_angle = 0.0;
+        if (!so_task_matches_fixed_wing_pass_through(sim, task, &pass_start, &pass_end,
+                                                     &pass_angle)) {
+            continue;
+        }
+
+        const double fixed_area = task->remaining_ha;
+        covered_area += fixed_area;
+        task->fixed_wing_area_ha = fixed_area;
+        task->remaining_ha = 0.0;
+        task->area_ha = 0.0;
+        task->status = SO_TASK_DONE;
+        task->has_planned_route = true;
+        task->route_start = pass_start;
+        task->route_end = pass_end;
+        task->strip_angle_deg = pass_angle;
+        task->turn_count = 0;
+        task->turn_time_s = 0.0;
+        task->turn_energy_cost = 0.0;
     }
 
     sim->fixed_wing.assigned_area_ha = covered_area;
@@ -2372,7 +2468,32 @@ static void so_build_tasks(SoSimulation *sim) {
             continue;
         }
         const double angle = so_best_strip_angle_deg(sim, block);
-        const double boundary_area = fmin(block->area_ha * 0.08, 2.2);
+        const double perimeter_m = so_block_perimeter_m(block);
+        const double uav_swath_m = fmax(3.2, sim->spec.spray_swath_m);
+        const double block_area_m2 = fmax(1.0, block->area_ha * 10000.0);
+        const double compactness = perimeter_m / fmax(1.0, sqrt(block_area_m2));
+        const double geometry_pressure = fmin(1.0, fmax(0.0, (compactness - 4.0) / 3.0));
+        const double uav_unit_cost =
+            sim->spec.flight_cost_usd_per_km / fmax(0.001, uav_swath_m);
+        const double fixed_unit_cost =
+            (sim->fixed_wing.enabled && sim->fixed_wing.swath_width_m > 1.0)
+                ? sim->fixed_wing.flight_cost_usd_per_km / sim->fixed_wing.swath_width_m
+                : uav_unit_cost * 1.35;
+        const double uav_cost_pressure =
+            fmin(1.0, fmax(0.0, uav_unit_cost / fmax(0.001, fixed_unit_cost) - 0.75));
+        const double edge_passes =
+            1.05 + geometry_pressure * 0.45 + block->risk * 0.30;
+        const double geometric_edge_area =
+            perimeter_m * uav_swath_m * edge_passes / 10000.0;
+        const double ratio_cap =
+            block->area_ha * (0.015 + geometry_pressure * 0.012 + block->risk * 0.008);
+        const double cost_aware_cap =
+            ratio_cap * (1.0 - uav_cost_pressure * 0.22);
+        const double min_boundary_area =
+            fmin(block->area_ha * 0.045, 1.35);
+        const double boundary_area =
+            fmin(fmax(min_boundary_area, geometric_edge_area),
+                 fmax(min_boundary_area, cost_aware_cap));
         const double repair_area = block->risk > 0.32 ? fmin(block->area_ha * 0.035, 1.6) : 0.0;
         const double interior_area = fmax(0.1, block->area_ha - boundary_area - repair_area);
         double min_cross = 0.0;

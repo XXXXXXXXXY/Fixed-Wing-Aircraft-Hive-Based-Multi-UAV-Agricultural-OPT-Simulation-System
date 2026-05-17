@@ -38,6 +38,31 @@ def draw_dashed_polyline(ax: Any,
     ax.plot(xs, ys, color=color, linewidth=width, alpha=alpha, linestyle=(0, (5, 5)), zorder=z)
 
 
+def strip_patch(points: list[dict[str, Any]], swath_m: float, color: str, alpha: float, z: int) -> Polygon | None:
+    if len(points) < 2:
+        return None
+    a = points[0]
+    b = points[-1]
+    ax = float(a["x"])
+    ay = float(a["y"])
+    bx = float(b["x"])
+    by = float(b["y"])
+    length = math.hypot(bx - ax, by - ay)
+    if length <= 0.001:
+        return None
+    half = max(0.2, swath_m * 0.5)
+    nx = -(by - ay) / length * half
+    ny = (bx - ax) / length * half
+    return Polygon(
+        [(ax + nx, ay + ny), (bx + nx, by + ny), (bx - nx, by - ny), (ax - nx, ay - ny)],
+        closed=True,
+        facecolor=color,
+        edgecolor="none",
+        alpha=alpha,
+        zorder=z,
+    )
+
+
 def orient(a: dict[str, Any], b: dict[str, Any], c: dict[str, Any]) -> float:
     return (float(b["x"]) - float(a["x"])) * (float(c["y"]) - float(a["y"])) - (
         float(b["y"]) - float(a["y"])
@@ -438,16 +463,37 @@ def render(plan_path: Path, out_path: Path, actual_paths: Path | None, keep_sitl
     if fixed_wing_trajectory:
         draw_dashed_polyline(ax, fixed_wing_trajectory, "#ef4444", 0.75, 0.24, 3)
 
+    fixed_swath = float((plan.get("fixed_wing") or {}).get("swath_m", 19.8) or 19.8)
+    for item in plan.get("fixed_wing_routes") or []:
+        route = item.get("route") or []
+        patch = strip_patch(route, fixed_swath, "#fecaca", 0.46, 3)
+        if patch is not None:
+            ax.add_patch(patch)
     for corridor in merged_fixed_wing_corridors(plan):
-        draw_polyline(ax, corridor, "#dc2626", 1.05, 0.42, 4)
+        draw_polyline(ax, corridor, "#dc2626", 0.58, 0.52, 4)
 
+    small_block_ids = {
+        block.get("block_id")
+        for block in work_blocks
+        if float(block.get("area_ha", 0.0) or 0.0) < 20.0
+    }
     for task in plan.get("tasks", []):
         coverage = task.get("coverage_route") or []
+        is_small_block = task.get("block_id") in small_block_ids
+        color = "#7dd3fc"
+        swath_m = 10.0 if is_small_block else 7.0
+        alpha = 0.72 if is_small_block else 0.62
+        zorder = 8 if is_small_block else 6
         if coverage:
             for segment in coverage:
-                draw_polyline(ax, segment, "#2563eb", 0.65, 0.42, 3)
+                patch = strip_patch(segment, swath_m, color, alpha, zorder)
+                if patch is not None:
+                    ax.add_patch(patch)
         else:
-            draw_polyline(ax, task.get("route") or [], "#2563eb", 0.85, 0.48, 3)
+            route = task.get("route") or []
+            patch = strip_patch(route, swath_m, color, alpha, zorder)
+            if patch is not None:
+                ax.add_patch(patch)
 
     hive = plan.get("hive") or {}
     stops = hive.get("stops") or []
@@ -472,7 +518,7 @@ def render(plan_path: Path, out_path: Path, actual_paths: Path | None, keep_sitl
         Line2D([0], [0], color="#0f766e", lw=1.8, label="Scout boundary scan"),
         Line2D([0], [0], color="#dc2626", lw=2.6, label="Fixed-wing spray strips (solid)"),
         Line2D([0], [0], color="#ef4444", lw=1.4, linestyle=(0, (5, 5)), label="Fixed-wing turns / ferry (dashed)"),
-        Line2D([0], [0], color="#2563eb", lw=1.2, label="Drone repair / edge strips (4.1m swath)"),
+        Line2D([0], [0], color="#7dd3fc", lw=5.0, label="UAV completed repair / edge area"),
         Line2D([0], [0], color="#111827", lw=3.0, marker="s", label="Hive stops and movement"),
         Line2D([0], [0], color="#7c2d12", lw=0, marker="^", markersize=10, label="Fixed-wing airport"),
     ]

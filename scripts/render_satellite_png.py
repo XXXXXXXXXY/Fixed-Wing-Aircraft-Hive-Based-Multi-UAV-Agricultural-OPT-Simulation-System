@@ -75,6 +75,29 @@ def draw_dashed_polyline(
             pos += dash + gap
 
 
+def strip_polygon_local(points: list[dict[str, Any]], swath_m: float) -> list[dict[str, float]]:
+    if len(points) < 2:
+        return []
+    a = points[0]
+    b = points[-1]
+    ax = float(a["x"])
+    ay = float(a["y"])
+    bx = float(b["x"])
+    by = float(b["y"])
+    length = math.hypot(bx - ax, by - ay)
+    if length <= 0.001:
+        return []
+    half = max(0.2, swath_m * 0.5)
+    nx = -(by - ay) / length * half
+    ny = (bx - ax) / length * half
+    return [
+        {"x": ax + nx, "y": ay + ny},
+        {"x": bx + nx, "y": by + ny},
+        {"x": bx - nx, "y": by - ny},
+        {"x": ax - nx, "y": ay - ny},
+    ]
+
+
 def plan_points(plan: dict[str, Any]) -> list[tuple[float, float]]:
     origin = plan["origin"]
     out: list[tuple[float, float]] = []
@@ -133,16 +156,35 @@ def render(plan_path: Path, out_path: Path, zoom: int) -> None:
     if fixed_wing_trajectory:
         draw_dashed_polyline(draw, [xy(p) for p in fixed_wing_trajectory], (239, 68, 68, 120), 2)
 
+    fixed_swath = float((plan.get("fixed_wing") or {}).get("swath_m", 19.8) or 19.8)
+    for item in plan.get("fixed_wing_routes") or []:
+        route = item.get("route") or []
+        strip = strip_polygon_local(route, fixed_swath)
+        if strip:
+            draw.polygon([xy(p) for p in strip], fill=(254, 202, 202, 115))
+
     for corridor in merged_fixed_wing_corridors(plan):
         draw_polyline(draw, [xy(p) for p in corridor], (220, 38, 38, 230), 4)
 
+    small_block_ids = {
+        block.get("block_id")
+        for block in plan.get("work_area", {}).get("blocks", [])
+        if float(block.get("area_ha", 0.0) or 0.0) < 20.0
+    }
     for task in plan.get("tasks", []):
         coverage = task.get("coverage_route") or []
+        is_small_block = task.get("block_id") in small_block_ids
+        color = (125, 211, 252, 205)
+        swath_m = 10.0 if is_small_block else 7.0
         if coverage:
             for segment in coverage:
-                draw_polyline(draw, [xy(p) for p in segment], (37, 99, 235, 170), 2)
+                strip = strip_polygon_local(segment, swath_m)
+                if strip:
+                    draw.polygon([xy(p) for p in strip], fill=color)
         else:
-            draw_polyline(draw, [xy(p) for p in task.get("route") or []], (37, 99, 235, 185), 3)
+            strip = strip_polygon_local(task.get("route") or [], swath_m)
+            if strip:
+                draw.polygon([xy(p) for p in strip], fill=color)
 
     hive = plan.get("hive") or {}
     stops = hive.get("stops") or []
@@ -177,7 +219,7 @@ def render(plan_path: Path, out_path: Path, zoom: int) -> None:
         ((2, 132, 199, 255), "Work area boundary"),
         ((220, 38, 38, 255), "Fixed-wing spray strips"),
         ((239, 68, 68, 180), "Fixed-wing turns / ferry"),
-        ((37, 99, 235, 255), "Drone work / repair strips"),
+        ((125, 211, 252, 255), "UAV completed repair / edge area"),
         ((17, 24, 39, 255), "Hive route outside fields"),
         ((15, 118, 110, 255), "Scout boundary scan"),
     ]
