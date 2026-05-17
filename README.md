@@ -2,7 +2,15 @@
 
 > This project is under active development. The current version is a C-based virtual testbed for mission planning, resource scheduling, Hive relocation, drone repair work, and hybrid fixed-wing aircraft + multi-UAV agricultural operations.
 
-![Mission overview](docs/mission_overview.png)
+## Latest Xiaolizhuang OPT Preview
+
+The first image is the generated mission overview. The second image overlays the same OPT result on satellite imagery.
+
+![Xiaolizhuang mission overview](docs/xiaolizhuang_mission_overview.png)
+
+![Xiaolizhuang satellite OPT overlay](docs/xiaolizhuang_satellite_overlay.png)
+
+> Note: the small fragmented plots in the upper-right corner are intentional boundary-case test areas. They are used to test edge-field handling, small polygon decomposition, UAV repair routing, and whether the planner can avoid treating every field as a clean rectangular strip.
 
 ## Overview
 
@@ -40,12 +48,12 @@ The simulator evaluates how to complete large agricultural work areas efficientl
 - Field geometry, including multi-polygon work areas.
 - Hive route constraints: Hive stops and Hive movement routes must stay outside work polygons.
 
-The current default demonstration uses:
+The current demonstration uses:
 
 - 8 UAVs.
-- 1 fixed-wing agricultural aircraft.
+- 2 fixed-wing agricultural aircraft when the OPT model selects parallel fixed-wing capacity for large fields.
 - 1 mobile Hive.
-- 2 manually selected QGroundControl field polygons.
+- 15 QGroundControl field polygons from the Xiaolizhuang plan, including several small boundary-test plots.
 - A hybrid spraying plan where fixed-wing aircraft handles suitable long interior strips and drones handle boundary, repair, and precision work.
 
 ## Current Simulation Result
@@ -53,13 +61,13 @@ The current default demonstration uses:
 For the included example mission:
 
 ```text
-Total work area:        273.78 ha
-Completed area:         273.78 / 273.78 ha
-Total simulated time:   3.50 h
-Hive stops:             3
+Total work area:        1245.81 ha
+Completed area:         1245.81 / 1245.81 ha
+Total simulated time:   5.32 h
+Hive stops:             6
 Fixed-wing model:       Air Tractor AT-502B style model
-Fixed-wing work:        177.08 ha
-Drone / repair work:    about 96.70 ha
+Fixed-wing work:        1222.45 ha
+Drone / repair work:    about 23.36 ha
 ```
 
 Spray width / radius currently used by the model:
@@ -67,14 +75,14 @@ Spray width / radius currently used by the model:
 ```text
 DJI T200-style UAV:
   Spray speed:          5.4 m/s
-  Spray productivity:   8.0 ha/h
-  Derived spray width:  4.115 m
-  Derived spray radius: 2.058 m
+  Spray productivity:   6.221 ha/h
+  Spray width:          3.2 m
+  Spray radius:         1.6 m
 
 Air Tractor AT-502B-style fixed-wing:
   Work speed:           59.0 m/s
-  Spray width:          22.0 m
-  Spray radius:         11.0 m
+  Spray width:          19.8 m
+  Spray radius:         9.9 m
 ```
 
 ## Algorithms and Optimization Methods
@@ -124,7 +132,7 @@ On Windows PowerShell:
 Run after building:
 
 ```powershell
-.\scout_opt.exe --scenario configs\test1_from_qgc_fence.json --fixed-wing --steps 5000 --diagnostics
+.\scout_opt.exe --scenario configs\Xiaolizhuang_from_qgc_fence.json --fixed-wing --steps 12000 --diagnostics
 ```
 
 With CMake:
@@ -147,25 +155,26 @@ make
 Run the included QGroundControl polygon scenario:
 
 ```powershell
-.\scout_opt.exe --scenario configs\test1_from_qgc_fence.json --fixed-wing --steps 5000 --diagnostics
+.\scout_opt.exe --scenario configs\Xiaolizhuang_from_qgc_fence.json --fixed-wing --steps 12000 --diagnostics
 ```
 
 Export a visual plan:
 
 ```powershell
-.\scout_opt.exe --scenario configs\test1_from_qgc_fence.json --fixed-wing --steps 5000 --export-visual configs\opt_visual_plan.json
+.\scout_opt.exe --scenario configs\Xiaolizhuang_from_qgc_fence.json --fixed-wing --steps 12000 --export-visual configs\xiaolizhuang_opt_visual_plan.json --diagnostics
 ```
 
 Render the mission overview image:
 
 ```powershell
-python scripts\render_opt_overview.py --plan configs\opt_visual_plan.json --out docs\mission_overview.png
+python scripts\render_opt_overview.py --plan configs\xiaolizhuang_opt_visual_plan.json --out docs\xiaolizhuang_mission_overview.png
+python scripts\render_satellite_png.py --plan configs\xiaolizhuang_opt_visual_plan.json --out docs\xiaolizhuang_satellite_overlay.png --zoom 14
 ```
 
 Convert a QGroundControl `.plan` file into a scenario:
 
 ```powershell
-python scripts\qgc_plan_to_scenario.py planexample\test1.plan -o configs\test1_from_qgc_fence.json
+python scripts\qgc_plan_to_scenario.py planexample\Xiaolizhuang.plan -o configs\Xiaolizhuang_from_qgc_fence.json
 ```
 
 Compare layout assumptions:
@@ -185,8 +194,8 @@ Run the acceptance suite:
 Generate the scenario and OPT visual plan:
 
 ```powershell
-python scripts\qgc_plan_to_scenario.py planexample\test1.plan -o configs\test1_from_qgc_fence.json
-.\scout_opt.exe --scenario configs\test1_from_qgc_fence.json --fixed-wing --steps 5000 --export-visual configs\opt_visual_plan.json
+python scripts\qgc_plan_to_scenario.py planexample\Xiaolizhuang.plan -o configs\Xiaolizhuang_from_qgc_fence.json
+.\scout_opt.exe --scenario configs\Xiaolizhuang_from_qgc_fence.json --fixed-wing --steps 12000 --export-visual configs\xiaolizhuang_opt_visual_plan.json
 ```
 
 Start the real ArduPilot SITL OPT bridge:
