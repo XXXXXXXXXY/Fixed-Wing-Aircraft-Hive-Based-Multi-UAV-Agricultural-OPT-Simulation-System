@@ -63,27 +63,103 @@ For the included example mission:
 ```text
 Total work area:        1245.81 ha
 Completed area:         1245.81 / 1245.81 ha
-Total simulated time:   5.32 h
-Hive stops:             6
+Total simulated time:   7.48 h
+Hive stops:             7
 Fixed-wing model:       Air Tractor AT-502B style model
-Fixed-wing work:        1222.45 ha
-Drone / repair work:    about 23.36 ha
+Fixed-wing aircraft:    2
+Fixed-wing sorties:     4
+Fixed-wing work:        1217.83 ha
+Drone / repair work:    about 27.98 ha
+Direct-cost ledger:     USD 13162.17
 ```
 
 Spray width / radius currently used by the model:
 
 ```text
 DJI T200-style UAV:
+  Battery capacity:     2.40 kWh
+  Modeled flight time:  12 min
   Spray speed:          5.4 m/s
   Spray productivity:   6.221 ha/h
   Spray width:          3.2 m
   Spray radius:         1.6 m
+  Electricity price:    0.12 USD/kWh
+  Electricity cost:     about 0.23 USD/ha
+  Battery depreciation: excluded
 
 Air Tractor AT-502B-style fixed-wing:
+  Fuel capacity:        644 L
+  Fuel burn:            205 L/h
+  Modeled endurance:    3.14 h
   Work speed:           59.0 m/s
+  Productivity:         420 ha/h per aircraft
   Spray width:          19.8 m
   Spray radius:         9.9 m
+  Turn radius:          300 m
+  Jet-A price:          1.03 USD/L
+  Fuel cost:            about 0.50 USD/ha
 ```
+
+## Unified Energy and Economic Cost Model
+
+The planner does not treat the shortest geometric route as automatically optimal. Candidate assignments and routes are compared through a unified operational objective:
+
+```text
+C_total =
+    C_coverage
+  + C_electricity
+  + C_fuel
+  + C_turn
+  + C_empty
+  + C_hive
+  + C_weather_risk
+  + C_unfinished
+```
+
+| Cost element | Current calculation role |
+|---|---|
+| `C_coverage` | Chemical consumption and spraying-operation cost |
+| `C_electricity` | UAV electricity used during scouting, spraying, turns, transfer, waiting, and return |
+| `C_fuel` | Fixed-wing Jet-A used during spraying, empty flight, turns, airport transfer, and return |
+| `C_turn` | Maneuver penalty from heading change, minimum turn radius, added distance, and acceleration |
+| `C_empty` | Non-spraying travel between Hive, airport, fields, and spray strips |
+| `C_hive` | Truck movement, deployment, stop, and relocation cost |
+| `C_weather_risk` | Wind, gust, rain, humidity, and terrain-related operational penalty |
+| `C_unfinished` | High penalty for uncovered or infeasible area |
+
+The objective is used comparatively during route selection and UAV/fixed-wing task allocation. The exported runtime ledger reports directly accumulated UAV, fixed-wing, electricity, fuel, launch/airport, and Hive movement costs. Weather and unfinished-area terms are planning penalties rather than direct cash-accounting entries.
+
+### UAV Electricity
+
+```text
+E_uav = battery_fraction_used * 2.40 kWh
+C_electricity = E_uav * 0.12 USD/kWh
+```
+
+Both productive work and non-productive movement consume battery energy. Each UAV assignment therefore includes outbound travel, strip execution, turns, return-to-Hive energy, charging demand, and the configured safety margin. Battery-cycle depreciation is intentionally excluded.
+
+### Fixed-Wing Fuel
+
+```text
+Fuel_used = 205 L/h * flight_time_h
+C_fuel = Fuel_used * 1.03 USD/L
+```
+
+Spraying, empty flight, airport transfer, return flight, and turn arcs are accumulated separately. Fixed-wing aircraft cannot spray while turning. Small or fragmented fields are assigned to fixed-wing only when their incremental benefit exceeds connection, turning, airport, fuel, and fragmentation costs.
+
+## Hybrid Platform Allocation
+
+The task allocator compares the execution cost of UAV and fixed-wing coverage instead of forcing a platform solely from field size:
+
+1. Generate full-width fixed-wing candidate strips from polygon intersections.
+2. Generate UAV boundary, repair, and residual coverage tasks.
+3. Estimate coverage, energy, empty-flight, turn, launch, airport, and shared batch overhead.
+4. Accept cross-field continuity only when the connecting empty-flight distance remains economical.
+5. Enumerate platform-assignment subsets exactly for up to 20 candidate blocks.
+6. Use marginal-savings greedy selection for larger candidate sets.
+7. Assign residual geometry to UAVs and apply a high uncovered-area penalty.
+
+The exact enumeration finds the lowest-cost platform split within the generated candidate set. Coverage-angle selection, Hive stop generation, route ordering, and large-instance allocation remain layered heuristics rather than a claim of strict global optimality.
 
 ## Algorithms and Optimization Methods
 
@@ -91,6 +167,11 @@ The project currently uses a layered heuristic OPT pipeline rather than a single
 
 Implemented methods include:
 
+- **Polygon intersection and strip-based heuristic decomposition** for generating executable interior, boundary, and repair tasks.
+- **Coverage-angle scanning and parallel strip generation** for evaluating candidate spray directions.
+- **Cross-field corridor evaluation** using effective spray length, fragmentation, continuity, and empty-connection loss.
+- **Exact small-instance platform subset enumeration** and **large-instance marginal-savings allocation** for UAV/fixed-wing work division.
+- **Turn-aware fixed-wing sequencing** using current position, heading change, and a 300 m minimum-radius constraint.
 - **Greedy coverage selection** for choosing Hive operation stops based on task coverage benefit.
 - **Movement-cost-aware scoring** for Hive stop selection, including stop count cost and Hive travel time.
 - **Polygon-constrained Hive routing**, where Hive routes cannot pass through work areas and must detour along exterior field boundaries when needed.
@@ -99,10 +180,11 @@ Implemented methods include:
 - **Mothership-centered working radius scheduling** for assigning near/mid/far tasks around the active Hive stop.
 - **Rolling relocation logic**, where Hive movement is delayed until cleanup/predeployment windows so drones are not stranded.
 - **Assistance and cleanup heuristics**, where drones with remaining capacity can help unfinished tasks.
-- **Hybrid fixed-wing task split**, where suitable large interior strips are assigned to fixed-wing aircraft and drones handle unsuitable strips, boundary work, and repair areas.
+- **Cost-oriented hybrid task split**, where fixed-wing aircraft handles economical full strips and UAVs complete boundaries, residual geometry, small fields, and repairs.
 - **Aircraft selection scoring**, including swath width, work speed, spray tank area, fuel endurance, setup time, turnaround time, route/ferry cost, and economic penalty.
 - **Weather-aware adjustment**, affecting spray effectiveness, flight speed, battery drain, and emergency recovery behavior.
 - **2-opt style Hive stop ordering refinement** for reducing unnecessary movement.
+- **Runtime energy accounting** for UAV electricity, fixed-wing fuel, launch/airport operations, and Hive truck movement.
 
 The model is designed for front-end mission reasoning and simulation. It is not yet a certified real-world autonomous flight controller.
 
