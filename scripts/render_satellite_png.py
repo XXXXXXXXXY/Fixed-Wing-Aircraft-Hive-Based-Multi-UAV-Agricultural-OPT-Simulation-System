@@ -175,7 +175,7 @@ def render(plan_path: Path, out_path: Path, zoom: int) -> None:
         coverage = task.get("coverage_route") or []
         is_small_block = task.get("block_id") in small_block_ids
         color = (125, 211, 252, 205)
-        swath_m = 10.0 if is_small_block else 7.0
+        swath_m = 4.1
         if coverage:
             for segment in coverage:
                 strip = strip_polygon_local(segment, swath_m)

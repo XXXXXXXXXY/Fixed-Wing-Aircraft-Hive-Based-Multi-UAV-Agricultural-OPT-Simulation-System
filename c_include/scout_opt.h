@@ -183,7 +183,8 @@ typedef struct {
     double launch_cost_usd;
     double chemical_l_per_ha;
     double chemical_cost_usd_per_l;
-    double battery_cost_usd_per_unit;
+    double battery_capacity_kwh;
+    double electricity_price_usd_per_kwh;
     double turn_radius_m;
     double unfinished_penalty_usd_per_ha;
     double chemical_per_ha;
@@ -229,6 +230,8 @@ typedef struct {
     double airport_service_cost_usd;
     double chemical_l_per_ha;
     double chemical_cost_usd_per_l;
+    double fuel_burn_l_per_h;
+    double fuel_price_usd_per_l;
     double fuel_cost_usd_per_h;
     double turn_radius_m;
     double unfinished_penalty_usd_per_ha;
@@ -286,6 +289,8 @@ typedef struct {
     double next_weather_update_s;
     double uav_flight_distance_m;
     double uav_flight_cost_usd;
+    double uav_energy_used_battery_units;
+    double uav_electricity_cost_usd;
     double uav_launch_cost_usd;
     int uav_takeoffs;
     char events[SO_MAX_EVENTS][160];

@@ -521,15 +521,43 @@ static int emit_task_coverage_route(FILE *file,
     int written = 0;
     const double start_cross = min_cross + swath * 0.5;
     const double end_cross = max_cross - swath * 0.25;
-    for (double cross = start_cross;
-         cross <= end_cross && remaining_m > 0.001 && written < max_lines;
-         cross += swath) {
+    const bool reverse_cross = task->kind == SO_TASK_BOUNDARY;
+    double interface_cross = min_cross + swath * 0.5;
+    if (reverse_cross) {
+        double fixed_max_cross = -1e100;
+        for (int i = 0; i < sim->field.task_count; i++) {
+            const SoFieldTask *fixed = &sim->field.tasks[i];
+            if (fixed->block_id != task->block_id ||
+                fixed->fixed_wing_area_ha <= 0.001 ||
+                !fixed->has_planned_route) {
+                continue;
+            }
+            const SoPoint midpoint = {
+                (fixed->route_start.x + fixed->route_end.x) * 0.5,
+                (fixed->route_start.y + fixed->route_end.y) * 0.5
+            };
+            const double fixed_cross = midpoint.x * vx + midpoint.y * vy;
+            if (fixed_cross > fixed_max_cross) {
+                fixed_max_cross = fixed_cross;
+            }
+        }
+        if (fixed_max_cross > -1e90) {
+            interface_cross =
+                fixed_max_cross + sim->fixed_wing.swath_width_m * 0.5 + swath * 0.5;
+        }
+    }
+    double cross = reverse_cross ? max_cross - swath * 0.5 : start_cross;
+    double last_cross = 1e100;
+    while ((reverse_cross ? cross >= interface_cross - 0.01 : cross <= end_cross) &&
+           (reverse_cross || remaining_m > 0.001) && written < max_lines) {
         double mins[SO_MAX_BOUNDARY_POINTS / 2];
         double maxs[SO_MAX_BOUNDARY_POINTS / 2];
         const int intervals = line_block_intervals(block, angle, cross, mins, maxs, SO_MAX_BOUNDARY_POINTS / 2);
-        for (int seg = 0; seg < intervals && remaining_m > 0.001 && written < max_lines; seg++) {
+        for (int seg = 0;
+             seg < intervals && (reverse_cross || remaining_m > 0.001) && written < max_lines;
+             seg++) {
             const double full_len = maxs[seg] - mins[seg];
-            const double use_len = fmin(full_len, remaining_m);
+            const double use_len = reverse_cross ? full_len : fmin(full_len, remaining_m);
             const double start_t = mins[seg];
             const double end_t = mins[seg] + use_len;
             const SoPoint a = {ux * start_t + vx * cross, uy * start_t + vy * cross};
@@ -540,6 +568,31 @@ static int emit_task_coverage_route(FILE *file,
                     a.x, a.y, b.x, b.y);
             written++;
             remaining_m -= use_len;
+        }
+        last_cross = cross;
+        cross += reverse_cross ? -swath : swath;
+    }
+    if (reverse_cross && written < max_lines &&
+        interface_cross <= max_cross - swath * 0.25 &&
+        fabs(last_cross - interface_cross) > swath * 0.2) {
+        double mins[SO_MAX_BOUNDARY_POINTS / 2];
+        double maxs[SO_MAX_BOUNDARY_POINTS / 2];
+        const int intervals = line_block_intervals(
+            block, angle, interface_cross, mins, maxs, SO_MAX_BOUNDARY_POINTS / 2);
+        for (int seg = 0; seg < intervals && written < max_lines; seg++) {
+            const SoPoint a = {
+                ux * mins[seg] + vx * interface_cross,
+                uy * mins[seg] + vy * interface_cross
+            };
+            const SoPoint b = {
+                ux * maxs[seg] + vx * interface_cross,
+                uy * maxs[seg] + vy * interface_cross
+            };
+            fprintf(file,
+                    "%s[{\"x\": %.3f, \"y\": %.3f}, {\"x\": %.3f, \"y\": %.3f}]",
+                    written ? ", " : "",
+                    a.x, a.y, b.x, b.y);
+            written++;
         }
     }
     return written;
@@ -625,21 +678,45 @@ bool so_export_visual_plan(const SoSimulation *sim, const char *path) {
     fprintf(file, "    ]\n");
     fprintf(file, "  },\n");
 
-    fprintf(file, "  \"drones\": {\"count\": %d, \"model\": \"dji_agras_t200\", \"payload_kg\": 200.0, \"rtk\": true, \"obstacle_sensing\": \"omnidirectional\", \"cruise_speed_mps\": %.3f, \"spray_speed_mps\": %.3f, \"spray_swath_m\": %.3f, \"spray_radius_m\": %.3f, \"spray_rate_ha_h\": %.3f, \"turn_time_s\": %.3f, \"turn_battery_cost\": %.5f, \"turn_radius_m\": %.3f, \"chemical_l_per_ha\": %.3f, \"chemical_cost_usd_per_l\": %.3f, \"battery_cost_usd_per_unit\": %.3f, \"unfinished_penalty_usd_per_ha\": %.3f, \"flight_cost_usd_per_km\": %.3f, \"launch_cost_usd\": %.3f, \"flight_distance_m\": %.3f, \"flight_cost_usd\": %.3f, \"takeoffs\": %d, \"launch_cost_total_usd\": %.3f, \"total_cost_usd\": %.3f, \"altitude_m\": 18.0},\n",
+    fprintf(file, "  \"drones\": {\"count\": %d, \"model\": \"dji_agras_t200\", \"payload_kg\": 200.0, \"rtk\": true, \"obstacle_sensing\": \"omnidirectional\", \"cruise_speed_mps\": %.3f, \"spray_speed_mps\": %.3f, \"spray_swath_m\": %.3f, \"spray_radius_m\": %.3f, \"spray_rate_ha_h\": %.3f, \"turn_time_s\": %.3f, \"turn_battery_cost\": %.5f, \"turn_radius_m\": %.3f, \"chemical_l_per_ha\": %.3f, \"chemical_cost_usd_per_l\": %.3f, \"battery_capacity_kwh\": %.3f, \"electricity_price_usd_per_kwh\": %.3f, \"battery_depreciation_included\": false, \"energy_used_battery_units\": %.6f, \"energy_used_kwh\": %.6f, \"electricity_cost_usd\": %.6f, \"unfinished_penalty_usd_per_ha\": %.3f, \"flight_cost_usd_per_km\": %.3f, \"launch_cost_usd\": %.3f, \"flight_distance_m\": %.3f, \"flight_cost_usd\": %.3f, \"takeoffs\": %d, \"launch_cost_total_usd\": %.3f, \"total_cost_usd\": %.3f, \"altitude_m\": 18.0},\n",
             sim->drone_count, sim->spec.cruise_speed_mps, sim->spec.cruise_speed_mps * 0.45,
             sim->spec.spray_swath_m, sim->spec.spray_radius_m, sim->spec.spray_rate_ha_h,
             sim->spec.turn_time_s, sim->spec.turn_battery_cost,
             sim->spec.turn_radius_m,
             sim->spec.chemical_l_per_ha,
             sim->spec.chemical_cost_usd_per_l,
-            sim->spec.battery_cost_usd_per_unit,
+            sim->spec.battery_capacity_kwh,
+            sim->spec.electricity_price_usd_per_kwh,
+            sim->uav_energy_used_battery_units,
+            sim->uav_energy_used_battery_units * sim->spec.battery_capacity_kwh,
+            sim->uav_electricity_cost_usd,
             sim->spec.unfinished_penalty_usd_per_ha,
             sim->spec.flight_cost_usd_per_km, sim->spec.launch_cost_usd,
             sim->uav_flight_distance_m, sim->uav_flight_cost_usd,
             sim->uav_takeoffs, sim->uav_launch_cost_usd,
-            sim->uav_flight_cost_usd + sim->uav_launch_cost_usd);
+            sim->uav_flight_cost_usd + sim->uav_launch_cost_usd +
+                sim->uav_electricity_cost_usd);
 
-    fprintf(file, "  \"fixed_wing\": {\"enabled\": %s, \"count\": %d, \"model\": \"%s\", \"engine\": \"Pratt & Whitney PT6A-34AG\", \"power_shp\": 750.0, \"payload_kg\": %.1f, \"tank_l\": %.1f, \"fuel_l\": %.1f, \"tank_area_ha\": %.3f, \"fuel_endurance_h\": %.3f, \"cruise_speed_mps\": %.3f, \"work_speed_mps\": %.3f, \"swath_m\": %.3f, \"turn_time_s\": %.3f, \"turn_fuel_h\": %.6f, \"turn_radius_m\": %.3f, \"planned_turn_non_spray_time_s\": %.3f, \"turn_non_spray_time_s\": %.3f, \"turn_spraying_allowed\": false, \"chemical_l_per_ha\": %.3f, \"chemical_cost_usd_per_l\": %.3f, \"fuel_cost_usd_per_h\": %.3f, \"unfinished_penalty_usd_per_ha\": %.3f, \"planned_turns\": %d, \"corridor_count\": %d, \"corridor_work_m\": %.3f, \"corridor_empty_m\": %.3f, \"corridor_total_m\": %.3f, \"flight_cost_usd_per_km\": %.3f, \"takeoff_cost_usd\": %.3f, \"airport_service_cost_usd\": %.3f, \"flight_distance_m\": %.3f, \"flight_cost_usd\": %.3f, \"airport_cost_usd\": %.3f, \"total_cost_usd\": %.3f, \"economic_cost_h\": %.3f, \"airport\": {\"x\": %.3f, \"y\": %.3f}, \"return_point\": {\"x\": %.3f, \"y\": %.3f}, \"altitude_m\": 55.0},\n",
+    const double fixed_work_h =
+        sim->fixed_wing.corridor_work_m /
+        fmax(0.001, sim->fixed_wing.work_speed_mps) / 3600.0;
+    const double fixed_empty_h =
+        sim->fixed_wing.corridor_empty_m /
+        fmax(0.001, sim->fixed_wing.cruise_speed_mps) / 3600.0;
+    const double fixed_turn_h =
+        sim->fixed_wing.planned_turn_non_spray_time_s / 3600.0 *
+        fmax(1.0, (double)sim->fixed_wing.aircraft_count);
+    const double fixed_fuel_used_l =
+        (fixed_work_h + fixed_empty_h + fixed_turn_h) *
+        sim->fixed_wing.fuel_burn_l_per_h;
+    const double fixed_fuel_cost_usd =
+        fixed_fuel_used_l * sim->fixed_wing.fuel_price_usd_per_l;
+    const double fixed_total_with_fuel =
+        sim->fixed_wing.flight_cost_usd +
+        sim->fixed_wing.airport_cost_usd +
+        fixed_fuel_cost_usd;
+
+    fprintf(file, "  \"fixed_wing\": {\"enabled\": %s, \"count\": %d, \"model\": \"%s\", \"engine\": \"Pratt & Whitney PT6A-34AG\", \"power_shp\": 750.0, \"payload_kg\": %.1f, \"tank_l\": %.1f, \"fuel_l\": %.1f, \"tank_area_ha\": %.3f, \"fuel_endurance_h\": %.3f, \"energy_coverage_ha\": %.3f, \"cruise_speed_mps\": %.3f, \"work_speed_mps\": %.3f, \"swath_m\": %.3f, \"spray_productivity_ha_h_per_aircraft\": %.3f, \"turn_time_s\": %.3f, \"turn_fuel_h\": %.6f, \"turn_radius_m\": %.3f, \"planned_turn_non_spray_time_s\": %.3f, \"turn_non_spray_time_s\": %.3f, \"turn_spraying_allowed\": false, \"chemical_l_per_ha\": %.3f, \"chemical_cost_usd_per_l\": %.3f, \"fuel_burn_l_per_h\": %.3f, \"fuel_price_usd_per_l\": %.3f, \"fuel_cost_usd_per_h\": %.3f, \"energy_cost_usd_per_ha\": %.6f, \"fuel_used_l\": %.6f, \"fuel_cost_actual_usd\": %.6f, \"unfinished_penalty_usd_per_ha\": %.3f, \"planned_turns\": %d, \"corridor_count\": %d, \"corridor_work_m\": %.3f, \"corridor_empty_m\": %.3f, \"corridor_total_m\": %.3f, \"flight_cost_usd_per_km\": %.3f, \"takeoff_cost_usd\": %.3f, \"airport_service_cost_usd\": %.3f, \"flight_distance_m\": %.3f, \"flight_cost_usd\": %.3f, \"airport_cost_usd\": %.3f, \"total_cost_usd\": %.3f, \"economic_cost_h\": %.3f, \"airport\": {\"x\": %.3f, \"y\": %.3f}, \"return_point\": {\"x\": %.3f, \"y\": %.3f}, \"altitude_m\": 55.0},\n",
             sim->fixed_wing.enabled ? "true" : "false",
             sim->fixed_wing.aircraft_count,
             sim->fixed_wing.model_name[0] ? sim->fixed_wing.model_name : "none",
@@ -648,9 +725,16 @@ bool so_export_visual_plan(const SoSimulation *sim, const char *path) {
             sim->fixed_wing.fuel_l > 1.0 ? sim->fixed_wing.fuel_l : 644.0,
             sim->fixed_wing.tank_area_ha > 0.1 ? sim->fixed_wing.tank_area_ha : 189.3,
             sim->fixed_wing.fuel_endurance_h > 0.1 ? sim->fixed_wing.fuel_endurance_h : 3.2,
+            sim->fixed_wing.fuel_endurance_h *
+                sim->fixed_wing.swath_width_m *
+                sim->fixed_wing.work_speed_mps *
+                sim->fixed_wing.spray_efficiency * 3600.0 / 10000.0,
             sim->fixed_wing.cruise_speed_mps > 1.0 ? sim->fixed_wing.cruise_speed_mps : 42.0,
             sim->fixed_wing.work_speed_mps > 1.0 ? sim->fixed_wing.work_speed_mps : 59.0,
             sim->fixed_wing.swath_width_m > 1.0 ? sim->fixed_wing.swath_width_m : 36.0,
+            sim->fixed_wing.swath_width_m *
+                sim->fixed_wing.work_speed_mps *
+                sim->fixed_wing.spray_efficiency * 3600.0 / 10000.0,
             sim->fixed_wing.turn_time_s,
             sim->fixed_wing.turn_fuel_h,
             sim->fixed_wing.turn_radius_m,
@@ -658,7 +742,16 @@ bool so_export_visual_plan(const SoSimulation *sim, const char *path) {
             sim->fixed_wing.turn_non_spray_time_s,
             sim->fixed_wing.chemical_l_per_ha,
             sim->fixed_wing.chemical_cost_usd_per_l,
+            sim->fixed_wing.fuel_burn_l_per_h,
+            sim->fixed_wing.fuel_price_usd_per_l,
             sim->fixed_wing.fuel_cost_usd_per_h,
+            sim->fixed_wing.fuel_cost_usd_per_h /
+                fmax(0.001,
+                     sim->fixed_wing.swath_width_m *
+                         sim->fixed_wing.work_speed_mps *
+                         sim->fixed_wing.spray_efficiency * 3600.0 / 10000.0),
+            fixed_fuel_used_l,
+            fixed_fuel_cost_usd,
             sim->fixed_wing.unfinished_penalty_usd_per_ha,
             sim->fixed_wing.planned_turns,
             sim->fixed_wing.corridor_count,
@@ -671,26 +764,32 @@ bool so_export_visual_plan(const SoSimulation *sim, const char *path) {
             sim->fixed_wing.flight_distance_m,
             sim->fixed_wing.flight_cost_usd,
             sim->fixed_wing.airport_cost_usd,
-            sim->fixed_wing.flight_cost_usd + sim->fixed_wing.airport_cost_usd,
+            fixed_total_with_fuel,
             sim->fixed_wing.economic_cost_h,
             sim->fixed_wing.airport.x,
             sim->fixed_wing.airport.y,
             sim->fixed_wing.airport.x,
             sim->fixed_wing.airport.y);
 
-    const double uav_total_cost = sim->uav_flight_cost_usd + sim->uav_launch_cost_usd;
-    const double fixed_wing_total_cost = sim->fixed_wing.flight_cost_usd + sim->fixed_wing.airport_cost_usd;
+    const double uav_total_cost =
+        sim->uav_flight_cost_usd +
+        sim->uav_launch_cost_usd +
+        sim->uav_electricity_cost_usd;
+    const double fixed_wing_total_cost = fixed_total_with_fuel;
     const double hive_total_cost = sim->mothership.move_cost_usd + sim->mothership.stop_cost_usd;
     fprintf(file,
             "  \"cost_summary\": {\"currency\": \"USD\", \"uav_total_usd\": %.3f, "
             "\"fixed_wing_total_usd\": %.3f, \"hive_total_usd\": %.3f, "
             "\"mission_total_usd\": %.3f, "
-            "\"model\": \"C_total=C_spray+C_empty+C_turn+C_energy+C_risk+C_unfinished\", "
-            "\"notes\": \"Task selection uses operational cost: chemical area cost, spray distance cost, empty flight/ferry cost, turn-radius energy cost, weather risk multiplier, and unfinished-area penalty; Hive cost uses truck movement plus deployment stops.\"},\n",
+            "\"uav_electricity_usd\": %.6f, \"fixed_wing_fuel_usd\": %.6f, "
+            "\"model\": \"C_total=C_coverage+C_electricity+C_fuel+C_turn+C_empty+C_hive+C_risk+C_unfinished\", "
+            "\"notes\": \"UAV electricity includes work, turn, scout, empty-flight and return energy at 2.40 kWh per full battery and 0.12 USD/kWh; battery depreciation is excluded. Fixed-wing fuel uses 205 L/h at 1.03 USD/L.\"},\n",
             uav_total_cost,
             fixed_wing_total_cost,
             hive_total_cost,
-            uav_total_cost + fixed_wing_total_cost + hive_total_cost);
+            uav_total_cost + fixed_wing_total_cost + hive_total_cost,
+            sim->uav_electricity_cost_usd,
+            fixed_fuel_cost_usd);
 
     fprintf(file, "  \"scout_routes\": [\n");
     int scout_written = 0;

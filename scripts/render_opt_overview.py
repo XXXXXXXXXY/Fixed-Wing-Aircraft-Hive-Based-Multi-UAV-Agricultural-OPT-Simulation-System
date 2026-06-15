@@ -481,7 +481,7 @@ def render(plan_path: Path, out_path: Path, actual_paths: Path | None, keep_sitl
         coverage = task.get("coverage_route") or []
         is_small_block = task.get("block_id") in small_block_ids
         color = "#7dd3fc"
-        swath_m = 10.0 if is_small_block else 7.0
+        swath_m = 4.1
         alpha = 0.72 if is_small_block else 0.62
         zorder = 8 if is_small_block else 6
         if coverage:
