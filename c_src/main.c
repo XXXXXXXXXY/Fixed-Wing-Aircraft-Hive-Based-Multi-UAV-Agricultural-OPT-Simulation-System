@@ -8,7 +8,7 @@
 #include <string.h>
 
 static void usage(const char *program) {
-    printf("Usage: %s [--two-blocks] [--blocks N] [--ideal-blocks N] [--irregular-blocks N] [--hybrid-blocks N] [--fixed-wing] [--compare-layouts N] [--scenario FILE] [--steps N] [--diagnostics] [--sitl-plan] [--export-visual FILE] [--acceptance]\n", program);
+    printf("Usage: %s [--two-blocks] [--blocks N] [--ideal-blocks N] [--irregular-blocks N] [--hybrid-blocks N] [--fixed-wing] [--compare-layouts N] [--scenario FILE] [--steps N] [--opt-profile balanced|time|cost] [--diagnostics] [--sitl-plan] [--export-visual FILE] [--acceptance]\n", program);
 }
 
 static double run_layout_case(const char *name, int blocks, int steps, void (*init_fn)(SoSimulation *, int)) {
@@ -64,6 +64,7 @@ int main(int argc, char **argv) {
     int compare_layout_count = 0;
     const char *scenario = NULL;
     const char *export_visual = NULL;
+    SoOptimizationProfile opt_profile = SO_OPT_PROFILE_BALANCED;
 
     for (int i = 1; i < argc; i++) {
         if (strcmp(argv[i], "--two-blocks") == 0) {
@@ -86,6 +87,18 @@ int main(int argc, char **argv) {
             sitl_plan = true;
         } else if (strcmp(argv[i], "--fixed-wing") == 0) {
             fixed_wing = true;
+        } else if (strcmp(argv[i], "--opt-profile") == 0 && i + 1 < argc) {
+            const char *profile = argv[++i];
+            if (strcmp(profile, "time") == 0 || strcmp(profile, "time_optimal") == 0) {
+                opt_profile = SO_OPT_PROFILE_TIME;
+            } else if (strcmp(profile, "cost") == 0 || strcmp(profile, "cost_optimal") == 0) {
+                opt_profile = SO_OPT_PROFILE_COST;
+            } else if (strcmp(profile, "balanced") == 0 || strcmp(profile, "average") == 0) {
+                opt_profile = SO_OPT_PROFILE_BALANCED;
+            } else {
+                usage(argv[0]);
+                return 1;
+            }
         } else if (strcmp(argv[i], "--export-visual") == 0 && i + 1 < argc) {
             export_visual = argv[++i];
         } else if (strcmp(argv[i], "--acceptance") == 0) {
@@ -162,6 +175,7 @@ int main(int argc, char **argv) {
     if (fixed_wing) {
         so_enable_fixed_wing(&sim);
     }
+    sim.optimization_profile = opt_profile;
     so_run(&sim, steps);
     if (export_visual != NULL && !so_export_visual_plan(&sim, export_visual)) {
         fprintf(stderr, "visual plan export failed: %s\n", export_visual);

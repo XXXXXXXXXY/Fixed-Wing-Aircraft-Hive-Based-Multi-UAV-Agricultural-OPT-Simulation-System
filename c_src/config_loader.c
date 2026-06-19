@@ -262,6 +262,7 @@ static void cfg_parse_blocks(SoSimulation *sim, const char *text) {
     sim->field.area_ha = 0.0;
     double sum_x = 0.0;
     double sum_y = 0.0;
+    int selected_count = 0;
     const char *p = open + 1;
     while (p < close && sim->field.block_count < SO_MAX_BLOCKS) {
         const char *obj = memchr(p, '{', (size_t)(close - p));
@@ -286,7 +287,16 @@ static void cfg_parse_blocks(SoSimulation *sim, const char *text) {
         cfg_number(obj, obj_end, "risk", &risk);
         cfg_bool(obj, obj_end, "selected", &selected);
 
-        if ((!has_center || !has_area) && cfg_boundary_area_center(obj, obj_end, &area, &center)) {
+        double polygon_area = 0.0;
+        SoPoint polygon_center = cfg_point(0.0, 0.0);
+        if (boundary_count >= 3 &&
+            cfg_boundary_area_center(obj, obj_end, &polygon_area, &polygon_center)) {
+            area = polygon_area;
+            center = polygon_center;
+            has_center = true;
+            has_area = true;
+        } else if ((!has_center || !has_area) &&
+                   cfg_boundary_area_center(obj, obj_end, &area, &center)) {
             has_center = true;
             has_area = true;
         }
@@ -306,13 +316,14 @@ static void cfg_parse_blocks(SoSimulation *sim, const char *text) {
                 sim->field.area_ha += area;
                 sum_x += center.x;
                 sum_y += center.y;
+                selected_count++;
             }
         }
         p = obj_end + 1;
     }
 
-    if (sim->field.block_count > 0) {
-        sim->field.boundary_center = cfg_point(sum_x / sim->field.block_count, sum_y / sim->field.block_count);
+    if (selected_count > 0) {
+        sim->field.boundary_center = cfg_point(sum_x / selected_count, sum_y / selected_count);
     }
 }
 
@@ -398,6 +409,8 @@ bool so_load_manual_scout_config(SoSimulation *sim, const char *path, char *erro
     sim->mothership.position = cfg_point(sim->field.boundary_center.x - 760.0, sim->field.boundary_center.y - 160.0);
     for (int i = 0; i < sim->drone_count; i++) {
         sim->drones[i].position = sim->mothership.position;
+        sim->drones[i].route_point_count = 0;
+        sim->drones[i].route_segment_count = 0;
     }
 
     free(text);

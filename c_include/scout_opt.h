@@ -12,6 +12,12 @@
 #define SO_MAX_EVENTS 4096
 #define SO_MAX_LANDING_SPOTS 16
 #define SO_MAX_BOUNDARY_POINTS 64
+#define SO_MAX_FAST_CHARGERS 4
+#define SO_BATTERY_SLOTS_PER_CHARGER 2
+#define SO_MAX_CHARGER_SLOTS (SO_MAX_FAST_CHARGERS * SO_BATTERY_SLOTS_PER_CHARGER)
+#define SO_MAX_REFILL_PORTS 2
+#define SO_MAX_DRONE_ROUTE_POINTS 1024
+#define SO_MAX_DRONE_ROUTE_SEGMENTS 256
 
 #define SO_HIVE_MOVE_SPEED_KMH 30.0
 #define SO_HIVE_MOVE_SPEED_MPS (SO_HIVE_MOVE_SPEED_KMH * 1000.0 / 3600.0)
@@ -56,6 +62,17 @@ typedef enum {
     SO_WEATHER_SEVERE,
     SO_WEATHER_EMERGENCY
 } SoWeatherSeverity;
+
+typedef enum {
+    SO_OPT_PROFILE_BALANCED,
+    SO_OPT_PROFILE_TIME,
+    SO_OPT_PROFILE_COST
+} SoOptimizationProfile;
+
+typedef enum {
+    SO_DRONE_ROUTE_TRANSFER,
+    SO_DRONE_ROUTE_SPRAY
+} SoDroneRouteKind;
 
 typedef struct {
     double wind_speed_mps;
@@ -112,7 +129,10 @@ typedef struct {
     double route_efficiency;
     bool has_planned_route;
     SoPoint route_start;
+    SoPoint route_mid;
     SoPoint route_end;
+    bool has_route_mid;
+    double route_curve_deg;
     double fixed_wing_area_ha;
     int turn_count;
     double turn_time_s;
@@ -145,6 +165,22 @@ typedef struct {
     double travel_remaining_s;
     double target_charge;
     int assigned_task_id;
+    int sortie_battery_modules;
+    double sortie_battery_capacity_kwh;
+    double sortie_chemical_tank_l;
+    double sortie_chemical_per_ha;
+    double sortie_chemical_tank_area_ha;
+    double sortie_battery_drain_h_work;
+    double sortie_battery_drain_h_scout;
+    double sortie_battery_drain_km_empty;
+    int route_point_count;
+    SoPoint route_points[SO_MAX_DRONE_ROUTE_POINTS];
+    int route_segment_count;
+    int route_segment_start[SO_MAX_DRONE_ROUTE_SEGMENTS];
+    int route_segment_point_count[SO_MAX_DRONE_ROUTE_SEGMENTS];
+    int route_segment_block_id[SO_MAX_DRONE_ROUTE_SEGMENTS];
+    int route_segment_task_id[SO_MAX_DRONE_ROUTE_SEGMENTS];
+    SoDroneRouteKind route_segment_kind[SO_MAX_DRONE_ROUTE_SEGMENTS];
 } SoDrone;
 
 typedef struct {
@@ -181,9 +217,25 @@ typedef struct {
     double turn_battery_cost;
     double flight_cost_usd_per_km;
     double launch_cost_usd;
+    double effective_chemical_l_per_ha;
+    double deposition_efficiency;
+    double chemical_tank_l;
     double chemical_l_per_ha;
     double chemical_cost_usd_per_l;
     double battery_capacity_kwh;
+    int battery_modules;
+    int min_battery_modules;
+    int max_battery_modules;
+    double battery_module_capacity_kwh;
+    double battery_module_weight_kg;
+    double modeled_payload_capacity_kg;
+    double spray_system_weight_kg;
+    double chemical_density_kg_per_l;
+    double chemical_tank_max_l;
+    double selected_payload_kg;
+    double work_power_kw;
+    double scout_power_kw;
+    double fast_charger_power_kw;
     double electricity_price_usd_per_kwh;
     double turn_radius_m;
     double unfinished_penalty_usd_per_ha;
@@ -228,6 +280,8 @@ typedef struct {
     double flight_cost_usd_per_km;
     double takeoff_cost_usd;
     double airport_service_cost_usd;
+    double effective_chemical_l_per_ha;
+    double deposition_efficiency;
     double chemical_l_per_ha;
     double chemical_cost_usd_per_l;
     double fuel_burn_l_per_h;
@@ -242,6 +296,11 @@ typedef struct {
     double spray_rate_ha_h;
     double assigned_area_ha;
     double completed_area_ha;
+    char path_strategy[32];
+    double path_strategy_score;
+    double path_strategy_time_h[3];
+    double path_strategy_cost_usd[3];
+    double path_strategy_scoreboard[3];
 } SoFixedWingFleet;
 
 typedef struct {
@@ -272,8 +331,8 @@ typedef struct {
 } SoField;
 
 typedef struct {
-    int charger_slots[2];
-    int refill_slots[2];
+    int charger_slots[SO_MAX_CHARGER_SLOTS];
+    int refill_slots[SO_MAX_REFILL_PORTS];
 } SoServiceQueues;
 
 typedef struct {
@@ -286,13 +345,27 @@ typedef struct {
     SoServiceQueues queues;
     double now_s;
     double dt_s;
+    SoOptimizationProfile optimization_profile;
     double next_weather_update_s;
     double uav_flight_distance_m;
     double uav_flight_cost_usd;
     double uav_energy_used_battery_units;
+    double uav_energy_used_kwh;
     double uav_electricity_cost_usd;
     double uav_launch_cost_usd;
     int uav_takeoffs;
+    int uav_sorties_by_battery_modules[5];
+    double uav_area_by_battery_modules[5];
+    double coverage_task_tolerance_ratio;
+    double coverage_final_error_limit_ratio;
+    double coverage_repair_cost_limit_ratio;
+    double final_uncovered_ha;
+    double final_uncovered_ratio;
+    bool final_repair_attempted;
+    bool final_repair_performed;
+    double final_repair_area_ha;
+    double final_repair_cost_usd;
+    double final_repair_cost_ratio;
     char events[SO_MAX_EVENTS][160];
     int event_count;
 } SoSimulation;
@@ -309,6 +382,7 @@ void so_step(SoSimulation *sim);
 bool so_completed(const SoSimulation *sim);
 void so_print_summary(const SoSimulation *sim);
 bool so_export_visual_plan(const SoSimulation *sim, const char *path);
+const char *so_optimization_profile_name(SoOptimizationProfile profile);
 
 const char *so_drone_state_name(SoDroneState state);
 const char *so_weather_severity_name(SoWeatherSeverity severity);

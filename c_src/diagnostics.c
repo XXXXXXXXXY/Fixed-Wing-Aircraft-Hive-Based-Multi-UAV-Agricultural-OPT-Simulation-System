@@ -15,6 +15,48 @@ static int so_task_done_count(const SoSimulation *sim) {
     return count;
 }
 
+static double so_diag_distance(SoPoint a, SoPoint b) {
+    return hypot(a.x - b.x, a.y - b.y);
+}
+
+static bool so_diag_point_in_block(SoPoint point, const SoFieldBlock *block) {
+    if (block == NULL || !block->selected || block->boundary_count < 3) {
+        return false;
+    }
+    bool inside = false;
+    int j = block->boundary_count - 1;
+    for (int i = 0; i < block->boundary_count; i++) {
+        const SoPoint a = block->boundary[i];
+        const SoPoint b = block->boundary[j];
+        const double dy = b.y - a.y;
+        const bool crosses = fabs(dy) > 1e-9 &&
+                             ((a.y > point.y) != (b.y > point.y)) &&
+                             (point.x < (b.x - a.x) * (point.y - a.y) / dy + a.x);
+        if (crosses) {
+            inside = !inside;
+        }
+        j = i;
+    }
+    return inside;
+}
+
+static bool so_diag_drone_safe(const SoSimulation *sim, const SoDrone *drone) {
+    if (drone->state == SO_DRONE_LANDED) {
+        return true;
+    }
+    const bool recovered_state =
+        drone->state == SO_DRONE_IDLE ||
+        drone->state == SO_DRONE_STANDBY ||
+        drone->state == SO_DRONE_CHARGING ||
+        drone->state == SO_DRONE_REFILLING;
+    return recovered_state &&
+           so_diag_distance(drone->position, sim->mothership.position) <= 1.0;
+}
+
+static bool so_diag_nonnegative_finite(double value) {
+    return isfinite(value) && value >= -0.001;
+}
+
 SoValidationResult so_validate_simulation(const SoSimulation *sim) {
     SoValidationResult result = {0, 0};
     if (sim->drone_count <= 0 || sim->drone_count > SO_MAX_DRONES) {
@@ -29,6 +71,65 @@ SoValidationResult so_validate_simulation(const SoSimulation *sim) {
     if (sim->field.treated_ha < -0.001 || sim->field.treated_ha - sim->field.area_ha > 0.01) {
         result.errors++;
     }
+    if (so_completed(sim)) {
+        const double uncovered =
+            sim->field.area_ha - fmin(sim->field.area_ha, sim->field.treated_ha);
+        const double final_limit =
+            fmax(0.05, sim->field.area_ha *
+                           fmax(0.0, sim->coverage_final_error_limit_ratio));
+        if (uncovered - final_limit > 0.001) {
+            result.errors++;
+        }
+        for (int b = 0; b < sim->field.block_count; b++) {
+            const SoFieldBlock *block = &sim->field.blocks[b];
+            double block_remaining_ha = 0.0;
+            for (int t = 0; t < sim->field.task_count; t++) {
+                const SoFieldTask *task = &sim->field.tasks[t];
+                if (task->block_id == block->id && task->remaining_ha > 0.001) {
+                    block_remaining_ha += task->remaining_ha;
+                }
+            }
+            const double block_limit =
+                fmax(0.05, block->area_ha *
+                               fmax(0.0, sim->coverage_final_error_limit_ratio));
+            if (block_remaining_ha - block_limit > 0.001) {
+                result.errors++;
+            }
+        }
+    }
+    if (!so_diag_nonnegative_finite(sim->uav_flight_cost_usd) ||
+        !so_diag_nonnegative_finite(sim->uav_electricity_cost_usd) ||
+        !so_diag_nonnegative_finite(sim->uav_launch_cost_usd) ||
+        !so_diag_nonnegative_finite(sim->mothership.move_cost_usd) ||
+        !so_diag_nonnegative_finite(sim->mothership.stop_cost_usd) ||
+        !so_diag_nonnegative_finite(sim->fixed_wing.flight_cost_usd) ||
+        !so_diag_nonnegative_finite(sim->fixed_wing.airport_cost_usd) ||
+        !so_diag_nonnegative_finite(sim->fixed_wing.total_cost_usd)) {
+        result.errors++;
+    }
+    if (sim->fixed_wing.assigned_area_ha < -0.001 ||
+        sim->fixed_wing.completed_area_ha < -0.001 ||
+        sim->fixed_wing.assigned_area_ha - sim->field.area_ha > 0.01 ||
+        sim->fixed_wing.completed_area_ha - sim->fixed_wing.assigned_area_ha > 0.01) {
+        result.errors++;
+    }
+    for (int i = 0; i < sim->field.task_count; i++) {
+        const SoFieldTask *task = &sim->field.tasks[i];
+        if (!isfinite(task->remaining_ha) || task->remaining_ha < -0.001) {
+            result.errors++;
+        }
+        if (task->status == SO_TASK_DONE && task->remaining_ha > 0.001) {
+            result.errors++;
+        }
+    }
+    for (int p = 0; p < sim->mothership.operation_plan_count; p++) {
+        for (int b = 0; b < sim->field.block_count; b++) {
+            if (so_diag_point_in_block(sim->mothership.operation_plan[p],
+                                       &sim->field.blocks[b])) {
+                result.errors++;
+            }
+        }
+    }
     for (int i = 0; i < sim->drone_count; i++) {
         const SoDrone *drone = &sim->drones[i];
         if (drone->battery < -0.001 || drone->battery > 1.001) {
@@ -37,9 +138,20 @@ SoValidationResult so_validate_simulation(const SoSimulation *sim) {
         if (drone->chemical < -0.001 || drone->chemical > 1.001) {
             result.errors++;
         }
-        if (drone->state == SO_DRONE_WORKING && drone->assigned_task_id < 0) {
+        if ((drone->state == SO_DRONE_WORKING ||
+             drone->state == SO_DRONE_ASSISTING ||
+             drone->state == SO_DRONE_CLEANUP) &&
+            drone->assigned_task_id < 0) {
             result.warnings++;
         }
+        if (so_completed(sim) && !so_diag_drone_safe(sim, drone)) {
+            result.errors++;
+        }
+    }
+    if (so_completed(sim) &&
+        (sim->mothership.moving ||
+         sim->fixed_wing.completed_area_ha + 0.001 < sim->fixed_wing.assigned_area_ha)) {
+        result.errors++;
     }
     return result;
 }
@@ -120,7 +232,7 @@ int so_run_acceptance_suite(void) {
         failures++;
         printf("acceptance scenario-load FAILED error=%s\n", error);
     } else {
-        so_run(scenario, 1200);
+        so_run(scenario, 3000);
         SoValidationResult scenario_validation = so_validate_simulation(scenario);
         if (!so_completed(scenario) || scenario_validation.errors != 0) {
             failures++;
