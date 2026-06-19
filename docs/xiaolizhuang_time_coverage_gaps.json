@@ -1,0 +1,152 @@
+{
+  "mode": "actual",
+  "resolution_m": 6.0,
+  "warn_ratio": 0.03,
+  "status": "OK",
+  "total": {
+    "sampled_area_ha": 1245.8628,
+    "covered_area_ha": 1234.7244,
+    "raw_uncovered_area_ha": 11.138400000000047,
+    "repair_credit_area_ha": 0.031512,
+    "uncovered_area_ha": 11.106888000000048,
+    "uncovered_ratio": 0.008915016966555262,
+    "raw_uncovered_ratio": 0.00894031028135686
+  },
+  "blocks": [
+    {
+      "block_id": 12,
+      "declared_area_ha": 0.156059,
+      "segment_count": 2,
+      "sampled_area_ha": 0.1548,
+      "covered_area_ha": 0.1224,
+      "uncovered_area_ha": 0.0324,
+      "uncovered_ratio": 0.20930232558139536
+    },
+    {
+      "block_id": 14,
+      "declared_area_ha": 1.319855,
+      "segment_count": 6,
+      "sampled_area_ha": 1.314,
+      "covered_area_ha": 1.134,
+      "uncovered_area_ha": 0.18,
+      "uncovered_ratio": 0.136986301369863
+    },
+    {
+      "block_id": 11,
+      "declared_area_ha": 0.875728,
+      "segment_count": 5,
+      "sampled_area_ha": 0.8712,
+      "covered_area_ha": 0.7704,
+      "uncovered_area_ha": 0.1008,
+      "uncovered_ratio": 0.11570247933884298
+    },
+    {
+      "block_id": 10,
+      "declared_area_ha": 0.925286,
+      "segment_count": 4,
+      "sampled_area_ha": 0.936,
+      "covered_area_ha": 0.828,
+      "uncovered_area_ha": 0.108,
+      "uncovered_ratio": 0.11538461538461539
+    },
+    {
+      "block_id": 7,
+      "declared_area_ha": 0.89318,
+      "segment_count": 4,
+      "sampled_area_ha": 0.9,
+      "covered_area_ha": 0.7992,
+      "uncovered_area_ha": 0.1008,
+      "uncovered_ratio": 0.112
+    },
+    {
+      "block_id": 9,
+      "declared_area_ha": 0.546847,
+      "segment_count": 5,
+      "sampled_area_ha": 0.558,
+      "covered_area_ha": 0.5184,
+      "uncovered_area_ha": 0.0396,
+      "uncovered_ratio": 0.07096774193548387
+    },
+    {
+      "block_id": 15,
+      "declared_area_ha": 1.654483,
+      "segment_count": 12,
+      "sampled_area_ha": 1.6596,
+      "covered_area_ha": 1.5588,
+      "uncovered_area_ha": 0.1008,
+      "uncovered_ratio": 0.06073752711496746
+    },
+    {
+      "block_id": 13,
+      "declared_area_ha": 12.4079,
+      "segment_count": 152,
+      "sampled_area_ha": 12.4164,
+      "covered_area_ha": 12.1392,
+      "uncovered_area_ha": 0.2772,
+      "uncovered_ratio": 0.022325311684546247
+    },
+    {
+      "block_id": 1,
+      "declared_area_ha": 66.825139,
+      "segment_count": 72,
+      "sampled_area_ha": 66.8628,
+      "covered_area_ha": 65.5452,
+      "uncovered_area_ha": 1.3176,
+      "uncovered_ratio": 0.019706024874818286
+    },
+    {
+      "block_id": 5,
+      "declared_area_ha": 312.916704,
+      "segment_count": 82,
+      "sampled_area_ha": 312.8904,
+      "covered_area_ha": 307.962,
+      "uncovered_area_ha": 4.9284,
+      "uncovered_ratio": 0.015751202337943256
+    },
+    {
+      "block_id": 2,
+      "declared_area_ha": 107.652581,
+      "segment_count": 78,
+      "sampled_area_ha": 107.6436,
+      "covered_area_ha": 106.3944,
+      "uncovered_area_ha": 1.2492,
+      "uncovered_ratio": 0.011604963044714223
+    },
+    {
+      "block_id": 6,
+      "declared_area_ha": 202.678447,
+      "segment_count": 55,
+      "sampled_area_ha": 202.6836,
+      "covered_area_ha": 201.6972,
+      "uncovered_area_ha": 0.9864,
+      "uncovered_ratio": 0.004866698637679615
+    },
+    {
+      "block_id": 4,
+      "declared_area_ha": 346.32327,
+      "segment_count": 83,
+      "sampled_area_ha": 346.3308,
+      "covered_area_ha": 344.9484,
+      "uncovered_area_ha": 1.3824,
+      "uncovered_ratio": 0.003991559514776047
+    },
+    {
+      "block_id": 8,
+      "declared_area_ha": 2.793392,
+      "segment_count": 50,
+      "sampled_area_ha": 2.8008,
+      "covered_area_ha": 2.79,
+      "uncovered_area_ha": 0.0108,
+      "uncovered_ratio": 0.0038560411311053984
+    },
+    {
+      "block_id": 3,
+      "declared_area_ha": 187.840372,
+      "segment_count": 67,
+      "sampled_area_ha": 187.8408,
+      "covered_area_ha": 187.5168,
+      "uncovered_area_ha": 0.324,
+      "uncovered_ratio": 0.0017248648855839625
+    }
+  ]
+}
