@@ -27,11 +27,13 @@ The three images below are generated from the same Xiaolizhuang QGroundControl f
 
 Latest validation run:
 
-| Profile | Selected trial | Selection cost (USD) | Mission time (h) | Coverage check |
-|---|---:|---:|---:|---|
-| `time` | 2 / 20 | 49,421.89 | 10.90 | OK, final uncovered 0.76% |
-| `cost` | 18 / 20 | 87,028.48 | 12.95 | OK, final uncovered 0.91% |
-| `balanced` | 6 / 20 | 68,577.25 | 11.55 | OK, final uncovered 1.34% |
+| Profile | Mission total (USD) | Selected trial | Trial selection score | Mission time (h) | Coverage check |
+|---|---:|---:|---:|---:|---|
+| `time` | 50,022.36 | 2 / 20 | 49,421.89 | 10.90 | OK, final uncovered 0.76% |
+| `cost` | 41,021.28 | 18 / 20 | 87,028.48 | 12.95 | OK, final uncovered 0.91% |
+| `balanced` | 42,898.16 | 6 / 20 | 68,577.25 | 11.55 | OK, final uncovered 1.34% |
+
+`Mission total` is the final reported cost from `cost_summary.mission_total_usd`. `Trial selection score` comes from `planner_search.selection_cost_usd`; it is an internal deterministic score used only to pick the best trial inside one profile. It includes direct cost plus unfinished/open-task penalties, so it is not the final mission bill and should not be compared across `time`, `cost`, and `balanced`.
 
 ### Time Opt
 
@@ -496,7 +498,7 @@ The main exported fields for route and platform split are:
 | `fixed_wing_actual_routes` | True fixed-wing spray/transfer segments used by renderers and coverage checks. |
 | `uav_actual_routes` | True UAV spray/transfer segments, including internal track shifts and assist routes. |
 | `coverage_policy` | Final uncovered area, repair decision, dropped task count, and residual rebuild stats. |
-| `planner_search` | Which stochastic trial won and what candidate pool was used. |
+| `planner_search` | Which stochastic trial won, what candidate pool was used, and the internal trial-selection score. |
 | `cost_breakdown` | UAV/fixed-wing/Hive cost split used to explain the division. |
 
 The overview images draw these actual route exports, not hand-guessed display routes. The coverage checker should be run in `actual` mode when verifying whether the UAV/fixed-wing split really covers the selected field polygons.
@@ -587,7 +589,7 @@ Each field receives multiple candidate strip angles. The candidate pool keeps th
 
 The planner runs up to 20 candidate trials from the same initial simulation state. Trial 0 uses the default heuristic weights. The other trials apply bounded multiplicative jitter to planning-only weights such as empty-distance penalty, row/turn burden, route-efficiency reward, risk penalty, bundle continuation, and assist scoring. Physical and economic parameters are not jittered: spray width, battery capacity, chemical volume, fuel burn, prices, and final route distances remain fixed.
 
-After each candidate completes, the simulator evaluates it with the deterministic direct mission cost plus an unfinished-work penalty. This means random perturbation is only used to explore different feasible plans; the final winner is selected by the same cost ledger used for reporting. The selected trial, candidate count, and selection cost are printed in the CLI summary and exported under `planner_search` in the visual-plan JSON.
+After each candidate completes, the simulator evaluates it with a deterministic trial-selection score based on direct mission cost plus unfinished/open-work penalty. This means random perturbation is only used to explore different feasible plans; the final reported mission cost still comes from the exported cost ledger. The selected trial, candidate count, and internal selection score are printed in the CLI summary and exported under `planner_search` in the visual-plan JSON.
 
 #### 4. UAV Mark-Grid Coverage
 
