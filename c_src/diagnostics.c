@@ -65,6 +65,10 @@ SoValidationResult so_validate_simulation(const SoSimulation *sim) {
     if (sim->field.task_count <= 0 && sim->field.scanned) {
         result.errors++;
     }
+    if (sim->field.dropped_task_count > 0 ||
+        sim->field.dropped_task_area_ha > 0.001) {
+        result.warnings++;
+    }
     if (sim->mothership.operation_plan_count <= 0 && sim->field.scanned) {
         result.errors++;
     }

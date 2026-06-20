@@ -9,7 +9,7 @@
 #define M_PI 3.14159265358979323846
 #endif
 
-#define SO_ANGLE_CANDIDATE_COUNT 12
+#define SO_ANGLE_CANDIDATE_COUNT SO_STRIP_ANGLE_CANDIDATE_POOL
 #define SO_UAV_MAX_TRACK_PASSES 240
 #define SO_INTER_FIELD_EMPTY_PENALTY_SCALE 0.855
 
@@ -21,6 +21,99 @@ static double so_distance(SoPoint a, SoPoint b) {
 
 static double so_random_effective_chemical_l_per_ha(void) {
     return 18.0;
+}
+
+static SoPlannerWeights so_default_planner_weights(void) {
+    SoPlannerWeights w;
+    memset(&w, 0, sizeof(w));
+    w.strip_empty_w = 1.0;
+    w.strip_row_w = 1.8;
+    w.strip_crosswind_w = 80.0;
+    w.strip_avg_row_bonus_w = 0.08;
+    w.global_empty_w = 0.82;
+    w.global_row_w = 1.25;
+    w.global_crosswind_w = 120.0;
+    w.global_avg_row_bonus_w = 0.10;
+    w.angle_transition_empty_w = 0.18;
+    w.angle_transition_turn_w = 0.42;
+    w.angle_transition_change_w = 0.55;
+    w.angle_endpoint_empty_w = 0.16;
+    w.angle_endpoint_turn_w = 0.48;
+    w.uav_empty_w = SO_INTER_FIELD_EMPTY_PENALTY_SCALE / 12.0;
+    w.uav_return_w = SO_INTER_FIELD_EMPTY_PENALTY_SCALE / 14.0;
+    w.uav_risk_w = 45.0;
+    w.uav_route_eff_bonus_w = 16.0;
+    w.uav_phase_boundary_w = 36.0;
+    w.uav_phase_repair_w = 54.0;
+    w.bundle_empty_w = SO_INTER_FIELD_EMPTY_PENALTY_SCALE / 8.0;
+    w.bundle_risk_w = 20.0;
+    w.bundle_route_eff_bonus_w = 18.0;
+    w.bundle_boundary_delay_w = 42.0;
+    w.assist_entry_w = 0.10;
+    w.assist_overfit_w = 46.0;
+    w.assist_underfit_w = 1.2;
+    w.assist_collaborator_w = 32.0;
+    w.assist_risk_w = 24.0;
+    w.assist_uncommitted_bonus_w = 20.0;
+    w.assist_route_eff_bonus_w = 8.0;
+    return w;
+}
+
+static double so_planner_rand01(unsigned int *state) {
+    *state = *state * 1664525u + 1013904223u;
+    return (double)((*state >> 8) & 0x00FFFFFFu) / 16777216.0;
+}
+
+static double so_jitter_weight(double base, double ratio, unsigned int *state) {
+    const double u = so_planner_rand01(state);
+    const double factor = 1.0 + ratio * (2.0 * u - 1.0);
+    return base * fmax(0.05, factor);
+}
+
+static SoPlannerWeights so_sample_planner_weights(SoPlannerWeights base,
+                                                  unsigned int seed,
+                                                  int trial) {
+    if (trial <= 0) {
+        return base;
+    }
+
+    unsigned int state =
+        seed ^ (0x9E3779B9u * (unsigned int)(trial + 1)) ^ 0xA5A5A5A5u;
+    SoPlannerWeights w = base;
+    const double normal = 0.18;
+    const double broad = 0.25;
+
+    w.strip_empty_w = so_jitter_weight(base.strip_empty_w, broad, &state);
+    w.strip_row_w = so_jitter_weight(base.strip_row_w, normal, &state);
+    w.strip_crosswind_w = so_jitter_weight(base.strip_crosswind_w, normal, &state);
+    w.strip_avg_row_bonus_w = so_jitter_weight(base.strip_avg_row_bonus_w, normal, &state);
+    w.global_empty_w = so_jitter_weight(base.global_empty_w, broad, &state);
+    w.global_row_w = so_jitter_weight(base.global_row_w, normal, &state);
+    w.global_crosswind_w = so_jitter_weight(base.global_crosswind_w, normal, &state);
+    w.global_avg_row_bonus_w = so_jitter_weight(base.global_avg_row_bonus_w, normal, &state);
+    w.angle_transition_empty_w = so_jitter_weight(base.angle_transition_empty_w, normal, &state);
+    w.angle_transition_turn_w = so_jitter_weight(base.angle_transition_turn_w, normal, &state);
+    w.angle_transition_change_w = so_jitter_weight(base.angle_transition_change_w, normal, &state);
+    w.angle_endpoint_empty_w = so_jitter_weight(base.angle_endpoint_empty_w, normal, &state);
+    w.angle_endpoint_turn_w = so_jitter_weight(base.angle_endpoint_turn_w, normal, &state);
+    w.uav_empty_w = so_jitter_weight(base.uav_empty_w, broad, &state);
+    w.uav_return_w = so_jitter_weight(base.uav_return_w, normal, &state);
+    w.uav_risk_w = so_jitter_weight(base.uav_risk_w, normal, &state);
+    w.uav_route_eff_bonus_w = so_jitter_weight(base.uav_route_eff_bonus_w, normal, &state);
+    w.uav_phase_boundary_w = so_jitter_weight(base.uav_phase_boundary_w, normal, &state);
+    w.uav_phase_repair_w = so_jitter_weight(base.uav_phase_repair_w, normal, &state);
+    w.bundle_empty_w = so_jitter_weight(base.bundle_empty_w, broad, &state);
+    w.bundle_risk_w = so_jitter_weight(base.bundle_risk_w, normal, &state);
+    w.bundle_route_eff_bonus_w = so_jitter_weight(base.bundle_route_eff_bonus_w, normal, &state);
+    w.bundle_boundary_delay_w = so_jitter_weight(base.bundle_boundary_delay_w, normal, &state);
+    w.assist_entry_w = so_jitter_weight(base.assist_entry_w, broad, &state);
+    w.assist_overfit_w = so_jitter_weight(base.assist_overfit_w, normal, &state);
+    w.assist_underfit_w = so_jitter_weight(base.assist_underfit_w, normal, &state);
+    w.assist_collaborator_w = so_jitter_weight(base.assist_collaborator_w, normal, &state);
+    w.assist_risk_w = so_jitter_weight(base.assist_risk_w, normal, &state);
+    w.assist_uncommitted_bonus_w = so_jitter_weight(base.assist_uncommitted_bonus_w, normal, &state);
+    w.assist_route_eff_bonus_w = so_jitter_weight(base.assist_route_eff_bonus_w, normal, &state);
+    return w;
 }
 
 typedef struct {
@@ -61,7 +154,15 @@ static bool so_mothership_service_busy(const SoSimulation *sim);
 static int so_cleanup_open_near(const SoSimulation *sim, SoPoint point, double radius);
 static int so_active_field_drone_count(const SoSimulation *sim);
 static int so_active_charger_slot_count(const SoSimulation *sim);
+static int so_active_drone_count_for_block(const SoSimulation *sim, int block_id);
+static double so_active_assigned_area_for_task(const SoSimulation *sim, int task_id);
 static double so_block_perimeter_m(const SoFieldBlock *block);
+static double so_hive_route_distance(const SoSimulation *sim, SoPoint a, SoPoint b);
+static bool so_consume_launch_landing_service(SoSimulation *sim, double seconds);
+static bool so_consume_charger_handling_service(SoSimulation *sim, double seconds);
+static void so_reset_service_budgets(SoSimulation *sim);
+static double so_random_uav_service_s(SoSimulation *sim);
+static void so_event(SoSimulation *sim, const char *message);
 static const SoFieldBlock *so_find_block_const(const SoSimulation *sim, int block_id);
 static SoPoint so_point(double x, double y);
 static void so_choose_global_strip_angles(SoSimulation *sim, double out_angles[SO_MAX_BLOCKS]);
@@ -91,6 +192,17 @@ static bool so_fixed_wing_candidate_task_route(const SoFieldTask *task,
                                                double swath_m,
                                                SoPoint *start,
                                                SoPoint *end);
+static void so_add_routed_task(SoSimulation *sim,
+                               int zone_id,
+                               int block_id,
+                               SoPoint start,
+                               SoPoint end,
+                               double area_ha,
+                               double priority,
+                               double risk,
+                               double angle,
+                               double route_efficiency,
+                               SoTaskKind kind);
 
 static double so_angle_diff_rad(double a, double b) {
     double diff = fmod(fabs(a - b), M_PI);
@@ -527,33 +639,6 @@ static double so_uav_track_change_spray_area_ha(const SoSimulation *sim,
     return fmin(fmax(0.0, area_ha), fmax(0.0, plan.shift_spray_area_ha));
 }
 
-static void so_offset_uav_collaborative_track(const SoSimulation *sim,
-                                              const SoFieldTask *task,
-                                              int drone_id,
-                                              SoPoint *start,
-                                              SoPoint *end) {
-    if (task == NULL || start == NULL || end == NULL ||
-        task->assigned_drone_id < 0 || task->assigned_drone_id == drone_id) {
-        return;
-    }
-    const double length = so_distance(*start, *end);
-    if (length <= 1.0) {
-        return;
-    }
-    const double lane = (double)(((drone_id - 1) % 5) - 2);
-    if (fabs(lane) < 0.5) {
-        return;
-    }
-    const double heading = so_heading_between(*start, *end);
-    const double offset = lane * fmax(0.001, sim->spec.spray_swath_m) * 0.72;
-    const double ox = -sin(heading) * offset;
-    const double oy = cos(heading) * offset;
-    start->x += ox;
-    start->y += oy;
-    end->x += ox;
-    end->y += oy;
-}
-
 static void so_log_drone_route_point(SoDrone *drone, SoPoint point) {
     if (drone == NULL || drone->route_point_count >= SO_MAX_DRONE_ROUTE_POINTS ||
         drone->route_segment_count <= 0) {
@@ -674,11 +759,14 @@ static void so_log_uav_task_route(SoSimulation *sim,
                                   SoDrone *drone,
                                   const SoFieldTask *task,
                                   double area_ha,
+                                  double reserved_area_before_ha,
                                   SoPoint start,
-                                  SoPoint end) {
+                                  SoPoint end,
+                                  int collaborative_slot) {
     if (drone == NULL || task == NULL) {
         return;
     }
+    (void)collaborative_slot;
     const double length = so_distance(start, end);
     if (length <= 1.0) {
         const SoDroneRouteKind kind =
@@ -695,15 +783,24 @@ static void so_log_uav_task_route(SoSimulation *sim,
     const double ny = ux;
     const double angle_rad = atan2(uy, ux);
     const SoFieldBlock *block = so_find_block_const(sim, task->block_id);
+    const double completed_task_area_ha =
+        fmax(0.0, fmin(task->area_ha, task->area_ha - task->remaining_ha));
+    const double committed_task_area_ha =
+        fmax(0.0, fmin(task->area_ha,
+                       completed_task_area_ha + fmax(0.0, reserved_area_before_ha)));
     if (task->kind != SO_TASK_INTERIOR_STRIP && block != NULL && block->boundary_count >= 3) {
-        const double base_cross = ((start.x + end.x) * 0.5) * nx +
-                                  ((start.y + end.y) * 0.5) * ny;
+        double base_cross = ((start.x + end.x) * 0.5) * nx +
+                            ((start.y + end.y) * 0.5) * ny;
         double min_cross = 0.0;
         double max_cross = 0.0;
         so_block_projection_range(block, angle_rad * 180.0 / M_PI, &min_cross, &max_cross);
         const double step = fabs(base_cross - max_cross) <= fabs(base_cross - min_cross)
                                 ? -swath
                                 : swath;
+        const int completed_passes =
+            (int)floor(committed_task_area_ha * 10000.0 /
+                       fmax(1.0, length * swath));
+        base_cross += step * (double)completed_passes;
         const double target_area_m2 = area_ha * 10000.0;
         double covered_m2 = 0.0;
         SoPoint prev_end = so_point(0.0, 0.0);
@@ -771,8 +868,13 @@ static void so_log_uav_task_route(SoSimulation *sim,
     if (pass_count > SO_UAV_MAX_TRACK_PASSES) {
         pass_count = SO_UAV_MAX_TRACK_PASSES;
     }
-    const double base_cross = ((start.x + end.x) * 0.5) * nx +
-                              ((start.y + end.y) * 0.5) * ny;
+    const double route_cross = ((start.x + end.x) * 0.5) * nx +
+                               ((start.y + end.y) * 0.5) * ny;
+    double base_cross = route_cross;
+    const double completed_width_m =
+        committed_task_area_ha * 10000.0 / fmax(1.0, pass_route_length_m);
+    base_cross += floor(completed_width_m / swath + 0.01) * swath;
+    const double committed_offset_m = base_cross - route_cross;
     const double route_min_t = fmin(start.x * ux + start.y * uy,
                                     end.x * ux + end.y * uy);
     const double route_max_t = fmax(start.x * ux + start.y * uy,
@@ -780,7 +882,9 @@ static void so_log_uav_task_route(SoSimulation *sim,
     SoPoint prev_end = so_point(0.0, 0.0);
     bool has_prev_end = false;
     for (int i = 0; i < pass_count; i++) {
-        const double offset = ((double)i - ((double)pass_count - 1.0) * 0.5) * swath;
+        const double offset =
+            committed_offset_m +
+            ((double)i - ((double)pass_count - 1.0) * 0.5) * swath;
         SoPoint a = so_point(start.x + nx * offset, start.y + ny * offset);
         SoPoint b = so_point(end.x + nx * offset, end.y + ny * offset);
         bool marked_segment = false;
@@ -1320,12 +1424,25 @@ static double so_choose_drone_sortie_configuration(SoSimulation *sim,
     return best_capacity;
 }
 
-static double so_dynamic_capacity(SoDrone *drone, SoPoint depot, SoDroneSpec spec) {
+static double so_estimate_dynamic_capacity(const SoDrone *drone,
+                                           SoPoint depot,
+                                           SoDroneSpec spec,
+                                           double *out_return_energy) {
     const double return_energy = so_estimate_return_energy(drone, depot, spec);
     const double available_battery = fmax(0.0, drone->battery - return_energy - spec.safety_battery_margin);
     const double battery_area = available_battery / so_drone_work_drain_h(drone, &spec) * spec.spray_rate_ha_h;
     const double chemical_area = drone->chemical / so_drone_chemical_per_ha(drone, &spec);
     const double capacity = fmax(0.0, fmin(battery_area, chemical_area));
+    if (out_return_energy != NULL) {
+        *out_return_energy = return_energy;
+    }
+    return capacity;
+}
+
+static double so_dynamic_capacity(SoDrone *drone, SoPoint depot, SoDroneSpec spec) {
+    double return_energy = 0.0;
+    const double capacity =
+        so_estimate_dynamic_capacity(drone, depot, spec, &return_energy);
     drone->return_energy_required = return_energy;
     drone->remaining_capacity_ha = capacity;
     return capacity;
@@ -1384,9 +1501,10 @@ static double so_working_radius(const SoSimulation *sim) {
     double sum = 0.0;
     int count = 0;
     for (int i = 0; i < sim->drone_count; i++) {
-        SoDrone drone = sim->drones[i];
-        if (drone.battery > 0.25 && drone.chemical > 0.1) {
-            sum += so_dynamic_capacity(&drone, sim->mothership.position, sim->spec);
+        const SoDrone *drone = &sim->drones[i];
+        if (drone->battery > 0.25 && drone->chemical > 0.1) {
+            sum += so_estimate_dynamic_capacity(drone, sim->mothership.position,
+                                                sim->spec, NULL);
             count++;
         }
     }
@@ -1597,24 +1715,33 @@ const char *so_optimization_profile_name(SoOptimizationProfile profile) {
     }
 }
 
-static double so_fixed_wing_route_choice_score(SoPathStrategy strategy,
+static double so_fixed_wing_route_choice_score(const SoSimulation *sim,
+                                               SoPathStrategy strategy,
                                                const SoFieldTask *task,
                                                int current_block_id,
                                                double transition_m,
                                                double turn_m,
                                                double strip_m) {
+    const double empty_scale =
+        sim->planner_weights.global_empty_w / fmax(0.001, 0.82);
+    const double turn_scale =
+        sim->planner_weights.global_row_w / fmax(0.001, 1.25);
+    const double strip_scale =
+        sim->planner_weights.global_avg_row_bonus_w / fmax(0.001, 0.10);
     switch (strategy) {
         case SO_PATH_STRATEGY_MULTI_ISLAND:
-            return transition_m + turn_m * 0.85;
+            return transition_m * empty_scale + turn_m * 0.85 * turn_scale;
         case SO_PATH_STRATEGY_PARTITION_DP: {
             const double block_switch =
                 current_block_id >= 0 && current_block_id != task->block_id ? 260.0 : -80.0;
-            return transition_m + turn_m * 0.95 + block_switch;
+            return transition_m * empty_scale + turn_m * 0.95 * turn_scale + block_switch;
         }
         case SO_PATH_STRATEGY_LONGEST_CORRIDOR:
-            return transition_m * 0.72 + turn_m * 0.90 - strip_m * 0.42;
+            return transition_m * 0.72 * empty_scale +
+                   turn_m * 0.90 * turn_scale -
+                   strip_m * 0.42 * strip_scale;
         default:
-            return transition_m + turn_m;
+            return transition_m * empty_scale + turn_m * turn_scale;
     }
 }
 
@@ -2063,7 +2190,7 @@ static void so_apply_fixed_wing_route_directions(SoSimulation *sim,
                 continue;
             }
             const double score =
-                so_fixed_wing_route_choice_score(plan->strategy, task,
+                so_fixed_wing_route_choice_score(sim, plan->strategy, task,
                                                  current_block_id,
                                                  transition_m, turn_m, strip_m);
             if (score < best_score) {
@@ -2211,7 +2338,7 @@ static void so_finalize_fixed_wing_plan_metrics(const SoSimulation *sim,
                 continue;
             }
             const double score =
-                so_fixed_wing_route_choice_score(plan->strategy, task,
+                so_fixed_wing_route_choice_score(sim, plan->strategy, task,
                                                  current_block_id,
                                                  transition_m, turn_m, strip_m);
             if (score < best_score) {
@@ -2344,7 +2471,9 @@ static double so_profile_plan_internal_value(const SoSimulation *sim,
     if (sim->optimization_profile == SO_OPT_PROFILE_TIME) {
         return candidate->estimated_time_h * 5200.0 +
                candidate->total_cost_usd * 0.06 +
-               candidate->empty_m / 1000.0 * 3.0 * SO_INTER_FIELD_EMPTY_PENALTY_SCALE;
+               candidate->empty_m / 1000.0 * 3.0 *
+                   SO_INTER_FIELD_EMPTY_PENALTY_SCALE *
+                   sim->planner_weights.global_empty_w / fmax(0.001, 0.82);
     }
     if (sim->optimization_profile == SO_OPT_PROFILE_COST) {
         const double total_area =
@@ -2824,7 +2953,6 @@ static void so_plan_fixed_wing_coverage(SoSimulation *sim) {
 
         task->fixed_wing_area_ha = fixed_area;
         task->remaining_ha = 0.0;
-        task->area_ha = 0.0;
         task->status = SO_TASK_DONE;
     }
 
@@ -2856,7 +2984,6 @@ static void so_plan_fixed_wing_coverage(SoSimulation *sim) {
         covered_area += fixed_area;
         task->fixed_wing_area_ha = fixed_area;
         task->remaining_ha = 0.0;
-        task->area_ha = 0.0;
         task->status = SO_TASK_DONE;
         so_store_task_route(task, pass_start, pass_end, 0.0);
         task->strip_angle_deg = pass_angle;
@@ -3026,7 +3153,9 @@ static int so_choose_task_for_drone(SoSimulation *sim, SoDrone *drone, double qu
             continue;
         }
 
-        const double capacity = so_dynamic_capacity(drone, sim->mothership.position, sim->spec);
+        const double capacity =
+            so_estimate_dynamic_capacity(drone, sim->mothership.position,
+                                         sim->spec, NULL);
         if (capacity < 0.05) {
             continue;
         }
@@ -3039,27 +3168,52 @@ static int so_choose_task_for_drone(SoSimulation *sim, SoDrone *drone, double qu
         const double push_penalty = fmax(0.0, depot_dist - push_radius) / 3.5;
         const double repair_bonus = so_repair_sized_task(sim, task) ? 28.0 : 0.0;
         const double next_depot_bonus = so_next_depot_pull(sim, task);
+        const int active_in_block = so_active_drone_count_for_block(sim, task->block_id);
+        const double block_load_penalty =
+            (double)active_in_block *
+            (task->remaining_ha <= 1.25 ? 26.0 :
+             (task->kind == SO_TASK_BOUNDARY ? 18.0 : 8.0));
+        const double resource_pressure =
+            (drone->battery < 0.55 ? (0.55 - drone->battery) * 55.0 : 0.0) +
+            (drone->chemical < 0.35 ? (0.35 - drone->chemical) * 75.0 : 0.0);
+        const double low_resource_task_penalty =
+            resource_pressure *
+            (empty_dist / 600.0 + fmax(0.0, task->remaining_ha - capacity * 0.85));
+        const double capacity_ratio = task->remaining_ha / fmax(0.05, capacity);
+        const double fit_penalty =
+            task->kind == SO_TASK_INTERIOR_STRIP && capacity_ratio < 0.18
+                ? (0.18 - capacity_ratio) * 70.0
+                : 0.0;
+        const double cluster_bonus =
+            fmin(18.0, (double)so_open_task_count_within(sim, task->center, 260.0) * 2.6);
         double phase_penalty = 0.0;
         if (so_zone_has_open_interior(sim, task->zone_id)) {
             if (task->kind == SO_TASK_BOUNDARY) {
-                phase_penalty += 36.0;
+                phase_penalty += sim->planner_weights.uav_phase_boundary_w;
             } else if (task->kind == SO_TASK_REPAIR) {
-                phase_penalty += 54.0;
+                phase_penalty += sim->planner_weights.uav_phase_repair_w;
             }
         } else if (task->kind == SO_TASK_REPAIR) {
-            phase_penalty += 12.0;
+            phase_penalty += sim->planner_weights.uav_phase_repair_w * (12.0 / 54.0);
         }
         const SoOperationalCost operational_cost =
             so_uav_operational_task_cost(sim, drone, task, sim->mothership.position,
                                          task->remaining_ha, capacity);
         const double drone_economic_penalty = operational_cost.total_usd * 0.18;
-        const double strip_bonus = task->kind == SO_TASK_INTERIOR_STRIP ? 16.0 * task->route_efficiency : 0.0;
+        const double strip_bonus =
+            task->kind == SO_TASK_INTERIOR_STRIP
+                ? sim->planner_weights.uav_route_eff_bonus_w * task->route_efficiency
+                : 0.0;
         const double score =
-            (empty_dist / 12.0 + return_dist / 14.0) * SO_INTER_FIELD_EMPTY_PENALTY_SCALE +
+            empty_dist * sim->planner_weights.uav_empty_w +
+            return_dist * sim->planner_weights.uav_return_w +
             over_capacity + underuse +
-                             task->risk * 45.0 + queue_pressure + radius_penalty + push_penalty + phase_penalty +
-                             drone_economic_penalty - task->priority * 8.0 - repair_bonus - next_depot_bonus -
-                             strip_bonus;
+                             task->risk * sim->planner_weights.uav_risk_w +
+                             queue_pressure + radius_penalty + push_penalty + phase_penalty +
+                             drone_economic_penalty + block_load_penalty + low_resource_task_penalty +
+                             fit_penalty -
+                             task->priority * 8.0 - repair_bonus - next_depot_bonus -
+                             strip_bonus - cluster_bonus;
 
         if (score < best_score) {
             best_score = score;
@@ -3357,7 +3511,11 @@ static int so_best_depot_for_task(const SoSimulation *sim, const SoFieldTask *ta
             continue;
         }
         const double dist = so_distance(site->point, task->center);
-        const double score = dist + site->slope_risk * 120.0;
+        const double hive_route_m = so_hive_route_distance(sim, sim->mothership.position, site->point);
+        if (hive_route_m >= 1e11) {
+            continue;
+        }
+        const double score = dist + hive_route_m * 0.18 + site->slope_risk * 120.0;
         if (score < best_score) {
             best_score = score;
             best = s;
@@ -3531,6 +3689,773 @@ static void so_plan_depots(SoSimulation *sim) {
     so_event(sim, "depot plan fixed after scout");
 }
 
+static double so_residual_uav_chunk_target_ha(const SoSimulation *sim) {
+    const int options[3] = {1, 2, 4};
+    double best_cycle_area = 0.0;
+    for (int i = 0; i < 3; i++) {
+        SoDroneSpec candidate = so_t200_spec_for_modules(sim->spec, options[i]);
+        const double battery_area =
+            fmax(0.0, 0.92 - candidate.safety_battery_margin) /
+            fmax(0.001, candidate.battery_drain_h_work) *
+            candidate.spray_rate_ha_h;
+        const double chemical_area =
+            candidate.chemical_tank_l /
+            fmax(0.001, candidate.chemical_l_per_ha);
+        best_cycle_area = fmax(best_cycle_area, fmin(battery_area, chemical_area));
+    }
+    const double profile_factor =
+        sim->optimization_profile == SO_OPT_PROFILE_TIME ? 1.10 :
+        sim->optimization_profile == SO_OPT_PROFILE_COST ? 0.90 : 1.0;
+    return fmax(0.65, fmin(4.25, best_cycle_area * 0.82 * profile_factor));
+}
+
+static bool so_residual_chunk_route(const SoSimulation *sim,
+                                    const SoFieldTask *task,
+                                    int chunk_index,
+                                    int chunk_count,
+                                    double total_area_ha,
+                                    SoPoint *out_start,
+                                    SoPoint *out_end,
+                                    SoPoint *out_center) {
+    if (task == NULL || out_start == NULL || out_end == NULL ||
+        out_center == NULL || chunk_count <= 0) {
+        return false;
+    }
+
+    SoPoint base_start = task->route_start;
+    SoPoint base_end = task->route_end;
+    if (!task->has_planned_route || so_distance(base_start, base_end) <= 1.0) {
+        const double angle_rad = task->strip_angle_deg * M_PI / 180.0;
+        const double length =
+            fmax(20.0, sqrt(fmax(1.0, total_area_ha * 10000.0)) * 1.35);
+        const double dx = cos(angle_rad) * length * 0.5;
+        const double dy = sin(angle_rad) * length * 0.5;
+        base_start = so_point(task->center.x - dx, task->center.y - dy);
+        base_end = so_point(task->center.x + dx, task->center.y + dy);
+    }
+
+    const double length = so_distance(base_start, base_end);
+    if (length <= 1.0) {
+        *out_start = task->center;
+        *out_end = task->center;
+        *out_center = task->center;
+        return false;
+    }
+
+    const double ux = (base_end.x - base_start.x) / length;
+    const double uy = (base_end.y - base_start.y) / length;
+    const double nx = -uy;
+    const double ny = ux;
+    const double angle_rad = atan2(uy, ux);
+    const double width_total_m =
+        total_area_ha * 10000.0 / fmax(1.0, length);
+    const double chunk_width_m =
+        fmax(sim->spec.spray_swath_m,
+             width_total_m / fmax(1.0, (double)chunk_count));
+    const double offset_m =
+        ((double)chunk_index + 0.5) * chunk_width_m -
+        width_total_m * 0.5;
+
+    SoPoint start = so_point(base_start.x + nx * offset_m,
+                             base_start.y + ny * offset_m);
+    SoPoint end = so_point(base_end.x + nx * offset_m,
+                           base_end.y + ny * offset_m);
+
+    const SoFieldBlock *block = so_find_block_const(sim, task->block_id);
+    if (block != NULL && block->boundary_count >= 3) {
+        const double cross =
+            ((start.x + end.x) * 0.5) * nx +
+            ((start.y + end.y) * 0.5) * ny;
+        const double route_mid_t =
+            ((start.x + end.x) * 0.5) * ux +
+            ((start.y + end.y) * 0.5) * uy;
+        double mins[SO_MAX_BOUNDARY_POINTS / 2];
+        double maxs[SO_MAX_BOUNDARY_POINTS / 2];
+        const int intervals =
+            so_line_block_intervals(block, angle_rad, cross, mins, maxs,
+                                    SO_MAX_BOUNDARY_POINTS / 2);
+        int best = -1;
+        double best_gap = 1e100;
+        for (int k = 0; k < intervals; k++) {
+            const double len = maxs[k] - mins[k];
+            if (len <= 8.0) {
+                continue;
+            }
+            const double center_t = (mins[k] + maxs[k]) * 0.5;
+            const double gap = fabs(center_t - route_mid_t);
+            if (gap < best_gap) {
+                best = k;
+                best_gap = gap;
+            }
+        }
+        if (best >= 0) {
+            const double len = maxs[best] - mins[best];
+            const double margin = fmin(12.0, fmax(0.0, len * 0.01));
+            start = so_point(ux * (mins[best] + margin) + nx * cross,
+                             uy * (mins[best] + margin) + ny * cross);
+            end = so_point(ux * (maxs[best] - margin) + nx * cross,
+                           uy * (maxs[best] - margin) + ny * cross);
+        }
+    }
+
+    *out_start = start;
+    *out_end = end;
+    *out_center = so_point((start.x + end.x) * 0.5,
+                           (start.y + end.y) * 0.5);
+    return so_distance(start, end) > 1.0;
+}
+
+typedef struct {
+    double lo;
+    double hi;
+} SoInterval1D;
+
+typedef struct {
+    double area_ha;
+    double weighted_x;
+    double weighted_y;
+    SoPoint route_start;
+    SoPoint route_end;
+    double route_len_m;
+    int segment_count;
+} SoSpatialResidualAccumulator;
+
+static bool so_clip_param_range(double coeff,
+                                double constant,
+                                double min_value,
+                                double max_value,
+                                double *lo,
+                                double *hi) {
+    if (fabs(coeff) <= 1e-9) {
+        return constant >= min_value - 1e-6 &&
+               constant <= max_value + 1e-6;
+    }
+    double a = (min_value - constant) / coeff;
+    double b = (max_value - constant) / coeff;
+    if (a > b) {
+        const double tmp = a;
+        a = b;
+        b = tmp;
+    }
+    *lo = fmax(*lo, a);
+    *hi = fmin(*hi, b);
+    return *hi > *lo + 1.0;
+}
+
+static bool so_fixed_wing_swath_interval_on_line(const SoSimulation *sim,
+                                                 const SoFieldTask *fixed,
+                                                 double line_angle_rad,
+                                                 double line_cross,
+                                                 double *out_lo,
+                                                 double *out_hi) {
+    if (sim == NULL || fixed == NULL || fixed->fixed_wing_area_ha <= 0.001 ||
+        out_lo == NULL || out_hi == NULL) {
+        return false;
+    }
+
+    SoPoint fs;
+    SoPoint fe;
+    if (!so_fixed_wing_candidate_task_route(fixed,
+                                            fixed->fixed_wing_area_ha,
+                                            sim->fixed_wing.swath_width_m,
+                                            &fs, &fe)) {
+        if (!fixed->has_planned_route ||
+            so_distance(fixed->route_start, fixed->route_end) <= 1.0) {
+            return false;
+        }
+        fs = fixed->route_start;
+        fe = fixed->route_end;
+    }
+
+    const double fixed_len = so_distance(fs, fe);
+    if (fixed_len <= 1.0) {
+        return false;
+    }
+    const double lux = cos(line_angle_rad);
+    const double luy = sin(line_angle_rad);
+    const double lnx = -luy;
+    const double lny = lux;
+    const double fux = (fe.x - fs.x) / fixed_len;
+    const double fuy = (fe.y - fs.y) / fixed_len;
+    const double fnx = -fuy;
+    const double fny = fux;
+    const double fixed_start_t = fs.x * fux + fs.y * fuy;
+    const double fixed_end_t = fe.x * fux + fe.y * fuy;
+    const double along_min =
+        fmin(fixed_start_t, fixed_end_t) -
+        fmax(2.0, sim->fixed_wing.swath_width_m * 0.12);
+    const double along_max =
+        fmax(fixed_start_t, fixed_end_t) +
+        fmax(2.0, sim->fixed_wing.swath_width_m * 0.12);
+    const double fixed_cross = fs.x * fnx + fs.y * fny;
+    const double half_width =
+        sim->fixed_wing.swath_width_m * 0.5 +
+        fmax(0.0, sim->spec.spray_swath_m) * 0.25;
+
+    double lo = -1e100;
+    double hi = 1e100;
+    double coeff = lux * fux + luy * fuy;
+    double constant = line_cross * (lnx * fux + lny * fuy);
+    if (!so_clip_param_range(coeff, constant, along_min, along_max, &lo, &hi)) {
+        return false;
+    }
+    coeff = lux * fnx + luy * fny;
+    constant = line_cross * (lnx * fnx + lny * fny);
+    if (!so_clip_param_range(coeff, constant,
+                             fixed_cross - half_width,
+                             fixed_cross + half_width,
+                             &lo, &hi)) {
+        return false;
+    }
+    *out_lo = lo;
+    *out_hi = hi;
+    return hi > lo + 1.0;
+}
+
+static int so_subtract_interval(SoInterval1D *segments,
+                                int count,
+                                int max_count,
+                                double cut_lo,
+                                double cut_hi) {
+    if (segments == NULL || count <= 0 || max_count <= 0 ||
+        cut_hi <= cut_lo + 1e-6) {
+        return count;
+    }
+    int out_count = 0;
+    SoInterval1D out[SO_MAX_BOUNDARY_POINTS];
+    for (int i = 0; i < count && out_count < max_count; i++) {
+        const double lo = segments[i].lo;
+        const double hi = segments[i].hi;
+        if (cut_hi <= lo || cut_lo >= hi) {
+            out[out_count++] = segments[i];
+            continue;
+        }
+        if (cut_lo > lo + 1.0 && out_count < max_count) {
+            out[out_count++] = (SoInterval1D){lo, fmin(cut_lo, hi)};
+        }
+        if (cut_hi < hi - 1.0 && out_count < max_count) {
+            out[out_count++] = (SoInterval1D){fmax(cut_hi, lo), hi};
+        }
+    }
+    for (int i = 0; i < out_count; i++) {
+        segments[i] = out[i];
+    }
+    return out_count;
+}
+
+static void so_reset_spatial_residual_accumulator(SoSpatialResidualAccumulator *acc) {
+    memset(acc, 0, sizeof(*acc));
+}
+
+static int so_flush_spatial_residual_task(SoSimulation *sim,
+                                          const SoFieldBlock *block,
+                                          double angle_deg,
+                                          int zone_id,
+                                          int bundle_hint,
+                                          SoSpatialResidualAccumulator *acc) {
+    if (sim == NULL || block == NULL || acc == NULL ||
+        acc->area_ha <= 0.001 || sim->field.task_count >= SO_MAX_TASKS) {
+        if (acc != NULL) {
+            so_reset_spatial_residual_accumulator(acc);
+        }
+        return 0;
+    }
+    const SoPoint center =
+        so_point(acc->weighted_x / fmax(0.001, acc->area_ha),
+                 acc->weighted_y / fmax(0.001, acc->area_ha));
+    SoPoint start = acc->route_start;
+    SoPoint end = acc->route_end;
+    if (so_distance(start, end) <= 1.0) {
+        const double rad = angle_deg * M_PI / 180.0;
+        const double len =
+            fmax(10.0, acc->area_ha * 10000.0 /
+                           fmax(0.001, sim->spec.spray_swath_m));
+        start = so_point(center.x - cos(rad) * len * 0.5,
+                         center.y - sin(rad) * len * 0.5);
+        end = so_point(center.x + cos(rad) * len * 0.5,
+                       center.y + sin(rad) * len * 0.5);
+    }
+
+    const int before = sim->field.task_count;
+    const double route_eff =
+        fmax(0.62, fmin(1.22, acc->route_len_m /
+                                  fmax(1.0, acc->route_len_m +
+                                                (double)fmax(0, acc->segment_count - 1) *
+                                                    sim->spec.spray_swath_m)));
+    so_add_routed_task(sim, zone_id, block->id, start, end, acc->area_ha,
+                       1.35 + block->risk,
+                       fmin(1.0, block->risk + 0.10),
+                       angle_deg,
+                       route_eff,
+                       SO_TASK_INTERIOR_STRIP);
+    if (sim->field.task_count > before) {
+        SoFieldTask *task = &sim->field.tasks[before];
+        task->center = center;
+        task->bundle_hint = bundle_hint;
+        task->turn_count = fmax(0, acc->segment_count - 1);
+        task->turn_time_s = (double)task->turn_count * sim->spec.turn_time_s;
+        task->turn_energy_cost =
+            (double)task->turn_count * sim->spec.turn_battery_cost * 0.55;
+        so_reset_spatial_residual_accumulator(acc);
+        return 1;
+    }
+    so_reset_spatial_residual_accumulator(acc);
+    return 0;
+}
+
+static void so_add_spatial_residual_segment(SoSimulation *sim,
+                                            const SoFieldBlock *block,
+                                            double angle_deg,
+                                            int zone_id,
+                                            int bundle_hint,
+                                            double target_chunk_ha,
+                                            SoPoint start,
+                                            SoPoint end,
+                                            double area_ha,
+                                            SoSpatialResidualAccumulator *acc,
+                                            int *created) {
+    if (area_ha <= 0.001 || acc == NULL || created == NULL) {
+        return;
+    }
+    if (acc->area_ha > 0.001 &&
+        acc->area_ha + area_ha > target_chunk_ha) {
+        *created += so_flush_spatial_residual_task(sim, block, angle_deg,
+                                                   zone_id, bundle_hint, acc);
+    }
+    const double len = so_distance(start, end);
+    const SoPoint center = so_point((start.x + end.x) * 0.5,
+                                    (start.y + end.y) * 0.5);
+    acc->weighted_x += center.x * area_ha;
+    acc->weighted_y += center.y * area_ha;
+    acc->area_ha += area_ha;
+    acc->segment_count++;
+    if (len > acc->route_len_m) {
+        acc->route_start = start;
+        acc->route_end = end;
+        acc->route_len_m = len;
+    }
+}
+
+static double so_block_residual_angle_deg(const SoSimulation *sim,
+                                          const SoFieldBlock *block) {
+    double sum_sin = 0.0;
+    double sum_cos = 0.0;
+    for (int t = 0; t < sim->field.task_count; t++) {
+        const SoFieldTask *task = &sim->field.tasks[t];
+        if (task->block_id != block->id) {
+            continue;
+        }
+        const double weight =
+            task->fixed_wing_area_ha > 0.001
+                ? task->fixed_wing_area_ha * 0.35
+                : fmax(0.0, task->remaining_ha);
+        if (weight <= 0.001) {
+            continue;
+        }
+        const double rad = task->strip_angle_deg * M_PI / 180.0;
+        sum_sin += sin(2.0 * rad) * weight;
+        sum_cos += cos(2.0 * rad) * weight;
+    }
+    if (fabs(sum_sin) + fabs(sum_cos) <= 1e-9) {
+        return 0.0;
+    }
+    double angle = atan2(sum_sin, sum_cos) * 0.5 * 180.0 / M_PI;
+    while (angle < 0.0) {
+        angle += 180.0;
+    }
+    while (angle >= 180.0) {
+        angle -= 180.0;
+    }
+    return angle;
+}
+
+static int so_disable_block_uav_source_tasks(SoSimulation *sim,
+                                             int block_id,
+                                             int task_limit) {
+    int disabled = 0;
+    for (int t = 0; t < task_limit; t++) {
+        SoFieldTask *task = &sim->field.tasks[t];
+        if (task->block_id != block_id || task->fixed_wing_area_ha > 0.001 ||
+            task->remaining_ha <= 0.001 || task->status == SO_TASK_DONE) {
+            continue;
+        }
+        task->area_ha = 0.0;
+        task->remaining_ha = 0.0;
+        task->status = SO_TASK_DONE;
+        task->assigned_drone_id = -1;
+        disabled++;
+    }
+    return disabled;
+}
+
+static int so_rebuild_block_spatial_uav_residual(SoSimulation *sim,
+                                                 const SoFieldBlock *block,
+                                                 int task_limit,
+                                                 double *out_area_ha) {
+    if (out_area_ha != NULL) {
+        *out_area_ha = 0.0;
+    }
+    if (sim == NULL || block == NULL || block->boundary_count < 3 ||
+        sim->field.task_count >= SO_MAX_TASKS) {
+        return 0;
+    }
+
+    double fixed_area_ha = 0.0;
+    int fixed_count = 0;
+    for (int t = 0; t < task_limit; t++) {
+        const SoFieldTask *task = &sim->field.tasks[t];
+        if (task->block_id == block->id && task->fixed_wing_area_ha > 0.001) {
+            fixed_area_ha += task->fixed_wing_area_ha;
+            fixed_count++;
+        }
+    }
+    const double residual_cap_ha =
+        fmax(0.0, block->area_ha - fixed_area_ha);
+    if (residual_cap_ha <= 0.02) {
+        so_disable_block_uav_source_tasks(sim, block->id, task_limit);
+        return 0;
+    }
+
+    const int start_task_count = sim->field.task_count;
+    const double angle_deg = so_block_residual_angle_deg(sim, block);
+    const double angle_rad = angle_deg * M_PI / 180.0;
+    const double ux = cos(angle_rad);
+    const double uy = sin(angle_rad);
+    const double nx = -uy;
+    const double ny = ux;
+    const double swath = fmax(0.001, sim->spec.spray_swath_m);
+    const double spacing = swath;
+    const double target_chunk_ha =
+        fmin(6.5, so_residual_uav_chunk_target_ha(sim) * 1.45);
+    const int zone_id = sim->field.zone_count > 0 ? 1 : 1;
+    const int bundle_hint = 2000 + block->id;
+
+    double min_cross = 0.0;
+    double max_cross = 0.0;
+    so_block_projection_range(block, angle_deg, &min_cross, &max_cross);
+    if (max_cross <= min_cross) {
+        return 0;
+    }
+
+    SoSpatialResidualAccumulator acc;
+    so_reset_spatial_residual_accumulator(&acc);
+    int created = 0;
+    double generated_area_ha = 0.0;
+    bool cap_reached = false;
+
+    for (double cross = min_cross + spacing * 0.5;
+         cross <= max_cross - spacing * 0.25 &&
+         sim->field.task_count < SO_MAX_TASKS && !cap_reached;
+         cross += spacing) {
+        double mins[SO_MAX_BOUNDARY_POINTS / 2];
+        double maxs[SO_MAX_BOUNDARY_POINTS / 2];
+        const int intervals =
+            so_line_block_intervals(block, angle_rad, cross, mins, maxs,
+                                    SO_MAX_BOUNDARY_POINTS / 2);
+        for (int i = 0; i < intervals &&
+             sim->field.task_count < SO_MAX_TASKS && !cap_reached; i++) {
+            SoInterval1D segments[SO_MAX_BOUNDARY_POINTS];
+            int segment_count = 1;
+            segments[0] = (SoInterval1D){mins[i], maxs[i]};
+            for (int t = 0; t < task_limit && segment_count > 0; t++) {
+                const SoFieldTask *fixed = &sim->field.tasks[t];
+                if (fixed->block_id != block->id ||
+                    fixed->fixed_wing_area_ha <= 0.001) {
+                    continue;
+                }
+                double cover_lo = 0.0;
+                double cover_hi = 0.0;
+                if (!so_fixed_wing_swath_interval_on_line(sim, fixed,
+                                                          angle_rad, cross,
+                                                          &cover_lo, &cover_hi)) {
+                    continue;
+                }
+                segment_count =
+                    so_subtract_interval(segments, segment_count,
+                                         SO_MAX_BOUNDARY_POINTS,
+                                         cover_lo, cover_hi);
+            }
+
+            for (int s = 0; s < segment_count &&
+                 sim->field.task_count < SO_MAX_TASKS; s++) {
+                double lo = segments[s].lo;
+                double hi = segments[s].hi;
+                const double len = hi - lo;
+                if (len <= fmax(8.0, swath * 0.75)) {
+                    continue;
+                }
+                double area_ha = len * swath / 10000.0;
+                if (generated_area_ha + acc.area_ha + area_ha > residual_cap_ha) {
+                    const double remaining_ha =
+                        residual_cap_ha - generated_area_ha - acc.area_ha;
+                    if (remaining_ha <= 0.001) {
+                        cap_reached = true;
+                        break;
+                    }
+                    area_ha = remaining_ha;
+                    hi = lo + area_ha * 10000.0 / swath;
+                    cap_reached = true;
+                }
+                const double margin = fmin(3.0, fmax(0.0, (hi - lo) * 0.01));
+                const SoPoint start =
+                    so_point(ux * (lo + margin) + nx * cross,
+                             uy * (lo + margin) + ny * cross);
+                const SoPoint end =
+                    so_point(ux * (hi - margin) + nx * cross,
+                             uy * (hi - margin) + ny * cross);
+                so_add_spatial_residual_segment(sim, block, angle_deg, zone_id,
+                                                bundle_hint, target_chunk_ha,
+                                                start, end, area_ha, &acc,
+                                                &created);
+            }
+        }
+    }
+    created += so_flush_spatial_residual_task(sim, block, angle_deg, zone_id,
+                                              bundle_hint, &acc);
+    for (int t = start_task_count; t < sim->field.task_count; t++) {
+        generated_area_ha += sim->field.tasks[t].remaining_ha;
+    }
+
+    const double minimum_useful_area = fmin(0.01, residual_cap_ha * 0.02);
+    if (created <= 0 || generated_area_ha < minimum_useful_area) {
+        sim->field.task_count = start_task_count;
+        return 0;
+    }
+
+    so_disable_block_uav_source_tasks(sim, block->id, task_limit);
+    sim->field.residual_spatial_task_count += created;
+    sim->field.residual_spatial_area_ha += generated_area_ha;
+    if (out_area_ha != NULL) {
+        *out_area_ha = generated_area_ha;
+    }
+    return created;
+}
+
+static void so_compact_superseded_uav_source_tasks(SoSimulation *sim) {
+    int write = 0;
+    for (int read = 0; read < sim->field.task_count; read++) {
+        const SoFieldTask *task = &sim->field.tasks[read];
+        const bool superseded =
+            task->area_ha <= 0.001 &&
+            task->remaining_ha <= 0.001 &&
+            task->fixed_wing_area_ha <= 0.001;
+        if (superseded) {
+            continue;
+        }
+        if (write != read) {
+            sim->field.tasks[write] = sim->field.tasks[read];
+        }
+        write++;
+    }
+    sim->field.task_count = write;
+}
+
+static int so_split_residual_task_for_uav(SoSimulation *sim, SoFieldTask *task) {
+    if (task == NULL || task->remaining_ha <= 0.001 ||
+        task->status == SO_TASK_DONE || sim->field.task_count >= SO_MAX_TASKS) {
+        return 1;
+    }
+
+    const double target_chunk_ha = so_residual_uav_chunk_target_ha(sim);
+    int desired_chunks =
+        (int)ceil(task->remaining_ha / fmax(0.25, target_chunk_ha));
+    if (desired_chunks <= 1) {
+        return 1;
+    }
+    desired_chunks = (int)fmin(12.0, (double)desired_chunks);
+    const int available_extra = SO_MAX_TASKS - sim->field.task_count;
+    int chunk_count = desired_chunks;
+    if (chunk_count > available_extra + 1) {
+        chunk_count = available_extra + 1;
+    }
+    if (chunk_count < 1) {
+        chunk_count = 1;
+    }
+    if (chunk_count <= 1) {
+        return 1;
+    }
+
+    const double original_area_ha = task->remaining_ha;
+    const SoFieldTask original_task = *task;
+    const double chunk_area_ha = original_area_ha / (double)chunk_count;
+    const int zone_id = task->zone_id;
+    const int block_id = task->block_id;
+    const double priority = task->priority;
+    const double risk = task->risk;
+    const double angle = task->strip_angle_deg;
+    const double route_efficiency = task->route_efficiency;
+    const SoTaskKind kind = task->kind;
+    const int bundle_hint = task->bundle_hint;
+
+    for (int c = 0; c < chunk_count; c++) {
+        SoPoint start = task->route_start;
+        SoPoint end = task->route_end;
+        SoPoint center = task->center;
+        so_residual_chunk_route(sim, &original_task, c, chunk_count, original_area_ha,
+                                &start, &end, &center);
+        if (c == 0) {
+            task->center = center;
+            task->area_ha = chunk_area_ha;
+            task->remaining_ha = chunk_area_ha;
+            task->priority = priority;
+            task->risk = risk;
+            task->route_efficiency = route_efficiency;
+            task->kind = kind;
+            task->bundle_hint = bundle_hint;
+            task->status = SO_TASK_PENDING;
+            task->assigned_drone_id = -1;
+            so_store_task_route(task, start, end, 0.0);
+            continue;
+        }
+
+        const int before = sim->field.task_count;
+        so_add_routed_task(sim, zone_id, block_id, start, end, chunk_area_ha,
+                           priority, risk, angle, route_efficiency, kind);
+        if (sim->field.task_count > before) {
+            SoFieldTask *added = &sim->field.tasks[before];
+            added->bundle_hint = bundle_hint;
+            added->status = SO_TASK_PENDING;
+            added->assigned_drone_id = -1;
+            added->fixed_wing_area_ha = 0.0;
+        }
+    }
+
+    sim->field.residual_rebuild_split_count += chunk_count - 1;
+    sim->field.residual_rebuild_area_ha += original_area_ha;
+    return chunk_count;
+}
+
+static void so_rebuild_uav_residual_tasks_after_fixed_wing(SoSimulation *sim) {
+    if (!sim->fixed_wing.planned) {
+        return;
+    }
+
+    bool block_has_fixed_wing[SO_MAX_BLOCKS];
+    memset(block_has_fixed_wing, 0, sizeof(block_has_fixed_wing));
+    for (int t = 0; t < sim->field.task_count; t++) {
+        const SoFieldTask *task = &sim->field.tasks[t];
+        if (task->fixed_wing_area_ha <= 0.001) {
+            continue;
+        }
+        for (int b = 0; b < sim->field.block_count; b++) {
+            if (sim->field.blocks[b].id == task->block_id) {
+                block_has_fixed_wing[b] = true;
+                break;
+            }
+        }
+    }
+
+    sim->field.residual_rebuild_split_count = 0;
+    sim->field.residual_rebuild_area_ha = 0.0;
+    sim->field.residual_spatial_task_count = 0;
+    sim->field.residual_spatial_area_ha = 0.0;
+
+    const int pre_spatial_task_count = sim->field.task_count;
+    for (int b = 0; b < sim->field.block_count; b++) {
+        const SoFieldBlock *block = &sim->field.blocks[b];
+        if (!block->selected || block->boundary_count < 3) {
+            continue;
+        }
+        double spatial_area_ha = 0.0;
+        const int made =
+            so_rebuild_block_spatial_uav_residual(sim, block,
+                                                  pre_spatial_task_count,
+                                                  &spatial_area_ha);
+        if (made > 0) {
+            char msg[160];
+            snprintf(msg, sizeof(msg),
+                     "spatial UAV residual rebuilt: block=%d tasks=%d area=%.2fha fixed_subtract=%s",
+                     block->id, made, spatial_area_ha,
+                     block_has_fixed_wing[b] ? "true" : "false");
+            so_event(sim, msg);
+        }
+    }
+    so_compact_superseded_uav_source_tasks(sim);
+
+    int residual_count = 0;
+    int route_limited_count = 0;
+    double residual_area_ha = 0.0;
+    const double radius = so_working_radius(sim);
+    const int original_task_count = sim->field.task_count;
+    for (int t = 0; t < original_task_count; t++) {
+        SoFieldTask *task = &sim->field.tasks[t];
+        if (task->remaining_ha <= 0.001 || task->status == SO_TASK_DONE) {
+            continue;
+        }
+
+        task->status = SO_TASK_PENDING;
+        task->assigned_drone_id = -1;
+        task->fixed_wing_area_ha = 0.0;
+        residual_count++;
+        residual_area_ha += task->remaining_ha;
+
+        bool same_block_had_fixed_wing = false;
+        for (int b = 0; b < sim->field.block_count; b++) {
+            if (sim->field.blocks[b].id == task->block_id) {
+                same_block_had_fixed_wing = block_has_fixed_wing[b];
+                break;
+            }
+        }
+
+        int reachable_depots = 0;
+        double best_depot_dist = 1e100;
+        double best_hive_route = 1e100;
+        for (int s = 0; s < sim->field.depot_count; s++) {
+            const SoDepotSite *site = &sim->field.depots[s];
+            if (!so_site_deployable(&sim->field, site)) {
+                continue;
+            }
+            const double task_dist = so_distance(site->point, task->center);
+            if (task_dist > radius * 1.35) {
+                continue;
+            }
+            const double hive_route = so_hive_route_distance(sim, sim->mothership.position, site->point);
+            if (hive_route >= 1e11) {
+                continue;
+            }
+            reachable_depots++;
+            best_depot_dist = fmin(best_depot_dist, task_dist);
+            best_hive_route = fmin(best_hive_route, hive_route);
+        }
+
+        if (same_block_had_fixed_wing && task->bundle_hint < 2000) {
+            task->bundle_hint = 1000 + task->block_id;
+            task->priority += task->kind == SO_TASK_INTERIOR_STRIP ? 0.18 : 0.42;
+        }
+        if (task->kind == SO_TASK_BOUNDARY || task->kind == SO_TASK_REPAIR) {
+            task->priority += 0.25;
+            task->route_efficiency = fmax(0.62, task->route_efficiency);
+        }
+        if (reachable_depots == 0) {
+            route_limited_count++;
+            task->priority -= 0.35;
+            task->risk = fmin(1.0, task->risk + 0.08);
+        } else {
+            const double access_bonus =
+                fmax(0.0, radius - best_depot_dist) / fmax(1.0, radius) * 0.35 +
+                fmax(0.0, 2200.0 - best_hive_route) / 2200.0 * 0.20;
+            task->priority += access_bonus;
+            task->route_efficiency = fmin(1.08, task->route_efficiency + access_bonus * 0.08);
+        }
+
+        const int chunks = task->bundle_hint >= 2000
+                               ? 1
+                               : so_split_residual_task_for_uav(sim, task);
+        if (chunks > 1) {
+            residual_count += chunks - 1;
+        }
+    }
+
+    if (residual_count > 0) {
+        char msg[160];
+        snprintf(msg, sizeof(msg),
+                 "uav residual work rebuilt after fixed-wing: tasks=%d area=%.2fha route_limited=%d split_chunks=%d",
+                 residual_count, residual_area_ha, route_limited_count,
+                 sim->field.residual_rebuild_split_count);
+        so_event(sim, msg);
+    }
+}
+
 static bool so_task_directed_route(const SoSimulation *sim,
                                    const SoFieldTask *task,
                                    double area_ha,
@@ -3580,24 +4505,42 @@ static bool so_task_directed_route(const SoSimulation *sim,
     return so_distance(*out_start, *out_end) > 1.0;
 }
 
-static void so_assign_drone_to_task(SoSimulation *sim, SoDrone *drone, SoFieldTask *task, double capacity) {
+static void so_assign_drone_to_task(SoSimulation *sim,
+                                    SoDrone *drone,
+                                    SoFieldTask *task,
+                                    double capacity,
+                                    double takeoff_service_s,
+                                    int collaborative_slot,
+                                    SoPoint recovery_point) {
     const bool launching = drone->state == SO_DRONE_IDLE || drone->state == SO_DRONE_STANDBY;
+    const bool has_primary_route =
+        collaborative_slot > 0 && task->has_planned_route &&
+        so_distance(task->route_start, task->route_end) > 1.0;
+    const SoPoint primary_end = task->route_end;
+    const double reserved_area_before_ha =
+        fmax(0.0, so_active_assigned_area_for_task(sim, task->id));
     double sortie_capacity = capacity;
     if (launching) {
         sortie_capacity =
-            so_choose_drone_sortie_configuration(sim, drone, task, sim->mothership.position);
+            so_choose_drone_sortie_configuration(sim, drone, task, recovery_point);
     }
     const double assigned_area = task->kind == SO_TASK_INTERIOR_STRIP
                                      ? fmin(sortie_capacity * 0.92, task->remaining_ha + 5.5)
                                      : fmin(task->remaining_ha, sortie_capacity);
+    const double route_area = fmin(task->remaining_ha, assigned_area);
     SoPoint route_start = task->center;
     SoPoint route_end = task->center;
     double route_curve_deg = 0.0;
-    so_task_directed_route(sim, task, assigned_area,
-                           drone->position, sim->mothership.position,
+    so_task_directed_route(sim, task, route_area,
+                           drone->position, recovery_point,
                            &route_start, &route_end, &route_curve_deg);
-    so_offset_uav_collaborative_track(sim, task, drone->id, &route_start, &route_end);
-    so_apply_uav_track_change_metrics(sim, task, assigned_area, route_start, route_end);
+    if (has_primary_route &&
+        so_distance(route_start, primary_end) > so_distance(route_end, primary_end)) {
+        const SoPoint tmp = route_start;
+        route_start = route_end;
+        route_end = tmp;
+    }
+    so_apply_uav_track_change_metrics(sim, task, route_area, route_start, route_end);
     const double outbound_m = so_distance(drone->position, route_start);
     const double outbound_energy = outbound_m / 1000.0 * so_drone_empty_drain_km(drone, &sim->spec);
     if (launching) {
@@ -3608,7 +4551,9 @@ static void so_assign_drone_to_task(SoSimulation *sim, SoDrone *drone, SoFieldTa
         sim->uav_sorties_by_battery_modules[modules]++;
     }
     so_log_drone_transfer_segment(drone, drone->position, route_start);
-    so_log_uav_task_route(sim, drone, task, assigned_area, route_start, route_end);
+    so_log_uav_task_route(sim, drone, task, route_area, reserved_area_before_ha,
+                          route_start, route_end,
+                          collaborative_slot);
     so_add_uav_flight_cost(sim, outbound_m);
     so_add_uav_drone_electricity_cost(sim, drone, outbound_energy + task->turn_energy_cost);
     drone->battery = fmax(0.0, drone->battery - outbound_energy - task->turn_energy_cost);
@@ -3619,15 +4564,21 @@ static void so_assign_drone_to_task(SoSimulation *sim, SoDrone *drone, SoFieldTa
     }
     drone->assigned_task_id = task->id;
     drone->assigned_area_ha = assigned_area;
-    so_store_task_route(task, route_start, route_end, route_curve_deg);
-    so_add_uav_flight_cost(sim, so_task_spray_distance_m(sim, drone->assigned_area_ha) *
+    drone->assigned_task_area_ha = route_area;
+    if (collaborative_slot <= 0) {
+        so_store_task_route(task, route_start, route_end, route_curve_deg);
+    }
+    so_add_uav_flight_cost(sim, so_task_spray_distance_m(sim, route_area) *
                                     so_curve_length_factor(task->route_curve_deg));
     drone->target = route_end;
     drone->has_target = true;
     drone->travel_remaining_s = task->turn_time_s;
+    if (launching) {
+        drone->travel_remaining_s += takeoff_service_s;
+    }
     const double task_battery = (drone->assigned_area_ha / fmax(0.001, sim->spec.spray_rate_ha_h)) *
                                 so_drone_work_drain_h(drone, &sim->spec) + task->turn_energy_cost;
-    const double return_energy = so_estimate_return_energy(drone, sim->mothership.position, sim->spec);
+    const double return_energy = so_estimate_return_energy(drone, recovery_point, sim->spec);
     drone->target_charge = fmax(0.35, fmin(0.8, task_battery + return_energy + sim->spec.safety_battery_margin));
     task->status = SO_TASK_IN_PROGRESS;
     task->assigned_drone_id = drone->id;
@@ -3655,12 +4606,14 @@ static int so_choose_bundle_continuation(SoSimulation *sim, const SoDrone *drone
         if (leg > 260.0 && task->kind != SO_TASK_BOUNDARY) {
             continue;
         }
-        double score = leg / 8.0 * SO_INTER_FIELD_EMPTY_PENALTY_SCALE + task->risk * 20.0;
+        double score =
+            leg * sim->planner_weights.bundle_empty_w +
+            task->risk * sim->planner_weights.bundle_risk_w;
         if (task->kind == SO_TASK_INTERIOR_STRIP) {
-            score -= 18.0 * task->route_efficiency;
+            score -= sim->planner_weights.bundle_route_eff_bonus_w * task->route_efficiency;
         }
         if (task->kind == SO_TASK_BOUNDARY && so_zone_has_open_interior(sim, task->zone_id)) {
-            score += 42.0;
+            score += sim->planner_weights.bundle_boundary_delay_w;
         }
         if (score < best_score) {
             best_score = score;
@@ -3673,12 +4626,14 @@ static int so_choose_bundle_continuation(SoSimulation *sim, const SoDrone *drone
 static void so_continue_bundle_or_return(SoSimulation *sim, SoDrone *drone) {
     if (drone->assigned_area_ha <= 0.35 || drone->battery <= 0.28 || drone->chemical <= 0.12) {
         drone->assigned_task_id = -1;
+        drone->assigned_task_area_ha = 0.0;
         drone->state = SO_DRONE_RETURNING;
         return;
     }
     const int next_idx = so_choose_bundle_continuation(sim, drone);
     if (next_idx < 0) {
         drone->assigned_task_id = -1;
+        drone->assigned_task_area_ha = 0.0;
         drone->state = SO_DRONE_RETURNING;
         return;
     }
@@ -3694,7 +4649,8 @@ static void so_continue_bundle_or_return(SoSimulation *sim, SoDrone *drone) {
     const double outbound_m = so_distance(drone->position, route_start);
     const double outbound_energy = outbound_m / 1000.0 * so_drone_empty_drain_km(drone, &sim->spec);
     so_log_drone_transfer_segment(drone, drone->position, route_start);
-    so_log_uav_task_route(sim, drone, next, assigned_area, route_start, route_end);
+    so_log_uav_task_route(sim, drone, next, assigned_area, 0.0,
+                          route_start, route_end, 0);
     so_add_uav_flight_cost(sim, outbound_m);
     so_add_uav_drone_electricity_cost(sim, drone, outbound_energy + next->turn_energy_cost);
     drone->battery = fmax(0.0, drone->battery - outbound_energy - next->turn_energy_cost);
@@ -3704,6 +4660,7 @@ static void so_continue_bundle_or_return(SoSimulation *sim, SoDrone *drone) {
     drone->travel_remaining_s = next->turn_time_s;
     drone->state = next->kind == SO_TASK_BOUNDARY ? SO_DRONE_CLEANUP : SO_DRONE_WORKING;
     drone->assigned_area_ha = assigned_area;
+    drone->assigned_task_area_ha = assigned_area;
     so_store_task_route(next, route_start, route_end, route_curve_deg);
     so_add_uav_flight_cost(sim, so_task_spray_distance_m(sim, drone->assigned_area_ha) *
                                     so_curve_length_factor(next->route_curve_deg));
@@ -3716,6 +4673,9 @@ static bool so_can_finish_relocation_cleanup(const SoSimulation *sim,
                                              const SoFieldTask *task,
                                              SoWeatherAdjustedSpec weather) {
     if (!sim->mothership.moving || !so_repair_sized_task(sim, task)) {
+        return false;
+    }
+    if (drone->battery <= 0.50) {
         return false;
     }
 
@@ -3758,8 +4718,9 @@ static int so_choose_relocation_cleanup_task(SoSimulation *sim,
         const double moving_value = fmax(0.0, old_stop_dist - destination_dist) / 20.0;
         const double repair_value = so_repair_sized_task(sim, task) ? 32.0 : 0.0;
         const double score =
-            (empty_dist / 12.0 + destination_dist / 18.0) * SO_INTER_FIELD_EMPTY_PENALTY_SCALE +
-            task->risk * 25.0 -
+            empty_dist * sim->planner_weights.uav_empty_w +
+            destination_dist * sim->planner_weights.uav_return_w * (14.0 / 18.0) +
+            task->risk * sim->planner_weights.uav_risk_w * (25.0 / 45.0) -
                              task->priority * 8.0 - moving_value - repair_value;
 
         if (score < best_score) {
@@ -3782,7 +4743,7 @@ static void so_assign_relocation_cleanup(SoSimulation *sim, SoWeatherAdjustedSpe
         double best_battery = -1.0;
         for (int i = 0; i < sim->drone_count; i++) {
             SoDrone *drone = &sim->drones[i];
-            if (drone->state != SO_DRONE_STANDBY || drone->battery < 0.42 || drone->chemical < 0.18) {
+            if (drone->state != SO_DRONE_STANDBY || drone->battery <= 0.50 || drone->chemical < 0.18) {
                 continue;
             }
             if (drone->battery > best_battery) {
@@ -3801,7 +4762,12 @@ static void so_assign_relocation_cleanup(SoSimulation *sim, SoWeatherAdjustedSpe
 
         SoFieldTask *task = &sim->field.tasks[task_idx];
         const double capacity = so_dynamic_capacity(drone, sim->mothership.destination, sim->spec);
-        so_assign_drone_to_task(sim, drone, task, capacity);
+        const double takeoff_service_s = so_random_uav_service_s(sim);
+        if (!so_consume_launch_landing_service(sim, takeoff_service_s)) {
+            break;
+        }
+        so_assign_drone_to_task(sim, drone, task, capacity, takeoff_service_s, 0,
+                                sim->mothership.destination);
         drone->state = SO_DRONE_CLEANUP;
         assigned++;
         so_event(sim, "relocation cleanup assigned");
@@ -3851,7 +4817,9 @@ static bool so_score_strip_angle_deg(const SoSimulation *sim,
                              : fmax(3.2, sim->spec.spray_swath_m);
     const double spacing = fmax(swath, sim->fixed_wing.enabled ? 18.0 : sim->spec.spray_swath_m);
     const double empty_connection_weight =
-        (sim->fixed_wing.enabled ? 1.15 : 0.72) * SO_INTER_FIELD_EMPTY_PENALTY_SCALE;
+        (sim->fixed_wing.enabled ? 1.15 : 0.72) *
+        SO_INTER_FIELD_EMPTY_PENALTY_SCALE *
+        sim->planner_weights.strip_empty_w;
     const double turn_radius = sim->fixed_wing.enabled && sim->fixed_wing.turn_radius_m > 1.0
                                    ? sim->fixed_wing.turn_radius_m
                                    : fmax(1.0, sim->spec.turn_radius_m);
@@ -3903,14 +4871,16 @@ static bool so_score_strip_angle_deg(const SoSimulation *sim,
              so_angle_diff_rad(approach_heading, rad + M_PI)) * turn_radius;
     const double avg_row_m = work / (double)rows;
     const double crosswind = fabs(sin(rad - wind_rad));
-    const double wind_penalty = crosswind * wind_strength * (80.0 + block->risk * 80.0);
+    const double wind_penalty =
+        crosswind * wind_strength *
+        sim->planner_weights.strip_crosswind_w * (1.0 + block->risk);
     const double score =
         work
         - empty * empty_connection_weight
-        - (double)rows * swath * 1.8
+        - (double)rows * swath * sim->planner_weights.strip_row_w
         - entry_turn_m * 0.45
         - wind_penalty
-        + avg_row_m * 0.08;
+        + avg_row_m * sim->planner_weights.strip_avg_row_bonus_w;
 
     if (out_candidate != NULL) {
         out_candidate->angle_deg = angle_deg;
@@ -3976,9 +4946,12 @@ static double so_angle_transition_cost(const SoSimulation *sim,
              so_angle_diff_rad(direct_heading, to_rad + M_PI)) * radius;
     const double angle_change_m = so_angle_diff_rad(from_rad, to_rad) * radius;
     const double platform_scale = sim->fixed_wing.enabled ? 1.0 : 0.42;
-    return center_dist * 0.18 * SO_INTER_FIELD_EMPTY_PENALTY_SCALE +
-           (exit_turn_m + entry_turn_m) * 0.42 * platform_scale +
-           angle_change_m * 0.55 * platform_scale;
+    return center_dist * sim->planner_weights.angle_transition_empty_w *
+               SO_INTER_FIELD_EMPTY_PENALTY_SCALE +
+           (exit_turn_m + entry_turn_m) *
+               sim->planner_weights.angle_transition_turn_w * platform_scale +
+           angle_change_m *
+               sim->planner_weights.angle_transition_change_w * platform_scale;
 }
 
 static double so_angle_endpoint_cost(const SoSimulation *sim,
@@ -3995,8 +4968,10 @@ static double so_angle_endpoint_cost(const SoSimulation *sim,
         fmin(so_angle_diff_rad(heading, angle_rad),
              so_angle_diff_rad(heading, angle_rad + M_PI)) * radius;
     const double platform_scale = sim->fixed_wing.enabled ? 1.0 : 0.42;
-    return distance_m * 0.16 * SO_INTER_FIELD_EMPTY_PENALTY_SCALE +
-           entry_turn_m * 0.48 * platform_scale;
+    return distance_m * sim->planner_weights.angle_endpoint_empty_w *
+               SO_INTER_FIELD_EMPTY_PENALTY_SCALE +
+           entry_turn_m *
+               sim->planner_weights.angle_endpoint_turn_w * platform_scale;
 }
 
 static void so_choose_partition_dp_angles(const SoSimulation *sim,
@@ -4142,11 +5117,32 @@ static void so_add_task(SoSimulation *sim,
                         double angle,
                         double route_efficiency,
                         SoTaskKind kind) {
-    if (sim->field.task_count >= SO_MAX_TASKS || area_ha <= 0.001) {
+    if (area_ha <= 0.001) {
+        return;
+    }
+    if (sim->field.task_count >= SO_MAX_TASKS) {
+        sim->field.dropped_task_count++;
+        sim->field.dropped_task_area_ha += area_ha;
+        if (sim->field.dropped_task_count == 1 ||
+            sim->field.dropped_task_count % 16 == 0) {
+            char msg[160];
+            snprintf(msg, sizeof(msg),
+                     "task dropped: SO_MAX_TASKS reached count=%d area=%.3fha total_dropped=%.3fha",
+                     sim->field.dropped_task_count,
+                     area_ha,
+                     sim->field.dropped_task_area_ha);
+            so_event(sim, msg);
+        }
         return;
     }
     SoFieldTask *task = &sim->field.tasks[sim->field.task_count];
-    task->id = sim->field.task_count + 1;
+    int max_id = 0;
+    for (int i = 0; i < sim->field.task_count; i++) {
+        if (sim->field.tasks[i].id > max_id) {
+            max_id = sim->field.tasks[i].id;
+        }
+    }
+    task->id = max_id + 1;
     task->zone_id = zone_id;
     task->block_id = block_id;
     task->center = center;
@@ -4235,7 +5231,10 @@ static int so_add_scanline_interior_tasks(SoSimulation *sim,
                 }
                 double seg_area = len * spacing / 10000.0;
                 if (seg_area > remaining_area) {
-                    return made;
+                    seg_area = remaining_area;
+                }
+                if (seg_area <= 0.001) {
+                    break;
                 }
                 const double start_t = mins[i];
                 const double end_t = maxs[i];
@@ -4405,10 +5404,10 @@ static bool so_score_global_corridor_angle(const SoSimulation *sim,
     const double avg_row_m = work / (double)rows;
     const double score =
         work
-        - empty * 0.82
-        - (double)rows * swath * 1.25
-        - crosswind * wind_strength * 120.0
-        + avg_row_m * 0.10;
+        - empty * sim->planner_weights.global_empty_w
+        - (double)rows * swath * sim->planner_weights.global_row_w
+        - crosswind * wind_strength * sim->planner_weights.global_crosswind_w
+        + avg_row_m * sim->planner_weights.global_avg_row_bonus_w;
 
     if (out_candidate != NULL) {
         out_candidate->angle_deg = angle_deg;
@@ -4567,6 +5566,12 @@ static int so_add_path_first_fixed_wing_tasks(SoSimulation *sim,
 static void so_build_tasks(SoSimulation *sim) {
     sim->field.zone_count = 0;
     sim->field.task_count = 0;
+    sim->field.dropped_task_count = 0;
+    sim->field.dropped_task_area_ha = 0.0;
+    sim->field.residual_rebuild_split_count = 0;
+    sim->field.residual_rebuild_area_ha = 0.0;
+    sim->field.residual_spatial_task_count = 0;
+    sim->field.residual_spatial_area_ha = 0.0;
 
     if (sim->field.block_count == 0) {
         sim->field.blocks[0].id = 1;
@@ -4749,12 +5754,72 @@ static void so_assign_work(SoSimulation *sim) {
             continue;
         }
         SoFieldTask *task = &sim->field.tasks[task_idx];
-        const double capacity = so_dynamic_capacity(drone, sim->mothership.position, sim->spec);
+        const double capacity =
+            so_estimate_dynamic_capacity(drone, sim->mothership.position,
+                                         sim->spec, NULL);
         if (capacity < 0.05) {
             continue;
         }
-        so_assign_drone_to_task(sim, drone, task, capacity);
+        const double takeoff_service_s = so_random_uav_service_s(sim);
+        if (!so_consume_launch_landing_service(sim, takeoff_service_s)) {
+            continue;
+        }
+        so_assign_drone_to_task(sim, drone, task, capacity, takeoff_service_s, 0,
+                                sim->mothership.position);
     }
+}
+
+static double so_active_assigned_area_for_task(const SoSimulation *sim, int task_id) {
+    double assigned = 0.0;
+    for (int i = 0; i < sim->drone_count; i++) {
+        const SoDrone *drone = &sim->drones[i];
+        if (drone->assigned_task_id != task_id) {
+            continue;
+        }
+        if (drone->state == SO_DRONE_WORKING ||
+            drone->state == SO_DRONE_ASSISTING ||
+            drone->state == SO_DRONE_CLEANUP) {
+            assigned += fmax(0.0, drone->assigned_task_area_ha);
+        }
+    }
+    return assigned;
+}
+
+static int so_active_collaborator_count_for_task(const SoSimulation *sim, int task_id) {
+    int count = 0;
+    for (int i = 0; i < sim->drone_count; i++) {
+        const SoDrone *drone = &sim->drones[i];
+        if (drone->assigned_task_id != task_id) {
+            continue;
+        }
+        if (drone->state == SO_DRONE_WORKING ||
+            drone->state == SO_DRONE_ASSISTING ||
+            drone->state == SO_DRONE_CLEANUP) {
+            count++;
+        }
+    }
+    return count;
+}
+
+static int so_active_drone_count_for_block(const SoSimulation *sim, int block_id) {
+    int count = 0;
+    for (int i = 0; i < sim->drone_count; i++) {
+        const SoDrone *drone = &sim->drones[i];
+        if (!(drone->state == SO_DRONE_WORKING ||
+              drone->state == SO_DRONE_ASSISTING ||
+              drone->state == SO_DRONE_CLEANUP)) {
+            continue;
+        }
+        for (int t = 0; t < sim->field.task_count; t++) {
+            const SoFieldTask *task = &sim->field.tasks[t];
+            if (task->id == drone->assigned_task_id &&
+                task->block_id == block_id) {
+                count++;
+                break;
+            }
+        }
+    }
+    return count;
 }
 
 static void so_assign_assist(SoSimulation *sim) {
@@ -4773,24 +5838,71 @@ static void so_assign_assist(SoSimulation *sim) {
         if (drone->state != SO_DRONE_STANDBY) {
             continue;
         }
-        const double capacity = so_dynamic_capacity(drone, sim->mothership.position, sim->spec);
+        const double capacity =
+            so_estimate_dynamic_capacity(drone, sim->mothership.position,
+                                         sim->spec, NULL);
         if (capacity < 0.35) {
             continue;
         }
         int best = -1;
-        double largest_remaining = 0.0;
+        double best_score = 1e100;
+        double best_uncommitted = 0.0;
         const double radius = so_working_radius(sim);
         for (int t = 0; t < sim->field.task_count; t++) {
             SoFieldTask *task = &sim->field.tasks[t];
-            if (task->remaining_ha > largest_remaining && task->status != SO_TASK_DONE &&
-                so_distance(sim->mothership.position, task->center) <= radius) {
-                largest_remaining = task->remaining_ha;
+            if (task->status == SO_TASK_DONE ||
+                task->kind != SO_TASK_INTERIOR_STRIP ||
+                so_repair_sized_task(sim, task) ||
+                so_distance(sim->mothership.position, task->center) > radius) {
+                continue;
+            }
+            const double uncommitted =
+                task->remaining_ha - so_active_assigned_area_for_task(sim, task->id);
+            const int collaborators =
+                so_active_collaborator_count_for_task(sim, task->id);
+            if (uncommitted <= 0.2 || collaborators <= 0 || collaborators >= 3) {
+                continue;
+            }
+            SoPoint assist_entry = task->center;
+            if (task->has_planned_route &&
+                so_distance(task->route_start, task->route_end) > 1.0) {
+                assist_entry = task->route_end;
+            }
+            const double entry_dist = so_distance(drone->position, assist_entry);
+            const double finish_fit =
+                fmax(0.0, uncommitted - capacity) *
+                    sim->planner_weights.assist_overfit_w +
+                fmax(0.0, capacity - uncommitted) *
+                    sim->planner_weights.assist_underfit_w;
+            const double score =
+                entry_dist * sim->planner_weights.assist_entry_w +
+                finish_fit +
+                (double)(collaborators - 1) *
+                    sim->planner_weights.assist_collaborator_w +
+                task->risk * sim->planner_weights.assist_risk_w -
+                uncommitted *
+                    sim->planner_weights.assist_uncommitted_bonus_w -
+                task->route_efficiency *
+                    sim->planner_weights.assist_route_eff_bonus_w;
+            if (score < best_score) {
+                best_score = score;
+                best_uncommitted = uncommitted;
                 best = t;
             }
         }
-        if (best >= 0 && largest_remaining > 0.2) {
+        if (best >= 0 && best_uncommitted > 0.2) {
             SoFieldTask *task = &sim->field.tasks[best];
-            so_assign_drone_to_task(sim, drone, task, capacity);
+            const double takeoff_service_s = so_random_uav_service_s(sim);
+            if (!so_consume_launch_landing_service(sim, takeoff_service_s)) {
+                continue;
+            }
+            const int collaborative_slot =
+                so_active_collaborator_count_for_task(sim, task->id);
+            so_assign_drone_to_task(sim, drone, task,
+                                    fmin(capacity, best_uncommitted),
+                                    takeoff_service_s,
+                                    collaborative_slot,
+                                    sim->mothership.position);
             drone->state = SO_DRONE_ASSISTING;
         }
     }
@@ -4813,6 +5925,7 @@ static void so_release_task(SoSimulation *sim, SoDrone *drone) {
     }
     drone->assigned_task_id = -1;
     drone->assigned_area_ha = 0.0;
+    drone->assigned_task_area_ha = 0.0;
 }
 
 static bool so_needs_recall(SoSimulation *sim, SoDrone *drone) {
@@ -4899,6 +6012,54 @@ static int so_charger_slot_for_drone(const SoSimulation *sim, int drone_id) {
     return -1;
 }
 
+static void so_reset_service_budgets(SoSimulation *sim) {
+    sim->launch_landing_service_used_s = 0.0;
+    sim->charger_handling_service_used_s = 0.0;
+}
+
+static double so_random_uav_service_s(SoSimulation *sim) {
+    if (sim->service_rng_state == 0u) {
+        sim->service_rng_state = 0x6D2B79F5u;
+    }
+    sim->service_rng_state =
+        sim->service_rng_state * 1664525u + 1013904223u;
+    const double unit =
+        (double)(sim->service_rng_state & 0x00FFFFFFu) / 16777215.0;
+    const double min_s = sim->uav_service_time_min_s > 0.0
+                             ? sim->uav_service_time_min_s
+                             : 5.0;
+    const double max_s = sim->uav_service_time_max_s > min_s
+                             ? sim->uav_service_time_max_s
+                             : 8.0;
+    return min_s + unit * (max_s - min_s);
+}
+
+static bool so_consume_service_budget(double *used_s, int slots, double dt_s, double seconds) {
+    if (seconds <= 0.001) {
+        return true;
+    }
+    const double capacity_s = fmax(1.0, (double)slots) * fmax(0.001, dt_s);
+    if (*used_s + seconds > capacity_s + 1e-6) {
+        return false;
+    }
+    *used_s += seconds;
+    return true;
+}
+
+static bool so_consume_launch_landing_service(SoSimulation *sim, double seconds) {
+    return so_consume_service_budget(&sim->launch_landing_service_used_s,
+                                     sim->uav_launch_landing_slots,
+                                     sim->dt_s,
+                                     seconds);
+}
+
+static bool so_consume_charger_handling_service(SoSimulation *sim, double seconds) {
+    return so_consume_service_budget(&sim->charger_handling_service_used_s,
+                                     sim->charger_handling_slots,
+                                     sim->dt_s,
+                                     seconds);
+}
+
 static double so_charge_rate_h_for_slot(const SoSimulation *sim, int slot) {
     if (slot < 0) {
         return 0.0;
@@ -4930,7 +6091,7 @@ static void so_update_service_queues(SoSimulation *sim) {
         }
         const int idx = so_drone_index_by_id(sim, sim->queues.charger_slots[s]);
         if (idx < 0 || sim->drones[idx].state != SO_DRONE_CHARGING ||
-            sim->drones[idx].battery >= sim->drones[idx].target_charge) {
+            sim->drones[idx].service_remaining_s > 0.001) {
             sim->queues.charger_slots[s] = -1;
         }
     }
@@ -4957,12 +6118,19 @@ static void so_update_service_queues(SoSimulation *sim) {
         for (int i = 0; i < sim->drone_count; i++) {
             SoDrone *drone = &sim->drones[i];
             if (drone->state != SO_DRONE_CHARGING ||
+                drone->battery >= drone->target_charge ||
                 so_drone_in_slot(sim->queues.charger_slots, SO_MAX_CHARGER_SLOTS, drone->id)) {
                 continue;
             }
             if (drone->battery < lowest_battery) {
                 lowest_battery = drone->battery;
                 best_id = drone->id;
+            }
+        }
+        if (best_id > 0) {
+            const double insert_service_s = so_random_uav_service_s(sim);
+            if (!so_consume_charger_handling_service(sim, insert_service_s)) {
+                best_id = -1;
             }
         }
         sim->queues.charger_slots[s] = best_id;
@@ -5035,6 +6203,8 @@ static void so_update_active_drones(SoSimulation *sim, SoWeatherAdjustedSpec wea
                     if (done > 0.0) {
                         task->remaining_ha = fmax(0.0, task->remaining_ha - done);
                         drone->assigned_area_ha = fmax(0.0, drone->assigned_area_ha - done);
+                        drone->assigned_task_area_ha =
+                            fmax(0.0, drone->assigned_task_area_ha - done);
                         sim->field.treated_ha = fmin(sim->field.area_ha, sim->field.treated_ha + done);
                         if (drone->sortie_battery_modules >= 1 && drone->sortie_battery_modules <= 4) {
                             sim->uav_area_by_battery_modules[drone->sortie_battery_modules] += done;
@@ -5073,6 +6243,8 @@ static void so_update_active_drones(SoSimulation *sim, SoWeatherAdjustedSpec wea
                                      weather.spray_rate_ha_h * weather.spray_effectiveness * route_efficiency * dt_h);
             task->remaining_ha = fmax(0.0, task->remaining_ha - done);
             drone->assigned_area_ha = fmax(0.0, drone->assigned_area_ha - done);
+            drone->assigned_task_area_ha =
+                fmax(0.0, drone->assigned_task_area_ha - done);
             sim->field.treated_ha = fmin(sim->field.area_ha, sim->field.treated_ha + done);
             if (drone->sortie_battery_modules >= 1 && drone->sortie_battery_modules <= 4) {
                 sim->uav_area_by_battery_modules[drone->sortie_battery_modules] += done;
@@ -5093,7 +6265,7 @@ static void so_update_active_drones(SoSimulation *sim, SoWeatherAdjustedSpec wea
                 drone->state = SO_DRONE_RETURNING;
             }
         } else if (drone->state == SO_DRONE_RETURNING) {
-            if (drone->travel_remaining_s <= 0.001) {
+            if (drone->travel_remaining_s <= 0.001 && drone->service_remaining_s <= 0.001) {
                 const SoPoint recovery_point = sim->mothership.moving
                                                    ? sim->mothership.destination
                                                    : sim->mothership.position;
@@ -5112,7 +6284,7 @@ static void so_update_active_drones(SoSimulation *sim, SoWeatherAdjustedSpec wea
                     drone->position = sim->mothership.destination;
                 } else {
                     drone->position = sim->mothership.position;
-                    drone->state = SO_DRONE_CHARGING;
+                    drone->service_remaining_s = so_random_uav_service_s(sim);
                 }
             } else {
                 const double fraction = sim->dt_s / drone->travel_remaining_s;
@@ -5121,6 +6293,13 @@ static void so_update_active_drones(SoSimulation *sim, SoWeatherAdjustedSpec wea
                 drone->battery = fmax(0.0, drone->battery - energy_used);
                 drone->return_energy_required = fmax(0.0, drone->return_energy_required * (1.0 - fraction));
                 drone->travel_remaining_s = fmax(0.0, drone->travel_remaining_s - sim->dt_s);
+            }
+            if (!sim->mothership.moving && drone->travel_remaining_s <= 0.001 &&
+                drone->service_remaining_s > 0.001) {
+                if (so_consume_launch_landing_service(sim, drone->service_remaining_s)) {
+                    drone->service_remaining_s = 0.0;
+                    drone->state = SO_DRONE_CHARGING;
+                }
             }
         } else if (drone->state == SO_DRONE_CHARGING) {
             const int charger_slot = so_charger_slot_for_drone(sim, drone->id);
@@ -5133,7 +6312,13 @@ static void so_update_active_drones(SoSimulation *sim, SoWeatherAdjustedSpec wea
                 drone->chemical = fmin(1.0, drone->chemical + refill_rate_h * dt_h);
             }
             if (drone->battery >= drone->target_charge) {
-                drone->state = drone->chemical < 0.98 ? SO_DRONE_REFILLING : SO_DRONE_STANDBY;
+                const bool in_charger = charger_slot >= 0;
+                const double remove_service_s =
+                    in_charger ? so_random_uav_service_s(sim) : 0.0;
+                if (!in_charger ||
+                    so_consume_charger_handling_service(sim, remove_service_s)) {
+                    drone->state = drone->chemical < 0.98 ? SO_DRONE_REFILLING : SO_DRONE_STANDBY;
+                }
             }
         } else if (drone->state == SO_DRONE_REFILLING) {
             if (so_drone_in_slot(sim->queues.refill_slots, SO_MAX_REFILL_PORTS, drone->id)) {
@@ -5361,6 +6546,17 @@ void so_init_default(SoSimulation *sim) {
     sim->coverage_task_tolerance_ratio = 0.02;
     sim->coverage_final_error_limit_ratio = 0.03;
     sim->coverage_repair_cost_limit_ratio = 0.05;
+    sim->uav_launch_landing_slots = 2;
+    sim->charger_handling_slots = 2;
+    sim->uav_service_time_min_s = 5.0;
+    sim->uav_service_time_max_s = 8.0;
+    sim->service_rng_state = 0xA341316Cu;
+    sim->planner_weights = so_default_planner_weights();
+    sim->planner_trial_count = SO_PLANNER_MAX_TRIALS;
+    sim->planner_trial_index = 0;
+    sim->selected_planner_trial = 0;
+    sim->selected_planner_cost_usd = 0.0;
+    sim->planner_seed = 0x51C0A7E5u;
     sim->spec.cruise_speed_mps = 12.0;
     sim->spec.scout_speed_mps = 6.0;
     sim->spec.scout_rate_ha_h = 25.0;
@@ -5430,6 +6626,8 @@ void so_init_default(SoSimulation *sim) {
         sim->drones[i].battery = 1.0;
         sim->drones[i].chemical = 1.0;
         sim->drones[i].position = sim->mothership.position;
+        sim->drones[i].service_remaining_s = 0.0;
+        sim->drones[i].assigned_task_area_ha = 0.0;
         sim->drones[i].target_charge = 0.8;
         sim->drones[i].assigned_task_id = -1;
         so_set_drone_sortie_spec(&sim->drones[i], &sim->spec);
@@ -5670,9 +6868,14 @@ static double so_block_perimeter_m(const SoFieldBlock *block) {
 }
 
 static bool so_operational_work_complete(const SoSimulation *sim) {
+    const double tolerance_ratio =
+        sim->final_repair_attempted
+            ? fmax(sim->coverage_task_tolerance_ratio,
+                   sim->coverage_final_error_limit_ratio)
+            : sim->coverage_task_tolerance_ratio;
     const double coverage_tolerance_ha =
         fmax(0.05, sim->field.area_ha *
-                       fmax(0.0, sim->coverage_task_tolerance_ratio));
+                       fmax(0.0, tolerance_ratio));
     if (!sim->field.scanned || sim->field.task_count <= 0 ||
         sim->field.area_ha - sim->field.treated_ha > coverage_tolerance_ha) {
         return false;
@@ -5695,6 +6898,50 @@ static bool so_operational_work_complete(const SoSimulation *sim) {
     }
     return !sim->fixed_wing.enabled ||
            sim->fixed_wing.completed_area_ha + 0.001 >= sim->fixed_wing.assigned_area_ha;
+}
+
+static bool so_ready_for_final_coverage_policy(const SoSimulation *sim) {
+    if (!sim->field.scanned || sim->field.task_count <= 0 ||
+        sim->final_repair_attempted || sim->mothership.moving) {
+        return false;
+    }
+    if (sim->fixed_wing.enabled &&
+        sim->fixed_wing.completed_area_ha + 0.001 < sim->fixed_wing.assigned_area_ha) {
+        return false;
+    }
+    for (int i = 0; i < sim->drone_count; i++) {
+        const SoDrone *drone = &sim->drones[i];
+        if (drone->state == SO_DRONE_WORKING ||
+            drone->state == SO_DRONE_ASSISTING ||
+            drone->state == SO_DRONE_CLEANUP ||
+            drone->state == SO_DRONE_SCOUTING) {
+            return false;
+        }
+    }
+
+    const double final_limit_ha =
+        fmax(0.05, sim->field.area_ha *
+                       fmax(0.0, sim->coverage_final_error_limit_ratio));
+    if (sim->field.area_ha - sim->field.treated_ha > final_limit_ha) {
+        return false;
+    }
+    for (int b = 0; b < sim->field.block_count; b++) {
+        const SoFieldBlock *block = &sim->field.blocks[b];
+        double block_remaining_ha = 0.0;
+        for (int t = 0; t < sim->field.task_count; t++) {
+            const SoFieldTask *task = &sim->field.tasks[t];
+            if (task->block_id == block->id && task->remaining_ha > 0.001) {
+                block_remaining_ha += task->remaining_ha;
+            }
+        }
+        const double block_limit_ha =
+            fmax(0.05, block->area_ha *
+                           fmax(0.0, sim->coverage_final_error_limit_ratio));
+        if (block_remaining_ha > block_limit_ha) {
+            return false;
+        }
+    }
+    return true;
 }
 
 static void so_finalize_coverage_error_policy(SoSimulation *sim) {
@@ -5797,6 +7044,7 @@ static void so_recall_fleet_for_mission_end(SoSimulation *sim) {
 }
 
 void so_step(SoSimulation *sim) {
+    so_reset_service_budgets(sim);
     so_update_weather(sim);
     const SoWeatherAdjustedSpec weather = so_adjust_for_weather(sim->spec, sim->mothership.weather);
     so_weather_recovery(sim);
@@ -5805,6 +7053,7 @@ void so_step(SoSimulation *sim) {
     if (!sim->field.scanned) {
         so_build_tasks(sim);
         so_plan_fixed_wing_coverage(sim);
+        so_rebuild_uav_residual_tasks_after_fixed_wing(sim);
         so_plan_depots(sim);
         if (sim->mothership.operation_plan_count > 0) {
             sim->mothership.destination = sim->mothership.operation_plan[0];
@@ -5820,6 +7069,10 @@ void so_step(SoSimulation *sim) {
         }
         sim->field.scanned = true;
         for (int i = 0; i < 2 && i < sim->drone_count; i++) {
+            const double takeoff_service_s = so_random_uav_service_s(sim);
+            if (!so_consume_launch_landing_service(sim, takeoff_service_s)) {
+                break;
+            }
             sim->drones[i].state = SO_DRONE_SCOUTING;
             sim->drones[i].assigned_area_ha = sim->field.area_ha / 2.0;
             so_add_uav_takeoff_cost(sim);
@@ -5835,6 +7088,9 @@ void so_step(SoSimulation *sim) {
 
     so_update_fixed_wing(sim, weather);
     so_update_active_drones(sim, weather);
+    if (so_ready_for_final_coverage_policy(sim)) {
+        so_finalize_coverage_error_policy(sim);
+    }
     if (so_operational_work_complete(sim)) {
         so_recall_fleet_for_mission_end(sim);
     } else {
@@ -5867,21 +7123,118 @@ bool so_completed(const SoSimulation *sim) {
     return true;
 }
 
-void so_run(SoSimulation *sim, int max_steps) {
+static void so_run_single(SoSimulation *sim, int max_steps) {
     for (int i = 0; i < max_steps && !so_completed(sim); i++) {
         so_step(sim);
     }
-    if (so_completed(sim)) {
+    if (!sim->final_repair_attempted && so_ready_for_final_coverage_policy(sim)) {
+        so_finalize_coverage_error_policy(sim);
+    } else if (!sim->final_repair_attempted && so_completed(sim)) {
         so_finalize_coverage_error_policy(sim);
     }
+}
+
+static double so_planner_candidate_selection_cost(const SoSimulation *sim) {
+    double score = so_direct_mission_cost_usd(sim);
+    const double area = fmax(0.0, sim->field.area_ha);
+    const double uncovered_ha = fmax(0.0, area - fmax(0.0, sim->field.treated_ha));
+    double open_task_ha = 0.0;
+    for (int i = 0; i < sim->field.task_count; i++) {
+        const SoFieldTask *task = &sim->field.tasks[i];
+        if (task->status != SO_TASK_DONE && task->remaining_ha > 0.001) {
+            open_task_ha += task->remaining_ha;
+        }
+    }
+    const double unfinished_ha = fmax(uncovered_ha, open_task_ha);
+    const double penalty_per_ha =
+        fmax(5000.0,
+             fmax(sim->spec.unfinished_penalty_usd_per_ha,
+                  sim->fixed_wing.unfinished_penalty_usd_per_ha) *
+                 20.0);
+    score += unfinished_ha * penalty_per_ha;
+    if (!so_completed(sim)) {
+        score += 10000000.0;
+    }
+    return score;
+}
+
+void so_run(SoSimulation *sim, int max_steps) {
+    int trial_count = sim->planner_trial_count;
+    if (trial_count < 1) {
+        trial_count = 1;
+    }
+    if (trial_count > SO_PLANNER_MAX_TRIALS) {
+        trial_count = SO_PLANNER_MAX_TRIALS;
+    }
+    if (trial_count <= 1 || sim->field.scanned || sim->now_s > 0.001) {
+        so_run_single(sim, max_steps);
+        sim->selected_planner_trial = sim->planner_trial_index;
+        sim->selected_planner_cost_usd = so_planner_candidate_selection_cost(sim);
+        return;
+    }
+
+    SoSimulation *base = (SoSimulation *)malloc(sizeof(*base));
+    SoSimulation *candidate = (SoSimulation *)malloc(sizeof(*candidate));
+    SoSimulation *best = (SoSimulation *)malloc(sizeof(*best));
+    if (base == NULL || candidate == NULL || best == NULL) {
+        free(base);
+        free(candidate);
+        free(best);
+        so_run_single(sim, max_steps);
+        sim->selected_planner_trial = sim->planner_trial_index;
+        sim->selected_planner_cost_usd = so_planner_candidate_selection_cost(sim);
+        return;
+    }
+
+    *base = *sim;
+    double best_score = 1e100;
+    int best_trial = 0;
+    for (int trial = 0; trial < trial_count; trial++) {
+        *candidate = *base;
+        candidate->planner_trial_count = 1;
+        candidate->planner_trial_index = trial;
+        candidate->selected_planner_trial = trial;
+        candidate->planner_weights =
+            so_sample_planner_weights(base->planner_weights,
+                                      base->planner_seed,
+                                      trial);
+        so_run_single(candidate, max_steps);
+        const double score = so_planner_candidate_selection_cost(candidate);
+        if (score < best_score) {
+            best_score = score;
+            best_trial = trial;
+            *best = *candidate;
+        }
+    }
+
+    *sim = *best;
+    sim->planner_trial_count = trial_count;
+    sim->selected_planner_trial = best_trial;
+    sim->selected_planner_cost_usd = best_score;
+    free(base);
+    free(candidate);
+    free(best);
 }
 
 void so_print_summary(const SoSimulation *sim) {
     printf("Scout-Driven Multi-UAV Agricultural OPT C Simulation\n");
     printf("optimization_profile: %s\n", so_optimization_profile_name(sim->optimization_profile));
+    printf("planner_search: trials=%d selected_trial=%d selection_cost_usd=%.2f angle_candidate_pool=%d\n",
+           sim->planner_trial_count,
+           sim->selected_planner_trial,
+           sim->selected_planner_cost_usd,
+           SO_ANGLE_CANDIDATE_COUNT);
     printf("completed: %s\n", so_completed(sim) ? "true" : "false");
     printf("time_hours: %.2f\n", sim->now_s / 3600.0);
     printf("treated_area_ha: %.6f/%.6f\n", sim->field.treated_ha, sim->field.area_ha);
+    printf("task_pool: tasks=%d dropped=%d dropped_area_ha=%.6f residual_spatial_tasks=%d residual_spatial_area_ha=%.6f residual_split_chunks=%d residual_split_area_ha=%.6f\n",
+           sim->field.task_count,
+           sim->field.dropped_task_count,
+           sim->field.dropped_task_area_ha,
+           sim->field.residual_spatial_task_count,
+           sim->field.residual_spatial_area_ha,
+           sim->field.residual_rebuild_split_count,
+           sim->field.residual_rebuild_area_ha);
     printf("coverage_error: uncovered_ha=%.6f uncovered_ratio=%.3f%% task_tolerance=%.1f%% final_limit=%.1f%% repair_attempted=%s repair_performed=%s repair_cost=%.2f repair_cost_ratio=%.3f%%\n",
            sim->final_uncovered_ha,
            sim->final_uncovered_ratio * 100.0,

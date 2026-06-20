@@ -1059,6 +1059,15 @@ bool so_export_visual_plan(const SoSimulation *sim, const char *path) {
     fprintf(file, "  \"source\": \"scout_opt_c\",\n");
     fprintf(file, "  \"optimization_profile\": \"%s\",\n",
             so_optimization_profile_name(sim->optimization_profile));
+    fprintf(file,
+            "  \"planner_search\": {\"method\": \"stochastic_multi_start_heuristic\", "
+            "\"trial_count\": %d, \"selected_trial\": %d, "
+            "\"selection_cost_usd\": %.6f, \"angle_candidate_pool\": %d, "
+            "\"deterministic_final_cost\": true},\n",
+            sim->planner_trial_count,
+            sim->selected_planner_trial,
+            sim->selected_planner_cost_usd,
+            SO_STRIP_ANGLE_CANDIDATE_POOL);
     fprintf(file, "  \"time_hours\": %.6f,\n", sim->now_s / 3600.0);
     fprintf(file, "  \"origin\": {\"lat\": %.12f, \"lon\": %.12f},\n",
             sim->field.has_origin ? sim->field.origin_lat : 32.085894448486876,
@@ -1106,7 +1115,7 @@ bool so_export_visual_plan(const SoSimulation *sim, const char *path) {
         sim->uav_electricity_cost_usd +
         uav_chemical_cost_usd;
 
-    fprintf(file, "  \"drones\": {\"count\": %d, \"model\": \"dji_agras_t200_style_abstraction\", \"modeled_payload_capacity_kg\": %.1f, \"manufacturer_validated_digital_twin\": false, \"rtk\": true, \"obstacle_sensing\": \"omnidirectional\", \"cruise_speed_mps\": %.3f, \"spray_speed_mps\": %.3f, \"spray_swath_m\": %.3f, \"spray_radius_m\": %.3f, \"spray_rate_ha_h\": %.3f, \"turn_time_s\": %.3f, \"turn_battery_cost\": %.5f, \"turn_radius_m\": %.3f, \"chemical_l_per_ha\": %.3f, \"chemical_cost_usd_per_l\": %.3f, \"chemical_area_ha\": %.6f, \"chemical_cost_usd\": %.6f, \"chemical_tank_l\": %.3f, \"chemical_tank_area_ha\": %.3f, \"selected_payload_kg\": %.3f, \"battery_modules\": %d, \"battery_module_capacity_kwh\": %.3f, \"battery_module_weight_kg\": %.3f, \"battery_capacity_kwh\": %.3f, \"work_power_kw\": %.3f, \"fast_chargers\": %d, \"battery_slots_per_charger\": %d, \"charger_battery_slots\": %d, \"single_battery_full_charge_min\": 7.5, \"parallel_two_battery_full_charge_min\": 12.5, \"fast_charger_power_kw\": %.3f, \"electricity_price_usd_per_kwh\": %.3f, \"battery_depreciation_included\": false, \"energy_used_battery_units\": %.6f, \"energy_used_kwh\": %.6f, \"electricity_cost_usd\": %.6f, \"unfinished_penalty_usd_per_ha\": %.3f, \"flight_cost_usd_per_km\": %.3f, \"launch_cost_usd\": %.3f, \"flight_distance_m\": %.3f, \"flight_cost_usd\": %.3f, \"takeoffs\": %d, \"launch_cost_total_usd\": %.3f, \"total_cost_usd\": %.3f, \"sortie_battery_options\": {\"allowed_modules\": [1, 2, 4], \"sorties_1\": %d, \"sorties_2\": %d, \"sorties_4\": %d, \"area_ha_1\": %.6f, \"area_ha_2\": %.6f, \"area_ha_4\": %.6f}, \"altitude_m\": 18.0},\n",
+    fprintf(file, "  \"drones\": {\"count\": %d, \"model\": \"dji_agras_t200_style_abstraction\", \"modeled_payload_capacity_kg\": %.1f, \"manufacturer_validated_digital_twin\": false, \"rtk\": true, \"obstacle_sensing\": \"omnidirectional\", \"cruise_speed_mps\": %.3f, \"spray_speed_mps\": %.3f, \"spray_swath_m\": %.3f, \"spray_radius_m\": %.3f, \"spray_rate_ha_h\": %.3f, \"turn_time_s\": %.3f, \"turn_battery_cost\": %.5f, \"turn_radius_m\": %.3f, \"chemical_l_per_ha\": %.3f, \"chemical_cost_usd_per_l\": %.3f, \"chemical_area_ha\": %.6f, \"chemical_cost_usd\": %.6f, \"chemical_tank_l\": %.3f, \"chemical_tank_area_ha\": %.3f, \"selected_payload_kg\": %.3f, \"battery_modules\": %d, \"battery_module_capacity_kwh\": %.3f, \"battery_module_weight_kg\": %.3f, \"battery_capacity_kwh\": %.3f, \"work_power_kw\": %.3f, \"fast_chargers\": %d, \"battery_slots_per_charger\": %d, \"charger_battery_slots\": %d, \"single_battery_full_charge_min\": 7.5, \"parallel_two_battery_full_charge_min\": 12.5, \"launch_landing_slots\": %d, \"charger_handling_slots\": %d, \"service_time_model\": \"uniform_random\", \"service_time_min_s\": %.3f, \"service_time_max_s\": %.3f, \"fast_charger_power_kw\": %.3f, \"electricity_price_usd_per_kwh\": %.3f, \"battery_depreciation_included\": false, \"energy_used_battery_units\": %.6f, \"energy_used_kwh\": %.6f, \"electricity_cost_usd\": %.6f, \"unfinished_penalty_usd_per_ha\": %.3f, \"flight_cost_usd_per_km\": %.3f, \"launch_cost_usd\": %.3f, \"flight_distance_m\": %.3f, \"flight_cost_usd\": %.3f, \"takeoffs\": %d, \"launch_cost_total_usd\": %.3f, \"total_cost_usd\": %.3f, \"sortie_battery_options\": {\"allowed_modules\": [1, 2, 4], \"sorties_1\": %d, \"sorties_2\": %d, \"sorties_4\": %d, \"area_ha_1\": %.6f, \"area_ha_2\": %.6f, \"area_ha_4\": %.6f}, \"altitude_m\": 18.0},\n",
             sim->drone_count,
             sim->spec.modeled_payload_capacity_kg,
             sim->spec.cruise_speed_mps, sim->spec.cruise_speed_mps * 0.45,
@@ -1128,6 +1137,10 @@ bool so_export_visual_plan(const SoSimulation *sim, const char *path) {
             sim->mothership.fast_chargers,
             SO_BATTERY_SLOTS_PER_CHARGER,
             sim->mothership.fast_chargers * SO_BATTERY_SLOTS_PER_CHARGER,
+            sim->uav_launch_landing_slots,
+            sim->charger_handling_slots,
+            sim->uav_service_time_min_s,
+            sim->uav_service_time_max_s,
             sim->spec.fast_charger_power_kw,
             sim->spec.electricity_price_usd_per_kwh,
             sim->uav_energy_used_battery_units,
@@ -1283,7 +1296,12 @@ bool so_export_visual_plan(const SoSimulation *sim, const char *path) {
             "\"uncovered_area_ha\": %.6f, \"uncovered_ratio\": %.6f, "
             "\"repair_attempted\": %s, \"repair_performed\": %s, "
             "\"repair_area_ha\": %.6f, \"repair_cost_usd\": %.6f, "
-            "\"repair_cost_ratio\": %.6f},\n",
+            "\"repair_cost_ratio\": %.6f, "
+            "\"dropped_task_count\": %d, \"dropped_task_area_ha\": %.6f, "
+            "\"residual_spatial_task_count\": %d, "
+            "\"residual_spatial_area_ha\": %.6f, "
+            "\"residual_rebuild_split_count\": %d, "
+            "\"residual_rebuild_area_ha\": %.6f},\n",
             sim->coverage_task_tolerance_ratio,
             sim->coverage_final_error_limit_ratio,
             sim->coverage_repair_cost_limit_ratio,
@@ -1295,7 +1313,13 @@ bool so_export_visual_plan(const SoSimulation *sim, const char *path) {
             sim->final_repair_performed ? "true" : "false",
             sim->final_repair_area_ha,
             sim->final_repair_cost_usd,
-            sim->final_repair_cost_ratio);
+            sim->final_repair_cost_ratio,
+            sim->field.dropped_task_count,
+            sim->field.dropped_task_area_ha,
+            sim->field.residual_spatial_task_count,
+            sim->field.residual_spatial_area_ha,
+            sim->field.residual_rebuild_split_count,
+            sim->field.residual_rebuild_area_ha);
     fprintf(file,
             "  \"cost_breakdown\": {\"currency\": \"USD\", "
             "\"uav\": {\"chemical_usd\": %.6f, \"electricity_usd\": %.6f, "

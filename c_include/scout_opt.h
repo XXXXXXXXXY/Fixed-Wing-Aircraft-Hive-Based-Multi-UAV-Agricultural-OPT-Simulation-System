@@ -18,6 +18,8 @@
 #define SO_MAX_REFILL_PORTS 2
 #define SO_MAX_DRONE_ROUTE_POINTS 1024
 #define SO_MAX_DRONE_ROUTE_SEGMENTS 256
+#define SO_STRIP_ANGLE_CANDIDATE_POOL 20
+#define SO_PLANNER_MAX_TRIALS 20
 
 #define SO_HIVE_MOVE_SPEED_KMH 30.0
 #define SO_HIVE_MOVE_SPEED_MPS (SO_HIVE_MOVE_SPEED_KMH * 1000.0 / 3600.0)
@@ -160,9 +162,11 @@ typedef struct {
     SoPoint target;
     bool has_target;
     double assigned_area_ha;
+    double assigned_task_area_ha;
     double remaining_capacity_ha;
     double return_energy_required;
     double travel_remaining_s;
+    double service_remaining_s;
     double target_charge;
     int assigned_task_id;
     int sortie_battery_modules;
@@ -322,6 +326,12 @@ typedef struct {
 
     SoFieldTask tasks[SO_MAX_TASKS];
     int task_count;
+    int dropped_task_count;
+    double dropped_task_area_ha;
+    int residual_rebuild_split_count;
+    double residual_rebuild_area_ha;
+    int residual_spatial_task_count;
+    double residual_spatial_area_ha;
 
     SoDepotSite depots[SO_MAX_DEPOTS];
     int depot_count;
@@ -334,6 +344,39 @@ typedef struct {
     int charger_slots[SO_MAX_CHARGER_SLOTS];
     int refill_slots[SO_MAX_REFILL_PORTS];
 } SoServiceQueues;
+
+typedef struct {
+    double strip_empty_w;
+    double strip_row_w;
+    double strip_crosswind_w;
+    double strip_avg_row_bonus_w;
+    double global_empty_w;
+    double global_row_w;
+    double global_crosswind_w;
+    double global_avg_row_bonus_w;
+    double angle_transition_empty_w;
+    double angle_transition_turn_w;
+    double angle_transition_change_w;
+    double angle_endpoint_empty_w;
+    double angle_endpoint_turn_w;
+    double uav_empty_w;
+    double uav_return_w;
+    double uav_risk_w;
+    double uav_route_eff_bonus_w;
+    double uav_phase_boundary_w;
+    double uav_phase_repair_w;
+    double bundle_empty_w;
+    double bundle_risk_w;
+    double bundle_route_eff_bonus_w;
+    double bundle_boundary_delay_w;
+    double assist_entry_w;
+    double assist_overfit_w;
+    double assist_underfit_w;
+    double assist_collaborator_w;
+    double assist_risk_w;
+    double assist_uncommitted_bonus_w;
+    double assist_route_eff_bonus_w;
+} SoPlannerWeights;
 
 typedef struct {
     SoField field;
@@ -359,6 +402,19 @@ typedef struct {
     double coverage_task_tolerance_ratio;
     double coverage_final_error_limit_ratio;
     double coverage_repair_cost_limit_ratio;
+    int uav_launch_landing_slots;
+    int charger_handling_slots;
+    double uav_service_time_min_s;
+    double uav_service_time_max_s;
+    double launch_landing_service_used_s;
+    double charger_handling_service_used_s;
+    unsigned int service_rng_state;
+    SoPlannerWeights planner_weights;
+    int planner_trial_count;
+    int planner_trial_index;
+    int selected_planner_trial;
+    double selected_planner_cost_usd;
+    unsigned int planner_seed;
     double final_uncovered_ha;
     double final_uncovered_ratio;
     bool final_repair_attempted;

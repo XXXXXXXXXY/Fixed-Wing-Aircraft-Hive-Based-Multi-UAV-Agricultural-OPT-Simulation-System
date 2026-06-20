@@ -10,6 +10,7 @@ The model is a research and simulation prototype. It is not a certified flight c
 - [Current System](#current-system)
 - [Code and Data Flow](#code-and-data-flow)
 - [Main Implemented Features](#main-implemented-features)
+- [Path Allocation and Platform Split](#path-allocation-and-platform-split)
 - [Cost Model](#cost-model)
 - [Coverage Tolerance and Final Repair](#coverage-tolerance-and-final-repair)
 - [Algorithms](#algorithms)
@@ -23,6 +24,14 @@ The model is a research and simulation prototype. It is not a certified flight c
 ## Latest Xiaolizhuang Profile Outputs
 
 The three images below are generated from the same Xiaolizhuang QGroundControl field plan using the three optimization profiles. Each image is rendered from the exported JSON plan, so the visible routes, swaths, costs, coverage gap summary, and platform split come from the simulator output rather than a hand-drawn sketch.
+
+Latest validation run:
+
+| Profile | Selected trial | Selection cost (USD) | Mission time (h) | Coverage check |
+|---|---:|---:|---:|---|
+| `time` | 2 / 20 | 49,421.89 | 10.90 | OK, final uncovered 0.76% |
+| `cost` | 18 / 20 | 87,028.48 | 12.95 | OK, final uncovered 0.91% |
+| `balanced` | 6 / 20 | 68,577.25 | 11.55 | OK, final uncovered 1.34% |
 
 ### Time Opt
 
@@ -45,6 +54,7 @@ The simulator combines:
 - Optional fixed-wing agricultural aircraft using an AT-502B-style agricultural aircraft model.
 - QGroundControl polygon input for selected work areas.
 - Three optimization profiles: `time`, `cost`, and `balanced`.
+- Built-in demo layouts for normal, ideal, irregular, and hybrid field patterns.
 - Visual-plan JSON export and local overview rendering.
 - Optional ArduPilot SITL / QGroundControl replay support.
 
@@ -93,6 +103,18 @@ The main runtime path is:
 6. `render_opt_overview.py` renders the readable overview image.
 7. `check_coverage_gaps.py` samples each field polygon against exported spray swaths to estimate field-level and total uncovered area.
 
+The C CLI also exposes quick synthetic layout modes for regression and comparison work:
+
+| Option | Purpose |
+|---|---|
+| `--two-blocks` | Small two-field demo. |
+| `--blocks N` | Generated multi-block UAV-only layout. |
+| `--ideal-blocks N` | Regular strip-like layout for clean route behavior checks. |
+| `--irregular-blocks N` | Irregular/scarce-depot layout for stress testing. |
+| `--hybrid-blocks N` | Generated hybrid fixed-wing/UAV layout. |
+| `--compare-layouts N` | Runs normal, ideal, irregular, and hybrid cases and reports the best productivity. |
+| `--sitl-plan` | Prints an ArduPilot SITL link plan from the current C simulation state. |
+
 ## Main Implemented Features
 
 ### Field and Task Modeling
@@ -103,6 +125,15 @@ The main runtime path is:
 - Tracks per-task area, route endpoints, optional route midpoint, platform assignment, turn burden, and remaining work.
 - Keeps Hive stops and Hive driving paths outside work polygons when possible.
 - Allows bounded agricultural edge tolerance: operational routing may stop with up to 2% uncovered area, final accepted uncovered area must remain below 3%, and the simulator estimates a UAV cleanup repair. If that repair costs no more than 5% of the current direct mission cost, the repair is automatically selected.
+
+Scenario JSON loading supports:
+
+- `origin` latitude/longitude for local-meter to map conversion.
+- `field_blocks` with `id`, `selected`, `risk`, `area_hectares`, optional `center`, and polygon `boundary_points`.
+- Automatic area and centroid calculation from polygon boundaries when available.
+- `depot_sites` with `point`, `usable_area_m2`, `road_accessible`, and `slope_risk`.
+- Fallback depot generation near field blocks if no depot list is provided.
+- `terrain_complexity` and `obstacle_density`, which affect route risk and fixed-wing/UAV suitability.
 
 ### UAV Model
 
@@ -156,9 +187,24 @@ So the current nominal tank capacities are:
 
 Each time a UAV launches from the Hive, the planner compares the allowed battery configurations against task area, outbound distance, return-energy reserve, chemical capacity, and payload weight. The selected sortie configuration is then held for any in-air continuation work until that UAV returns to the Hive. Visual-plan export reports the sortie count and completed area by battery configuration in `drones.sortie_battery_options`.
 
+The Hive also models launch, recovery, and battery-handling service constraints:
+
+```text
+Takeoff service time:         random 5-8 s
+Landing service time:         random 5-8 s
+Launch/landing concurrency:   2 UAVs
+Charger insert service time:  random 5-8 s
+Charger remove service time:  random 5-8 s
+Charger handling concurrency: 2 batteries
+```
+
+Each operation draws its own value from a uniform 5-8 s range. A UAV must consume launch/landing service capacity before a new sortie starts and again when it lands at the Hive. A battery that enters a charger consumes charger-handling capacity, and a charged battery must consume charger-handling capacity again before the UAV can leave the charging state. The visual-plan JSON exports these limits as `drones.launch_landing_slots`, `drones.charger_handling_slots`, `drones.service_time_model`, `drones.service_time_min_s`, and `drones.service_time_max_s`.
+
 ### Fixed-Wing Model
 
-The fixed-wing model is an AT-502B-style agricultural aircraft abstraction:
+The fixed-wing planner selects from fixed-wing aircraft abstractions. The current Xiaolizhuang runs generally select the AT-502B-style option, while the fleet selector also contains a larger fixed-wing candidate for scenarios where larger swath/payload assumptions win the planning score.
+
+AT-502B-style reference values:
 
 ```text
 Tank:                         1893 L
@@ -180,6 +226,8 @@ Chemical cost:                1.15 USD/L
 ```
 
 Fixed-wing aircraft cannot spray during turn segments. The model accounts for airport/service cost, fuel, ferry/empty flight, minimum turn radius, tank area, and field fragmentation.
+
+The fixed-wing fleet selector estimates eligible fixed-wing area, average ferry burden, tank area, fuel endurance, turnaround time, and aircraft count. It then chooses the fleet setup before the fixed-wing task filter and route strategy comparison run.
 
 ### Chemical Cost Accounting
 
@@ -228,6 +276,8 @@ longest_corridor
 ```
 
 Each candidate is scored with UAV fallback cost. The chosen plan is then committed to tasks and exported as `fixed_wing_path_strategy`.
+
+After fixed-wing assignment is committed, the remaining unassigned area is rebuilt as a spatial UAV residual work set. For every selected polygon block, the simulator scans the field polygon with UAV swath marks and subtracts fixed-wing swath rectangles from those scanlines. The remaining clipped line segments become UAV residual places with new centers and route endpoints. These spatial residual tasks are then rescored using nearby deployable depot coverage, Hive route distance, and route-limited access risk. Hive stop planning runs on this rebuilt spatial work set, so the Hive does not plan from the original pre-split task list.
 
 For small candidate sets, the planner uses bitmask DP. For larger sets, it uses greedy marginal route-cost heuristics.
 
@@ -284,7 +334,7 @@ spray one track
 
 This applies inside a small work area. On a square end, the shift is mostly lateral. On an oblique field boundary, the shift may be diagonal along the edge. The UAV does not need to leave the field before moving to the next track. These connecting movements are sprayable coverage segments, consume chemical, and are counted in `turn_count`, `turn_time_s`, and `turn_energy_cost`, but they are not fixed-wing radius turns and do not use `route_curve_deg`.
 
-When multiple UAVs assist the same task, the later UAVs receive a small parallel track-band offset so they enter from a neighboring internal track instead of all aiming at the same centerline.
+When multiple UAVs assist the same task, the later UAVs do not shift the whole route sideways. The scheduler records how much area is already completed or actively committed by other UAVs, then starts the assisting UAV on the next uncommitted pass band. For planned strip tasks, an assisting UAV also prefers the opposite route end when that is closer to the already active route, so assistance does not simply repeat the first UAV's entry.
 
 For regular interior strip tasks, UAV passes are snapped to a block-level swath mark grid. The planner projects the polygon onto the cross-track axis, places marks every UAV swath width, and then clips each pass to the task's original along-track interval. This keeps rectangular fields such as Field 1, Field 2, and Field 8 visually and geometrically aligned instead of letting every small strip guess its own offset. The visual exporter and `uav_actual_routes` use the same marked pass positions.
 
@@ -296,7 +346,7 @@ max(route_length_m, sqrt(task_area_m2) * 1.6)
 
 For residual tasks with a polygon boundary, the exporter and actual UAV route log go further: they generate scanlines from the boundary side toward the field interior and accumulate the real clipped line length inside the polygon until the task area is represented. This handles long diagonal residual shapes as long-and-narrow coverage instead of short-and-wide coverage. Interior strip tasks still use their planned strip length directly.
 
-The strip-angle search keeps a bounded candidate set for speed, but the current upper bound is 12 angle candidates per block, giving the optimizer more room than the earlier 8-candidate search.
+The strip-angle search keeps a bounded candidate set for speed. The current upper bound is 20 angle candidates per block.
 
 Fixed-wing aircraft still use the curved spray-track model because they cannot hover or translate sideways. A fixed-wing spray line may use a bounded shallow curve only inside clearly irregular polygon work areas. A field must have more than 5 boundary vertices and a compactness score above 4.18 before fixed-wing spray-line curvature is allowed. Rectangular, regular, or synthetic strip fields keep straight spray tracks and only choose the better travel direction.
 
@@ -343,16 +393,27 @@ The scheduler includes:
 - Emergency landing state support.
 - Weather-based effects on flight speed, spray effectiveness, and battery drain.
 
+### Weather and Recovery Behavior
+
+Weather is updated during the simulation and classified as `normal`, `watch`, `warning`, `severe`, or `emergency`. Wind, gust, visibility, rain, and humidity affect spray permission, flight permission, spray effectiveness, cruise speed, and battery drain.
+
+When spray is not allowed, active UAVs can hold/return rather than continue spraying. When weather becomes severe or emergency-level, the recovery logic recalls drones to the Hive when possible; if emergency recovery is needed and the Hive is not the best option, the simulator can generate and use emergency landing spots. Fixed-wing progress also pauses when flight or spray conditions are outside the allowed envelope.
+
 ### Visual Export and Rendering
 
 The visual-plan JSON includes:
 
 - `optimization_profile`
+- `planner_search`
+- `hive`
 - `drones`
 - `chemical_application_model`
 - `fixed_wing`
 - `fixed_wing_path_strategy`
 - `cost_summary`
+- `cost_breakdown`
+- `coverage_policy`
+- `work_area`
 - `fixed_wing_routes`
 - `fixed_wing_trajectory`
 - `fixed_wing_actual_routes`, with separate `spray` and `transfer` segments
@@ -369,6 +430,76 @@ The Python overview renderer draws:
 - A mission summary box showing platform area share, cost share, chemical/fuel/electricity use, and UAV battery-module sortie distribution.
 - UAV spray swath polygons.
 - Focus views for detailed UAV coverage inspection.
+- A title that labels the active optimization profile.
+- Optional SITL actual-path overlays with `--actual-paths`.
+
+## Path Allocation and Platform Split
+
+Path allocation and UAV/fixed-wing division are the core planning outputs. The simulator does not simply assign original tasks once and draw approximate lines. The current workflow is:
+
+```text
+selected field polygons
+  -> strip/boundary/repair task build
+  -> fixed-wing eligibility and route-strategy competition
+  -> commit selected fixed-wing coverage
+  -> subtract fixed-wing swaths from field polygons
+  -> rebuild remaining places as UAV spatial residual tasks
+  -> plan Hive stops from the rebuilt UAV work set
+  -> dispatch 8 UAVs with battery, chemical, return-energy, service, and assist constraints
+  -> export actual fixed-wing and UAV spray/transfer paths
+```
+
+### Fixed-Wing Assignment
+
+Fixed-wing selection starts with aircraft/fleet choice and candidate filtering. A task is allowed only when its geometry, area, route length, fragmentation, risk, ferry burden, tank area, fuel endurance, and turn burden make fixed-wing operation credible. The planner then compares:
+
+```text
+multi_island
+partition_dp
+longest_corridor
+```
+
+The selected fixed-wing plan is exported through `fixed_wing_path_strategy`, `fixed_wing_routes`, `fixed_wing_trajectory`, and `fixed_wing_actual_routes`. The actual routes separate spray segments from transfer segments. Fixed-wing spray paths are straight for regular blocks; shallow curved spray paths are only allowed for irregular polygons that pass the vertex-count and compactness gate. Fixed-wing turns are non-spraying and are charged through turn, ferry, fuel, and airport/service cost.
+
+### UAV Residual Assignment
+
+After fixed-wing coverage is committed, UAV work is rebuilt from remaining geometry rather than inherited from the old pre-split task list. For each selected field polygon, the planner clips UAV scanlines through the polygon, subtracts the fixed-wing swath intervals, and groups leftover intervals into new UAV-friendly spatial residual tasks. This is the step that turns "what fixed-wing did not cover" into actual UAV places.
+
+Those rebuilt UAV tasks then go through the normal UAV scheduler. Each sortie is scored against:
+
+- Hive reachability and road/depot stop placement.
+- Outbound distance, return-to-Hive energy, and safety battery reserve.
+- 1/2/4 battery module choice and the way extra battery weight reduces chemical payload.
+- Chemical tank capacity, refill pressure, charger pressure, and service queues.
+- Launch/landing concurrency and charger insert/remove concurrency.
+- Current drone state, in-air continuation, and whether assistance is useful.
+- Moving-Hive cleanup rules, including the battery-above-50% gate for relocation cleanup.
+
+UAV actual path export uses `uav_actual_routes`, with each segment marked as `spray` or `transfer`. Regular interior strips use block-level swath marks so Field 1, Field 2, Field 8 style rectangles keep aligned passes. Boundary and spatial residual tasks use clipped scanlines through the real polygon so diagonal long-narrow leftovers are not turned into artificial short-wide rectangles. UAV track changes at row ends are modeled as slow lateral or diagonal sprayable movement, not as fixed-wing radius turns.
+
+### Coordination Rules
+
+Multiple UAVs can work at the same time because `so_assign_work()` iterates over the 8-drone fleet each scheduling pass. Assistance is not allowed to simply duplicate the first UAV's path. The assisting UAV starts on the next uncommitted pass band and may prefer the opposite route end when that avoids useless overlap. In-air continuation can bundle nearby tasks when battery, chemical, and return reserve allow it.
+
+The Hive route is also part of allocation. Depot candidates are checked for deployability, Hive travel uses polygon-aware detours to avoid cutting through work areas, and stop ordering is refined before UAV dispatch. This matters because the UAV residual layer is only valid if the Hive can actually reach service positions outside the fields.
+
+### What Readers Should Inspect
+
+The main exported fields for route and platform split are:
+
+| JSON field | Meaning |
+|---|---|
+| `tasks[].handling` | Whether a task is assigned to `fixed_wing` or `drone`. |
+| `fixed_wing_path_strategy` | The selected fixed-wing strategy and scores for the alternatives. |
+| `fixed_wing_routes` | Planned fixed-wing spray routes. |
+| `fixed_wing_trajectory` | Overall fixed-wing mission movement. |
+| `fixed_wing_actual_routes` | True fixed-wing spray/transfer segments used by renderers and coverage checks. |
+| `uav_actual_routes` | True UAV spray/transfer segments, including internal track shifts and assist routes. |
+| `coverage_policy` | Final uncovered area, repair decision, dropped task count, and residual rebuild stats. |
+| `planner_search` | Which stochastic trial won and what candidate pool was used. |
+| `cost_breakdown` | UAV/fixed-wing/Hive cost split used to explain the division. |
+
+The overview images draw these actual route exports, not hand-guessed display routes. The coverage checker should be run in `actual` mode when verifying whether the UAV/fixed-wing split really covers the selected field polygons.
 
 ## Cost Model
 
@@ -434,10 +565,13 @@ Implemented methods include:
 - Direction-aware route entry/exit optimization.
 - UAV effective-rate modeling with battery, tank, charging, and refill limits.
 - Cost-aware UAV/fixed-wing platform allocation.
+- Post-fixed-wing UAV residual work-set rebuilding, capacity-based chunk splitting, and rescoring.
 - Hive stop selection and stop-order refinement.
 - Polygon-constrained Hive route detours.
+- Launch/landing and charger battery-handling concurrency constraints.
 - Weather-aware runtime adjustment.
 - Runtime accounting for UAV electricity, fixed-wing fuel, chemicals, launch/airport costs, and Hive movement.
+- Stochastic multi-start heuristic search: 20 planning candidates are generated by perturbing heuristic weights, then compared with the deterministic final cost model.
 
 ### Algorithm Details
 
@@ -447,37 +581,53 @@ The simulator starts from selected field polygons. Each block is split into inte
 
 #### 2. Strip-Angle Selection
 
-Each field receives multiple candidate strip angles. The candidate upper bound is currently 12 per block. The planner scores angles using strip length, row count, transition burden, and cross-block continuity. A dynamic-programming pass chooses a coherent angle set across blocks so adjacent fields do not all optimize in isolation.
+Each field receives multiple candidate strip angles. The candidate pool keeps the top 20 angles per block. The planner scores angles using strip length, row count, transition burden, crosswind burden, and cross-block continuity. A dynamic-programming pass chooses a coherent angle set across blocks so adjacent fields do not all optimize in isolation.
 
-#### 3. UAV Mark-Grid Coverage
+#### 3. Stochastic Multi-Start Planning
+
+The planner runs up to 20 candidate trials from the same initial simulation state. Trial 0 uses the default heuristic weights. The other trials apply bounded multiplicative jitter to planning-only weights such as empty-distance penalty, row/turn burden, route-efficiency reward, risk penalty, bundle continuation, and assist scoring. Physical and economic parameters are not jittered: spray width, battery capacity, chemical volume, fuel burn, prices, and final route distances remain fixed.
+
+After each candidate completes, the simulator evaluates it with the deterministic direct mission cost plus an unfinished-work penalty. This means random perturbation is only used to explore different feasible plans; the final winner is selected by the same cost ledger used for reporting. The selected trial, candidate count, and selection cost are printed in the CLI summary and exported under `planner_search` in the visual-plan JSON.
+
+#### 4. UAV Mark-Grid Coverage
 
 For regular interior UAV strips, the planner projects the field onto the cross-track axis and places a fixed mark every UAV swath width. UAV passes are snapped to these marks and clipped to each task's along-track interval. This prevents Field 1 / Field 2 / Field 8 style rectangular fields from having uneven pass offsets caused by each task estimating its own centerline independently.
 
-#### 4. Irregular Residual Scanlines
+#### 5. Irregular Residual Scanlines
 
 For boundary, repair, and irregular residual tasks, the planner does not use `area / short centerline` to infer pass count. Instead, it clips scanlines through the actual polygon and accumulates real in-polygon line length until the task area is represented. This handles long diagonal residual shapes as long-and-narrow work instead of incorrectly treating them as short-and-wide blocks.
 
-#### 5. UAV Internal Movement Model
+#### 6. UAV Internal Movement Model
 
 UAVs do not use fixed-wing radius turns inside a work area. At a track end, the UAV can slow down and move laterally or diagonally to the next track while spray remains enabled. These movements are logged as actual spray segments when they contribute to coverage, or transfer segments when they conflict with fixed-wing spray geometry.
 
-#### 6. Fixed-Wing Route Planning
+#### 7. Fixed-Wing Route Planning
 
 Fixed-wing planning chooses a fleet size, filters eligible tasks, and compares three route strategies: `multi_island`, `partition_dp`, and `longest_corridor`. It accounts for ferry distance, airport/service cost, takeoff cost, tank area, fuel endurance, non-spraying turn time, turn radius, and fixed-wing chemical application. Fixed-wing spray lines remain straight except when a clearly irregular polygon passes the curvature gate.
 
-#### 7. Platform Allocation
+#### 8. Platform Allocation
 
 The hybrid allocator compares UAV fallback cost against fixed-wing route cost. UAV cost includes chemical, electricity, launch, empty movement, battery/tank constraints, refill and charging pressure, and return reserve. Fixed-wing cost includes chemical, fuel, airport cost, ferry, work distance, and turn burden. The active optimization profile changes how time and cost are weighted.
 
-#### 8. Dynamic Battery Sortie Selection
+#### 9. Post-Fixed-Wing UAV Residual Rebuild
+
+Once fixed-wing tasks are selected, the simulator treats the remaining area as a new UAV planning layer instead of only filling holes from the original split. It rebuilds residual work from geometry: for each selected field polygon, scanlines are clipped to the polygon, fixed-wing swath coverage is subtracted, and the leftover line intervals are grouped into UAV-friendly spatial chunks. Each chunk gets its own center and route endpoints. Blocks with no fixed-wing coverage are still rebuilt from the whole polygon, so the UAV layer receives remaining places rather than the old task list. Depot planning then uses this rebuilt residual set.
+
+The residual rebuild does not replace the UAV scheduler. After this step, spatial residual tasks still flow through the normal UAV assignment functions: task choice, dynamic 1/2/4-battery sortie selection, battery reserve, chemical payload capacity, outbound distance, return-to-Hive energy, assistance, in-air continuation, charging, refilling, and cleanup logic. Capacity scoring used during candidate selection is side-effect free; the drone's return-energy and remaining-capacity state is only written when a task is actually assigned. Because `so_assign_work()` iterates over the 8-drone fleet each scheduling pass, multiple UAVs can be launched into separate open spatial tasks as long as launch/landing service capacity, battery, chemical, and Hive reachability allow it. `so_assign_assist()` remains available for large remaining tasks after the primary assignment pass, and assist routes reserve the next available pass band instead of repeating already committed work.
+
+#### 10. Dynamic Battery Sortie Selection
 
 Each UAV sortie can use 1, 2, or 4 DB2400 battery modules. More batteries increase energy capacity but reduce available chemical payload because extra battery weight consumes payload allowance. The selected configuration is held for the sortie until the UAV returns to the Hive. Exported JSON records sortie counts and completed area by battery module count.
 
-#### 9. Coverage Tolerance and Repair Policy
+#### 11. Launch, Landing, and Charger Service Limits
 
-The mission can stop the main routing phase with up to 2% total uncovered area, but final uncovered area must remain below 3%. In addition, no individual field may keep more than 3% of its area as unfinished task work before the mission is considered complete. If final uncovered area is within the 3% limit, the simulator estimates a UAV cleanup repair. The cleanup is accepted when it costs no more than 5% of the current direct mission cost.
+UAV dispatch now consumes launch/landing service capacity before takeoff and after return. Moving cleanup sorties use the Hive destination as the recovery point for route direction, return-energy reserve, and sortie configuration, instead of mixing the current Hive stop with the moving destination. A moving-cleanup sortie is only allowed when the candidate UAV battery is above 50%, so low-energy UAVs are not sent out while the Hive is relocating. Charging only starts after a battery has consumed charger insertion capacity, and a charged battery keeps occupying its charger slot until charger removal capacity is available. This models the 5-8 s service operations and the limits that only 2 UAVs can launch/land at once and only 2 batteries can be inserted/removed from chargers at once.
 
-#### 10. Geometry-Based Coverage Gap Check
+#### 12. Coverage Tolerance and Repair Policy
+
+The mission normally routes until the total uncovered area is within the 2% operational tolerance, but the final closeout policy can also trigger when the remaining total gap is within the 3% final limit and no UAV is actively spraying. In addition, no individual field may keep more than 3% of its area as unfinished task work before the mission is considered complete. If final uncovered area is within the 3% limit, the simulator estimates a UAV cleanup repair. The cleanup is accepted when it costs no more than 5% of the current direct mission cost.
+
+#### 13. Geometry-Based Coverage Gap Check
 
 The `scripts/check_coverage_gaps.py` tool independently samples each field polygon and checks whether points fall inside exported spray swaths. This catches visual blank regions that total treated-area accounting can hide. The default pass/fail decision uses total uncovered area across all fields; local per-field warnings are available with `--block-warn-ratio`.
 
@@ -511,7 +661,7 @@ CMakeLists.txt              CMake build entry
 | File | Purpose |
 |---|---|
 | `c_src/main.c` | CLI entry point. Handles `--scenario`, `--fixed-wing`, `--steps`, `--opt-profile`, `--export-visual`, `--diagnostics`, acceptance tests, and layout comparisons. |
-| `c_src/config_loader.c` | Lightweight scenario JSON parser. Converts scenario files into `SoSimulation` field blocks, origins, depots, weather, and optional parameters. |
+| `c_src/config_loader.c` | Lightweight scenario JSON parser. Converts scenario files into `SoSimulation` field blocks, origins, depots, terrain complexity, obstacle density, and fallback Hive sites. |
 | `c_src/scout_opt.c` | Main optimizer and simulator. Contains task generation, polygon decomposition, UAV scheduling, fixed-wing planning, platform allocation, Hive stops, weather updates, battery/chemical/fuel accounting, actual route logging, coverage tolerance, and final repair policy. |
 | `c_src/diagnostics.c` | Runtime validation. Checks drone safety, task states, nonnegative costs, fixed-wing completion, total coverage tolerance, and per-field remaining-work limits. |
 | `c_src/visual_export.c` | Exports a visual-plan JSON with field polygons, tasks, planned routes, actual UAV/fixed-wing spray and transfer segments, cost summaries, coverage policy, and battery sortie statistics. |
@@ -524,6 +674,12 @@ CMakeLists.txt              CMake build entry
 | `scripts/render_opt_overview.py` | Renders visual-plan JSON into overview PNGs. It draws fixed-wing actual spray/transfer routes, UAV actual spray/transfer routes, spray swaths, Hive stops, airport, cost split, consumption, battery sortie distribution, and coverage gap summary. |
 | `scripts/check_coverage_gaps.py` | Samples each field polygon and estimates uncovered area from exported spray swaths. By default, pass/fail is based on total uncovered ratio across all fields; optional `--block-warn-ratio` adds local field diagnostics. |
 | `scripts/render_satellite_overlay.py` | Generates optional satellite-style HTML/KML overlays for visual inspection. |
+| `scripts/render_satellite_png.py` | Renders a static satellite-style PNG overlay using the exported visual plan. |
+| `scripts/qgc_demo_bridge.py` | Sends simplified QGroundControl demo entities for scout/work/hybrid replay modes. |
+| `scripts/ardupilot_real_router.py` | Routes ArduPilot SITL vehicles from the visual-plan JSON, including UAVs, fixed-wing aircraft, and the Hive/Rover. |
+| `scripts/print_real_paths.py` | Summarizes actual SITL path CSV logs and compares them with planned visual-plan route endpoints. |
+| `scripts/start_qgc_demo_bridge.ps1` | PowerShell helper for the lightweight QGroundControl demo bridge. |
+| `scripts/start_real_ardupilot.ps1` | Starts multi-vehicle ArduPilot SITL and the real route bridge. |
 | `scripts/start_real_opt_ardupilot.ps1` | Starts the ArduPilot / QGroundControl replay bridge for UAVs, fixed-wing aircraft, and Hive/Rover visualization. |
 
 ### Important Generated Files
@@ -605,7 +761,8 @@ python scripts\render_opt_overview.py --plan configs\xiaolizhuang_balanced_visua
 Optional satellite overlay:
 
 ```powershell
-python scripts\render_satellite_overlay.py --plan configs\xiaolizhuang_balanced_visual_plan.json --out docs\xiaolizhuang_satellite_overlay.html
+python scripts\render_satellite_overlay.py --plan configs\xiaolizhuang_balanced_visual_plan.json --html-out docs\xiaolizhuang_satellite_overlay.html --kml-out docs\xiaolizhuang_satellite_overlay.kml
+python scripts\render_satellite_png.py --plan configs\xiaolizhuang_balanced_visual_plan.json --out docs\xiaolizhuang_satellite_overlay.png
 ```
 
 ## QGroundControl / ArduPilot SITL Replay
